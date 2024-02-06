@@ -1,9 +1,5 @@
 package comp20050sep2.group1;
 
-/**
- * Hello world!
- *
- */
 public class App implements Runnable
 {
     
