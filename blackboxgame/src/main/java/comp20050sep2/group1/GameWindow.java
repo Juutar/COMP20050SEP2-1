@@ -6,10 +6,11 @@ public class GameWindow extends JFrame{
     
     GameWindow(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //add gamepanel
+        add(new GamePanel());
         setLocationRelativeTo(null);
         setResizable(false);
         pack();
         setVisible(true);
     }
+
 }
