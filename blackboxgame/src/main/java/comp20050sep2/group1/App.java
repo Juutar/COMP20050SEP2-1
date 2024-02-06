@@ -19,27 +19,27 @@ public class App implements Runnable
     @Override
     public void run() {
         
-        double dFrames = 0;
-        double dUpdates = 0;
+        double dFrames = 0;     //delta frame
+        double dUpdates = 0;    //delta updates
 
-        long timeNow = 0;
-        long lastTime = System.nanoTime();
+        long timeNow = 0;       //variable to store latest time
+        long lastTime = System.nanoTime();  //variable to store last time
 
         //Delta accumulator clock
         while(true){
 
-            timeNow = System.nanoTime();
+            timeNow = System.nanoTime();    //get latest time
 
-            dFrames += (timeNow - lastTime) / frameFreq;
-            dUpdates += (timeNow - lastTime) / upsFreq;
+            dFrames += (timeNow - lastTime) / frameFreq;    //get remaining time for new frame
+            dUpdates += (timeNow - lastTime) / upsFreq;     //get remaining time for update
             lastTime = timeNow;
 
-            if(dUpdates >= 1){
+            if(dUpdates >= 1){  //update when neccessary
                 //update()
                 dUpdates --;
             }
 
-            if(dFrames >= 1){
+            if(dFrames >= 1){   //repaint when neccessary
                 //repaint()
                 dFrames--;
             }
