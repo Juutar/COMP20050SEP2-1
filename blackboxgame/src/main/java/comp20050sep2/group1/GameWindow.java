@@ -4,9 +4,9 @@ import javax.swing.JFrame;
 
 public class GameWindow extends JFrame{
     
-    GameWindow(){
+    GameWindow(GamePanel gamePanel){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        add(new GamePanel());
+        add(gamePanel);
         setLocationRelativeTo(null);
         setResizable(false);
         pack();

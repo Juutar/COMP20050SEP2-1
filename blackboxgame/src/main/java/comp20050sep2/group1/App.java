@@ -7,9 +7,27 @@ public class App implements Runnable
     final int UPS = 200;
     final double frameFreq = 1000000000 / FPS;
     final double upsFreq = 1000000000 / UPS;
+
+    private Thread gameThread;
+    private GamePanel gamePanel;
+    private GameWindow gameWindow;
+    
+    public App(){
+        gamePanel = new GamePanel();
+        gameWindow = new GameWindow(gamePanel);
+        gamePanel.requestFocus();
+        startGameLoop();
+
+    }
+
     public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
+    }
+
+    private void startGameLoop(){
+        gameThread = new Thread(this);
+        gameThread.start();
     }
 
     @Override
