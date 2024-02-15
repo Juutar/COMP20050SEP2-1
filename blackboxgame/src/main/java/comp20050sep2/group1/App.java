@@ -1,64 +1,25 @@
 package comp20050sep2.group1;
 
-public class App implements Runnable
+import javax.swing.JFrame;
+
+public class App 
 {
-    
-    final int FPS = 120;
-    final int UPS = 200;
-    final double frameFreq = 1000000000 / FPS;
-    final double upsFreq = 1000000000 / UPS;
-
-    private Thread gameThread;
-    private GamePanel gamePanel;
-    private GameWindow gameWindow;
-    
-    public App(){
-        gamePanel = new GamePanel();
-        gameWindow = new GameWindow(gamePanel);
-        gamePanel.requestFocus();
-        startGameLoop();
-
-    }
-
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
-    }
+        JFrame window = new JFrame();
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+        window.setTitle("Demo game");
 
-    private void startGameLoop(){
-        gameThread = new Thread(this);
-        gameThread.start();
-    }
+        GamePanel gamePanel = new GamePanel();
+        window.add(gamePanel);
 
-    @Override
-    public void run() {
-        
-        double dFrames = 0;     //delta frame
-        double dUpdates = 0;    //delta updates
+        window.pack();
 
-        long timeNow = 0;       //variable to store latest time
-        long lastTime = System.nanoTime();  //variable to store last time
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
 
-        //Delta accumulator clock
-        while(true){
-
-            timeNow = System.nanoTime();    //get latest time
-
-            dFrames += (timeNow - lastTime) / frameFreq;    //get remaining time for new frame
-            dUpdates += (timeNow - lastTime) / upsFreq;     //get remaining time for update
-            lastTime = timeNow;
-
-            if(dUpdates >= 1){  //update when neccessary
-                //update()
-                dUpdates --;
-            }
-
-            if(dFrames >= 1){   //repaint when neccessary
-                //repaint()
-                dFrames--;
-            }
-
-        }
+        gamePanel.startGameThread();
 
     }
 }
