@@ -24,6 +24,18 @@ public class Vector2D {
         return this;
     }
 
+    public Vector2D mulip(double s) {
+        this.x *= s;
+        this.y *= s;
+        return this;
+    }
+
+    public Vector2D mulip(double s, double sy) {
+        this.x *= s;
+        this.y *= sy;
+        return this;
+    }
+
     public Vector2D mul(double s) {
         return new Vector2D(x * s, y * s);
     }

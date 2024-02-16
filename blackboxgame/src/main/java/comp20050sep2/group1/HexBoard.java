@@ -3,6 +3,7 @@ package comp20050sep2.group1;
 import comp20050sep2.group1.utils.Vector2D;
 import comp20050sep2.group1.utils.Vector3D;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class HexBoard {
@@ -11,11 +12,13 @@ public class HexBoard {
 
     private ArrayList<Hexagon> hexes = new ArrayList<>();
     private double side;
+    private int size;
 
     public HexBoard(double side, Vector2D pos, int size /* from 0, how many rings */) {
         hexes.add(new Hexagon(side, pos));
         this.side = side;
         this.pos = pos;
+        this.size = size;
 
         for (int i = 1; i <= size; ++i) {
 
@@ -37,22 +40,48 @@ public class HexBoard {
         }
     }
 
+    private void drawBackgroundPoly() {
+        Polygon backgroundPoly = new Polygon();
+        final Vector2D vqm = vecFromAng(30).mulip(this.size + 0.2).mulip(side * 4 * Math.cos(Math.toRadians(30)) / Math.sqrt(3));
+        final Vector2D vrm = vecFromAng(150).mulip(this.size + 0.2).mulip(side * 4 * Math.cos(Math.toRadians(30)) / Math.sqrt(3));
+        final Vector2D vsm = vecFromAng(270).mulip(this.size + 0.2).mulip(side * 4 * Math.cos(Math.toRadians(30)) / Math.sqrt(3));
+        backgroundPoly.addPoint((int)vqm.x + (int)this.pos.x, (int)vqm.y + (int)this.pos.y);
+        backgroundPoly.addPoint((int)-vsm.x + (int)this.pos.x, (int)-vsm.y + (int)this.pos.y);
+        backgroundPoly.addPoint((int)vrm.x + (int)this.pos.x, (int)vrm.y + (int)this.pos.y);
+        backgroundPoly.addPoint((int)-vqm.x + (int)this.pos.x, (int)-vqm.y + (int)this.pos.y);
+        backgroundPoly.addPoint((int)vsm.x + (int)this.pos.x, (int)vsm.y + (int)this.pos.y);
+        backgroundPoly.addPoint((int)-vrm.x + (int)this.pos.x, (int)-vrm.y + (int)this.pos.y);
+
+        Graphics2D g = GamePanel.get().graphics;
+
+        g.setColor(new Color(0.0F, 0.F, 0.F, 0.5F));
+        g.fillPolygon(backgroundPoly);
+    }
+
     public void draw() {
+        Graphics2D g = GamePanel.get().graphics;
+        drawBackgroundPoly();
+
+        g.setColor(Color.WHITE);
         for (Hexagon hex : hexes) {
             hex.drawHexagon();
         }
 
         // test purposes
-        GamePanel.get().graphics.drawRect((int)this.pos.x - 3, (int)this.pos.y - 3, 6, 6);
+        g.drawRect((int)this.pos.x - 3, (int)this.pos.y - 3, 6, 6);
 
         // highlight nearest hex
         Hexagon nearest = closestHexToCoords(GamePanel.get().mouseCoords);
-        GamePanel.get().graphics.drawRect((int)nearest.center().x - 10, (int)nearest.center().y - 10, 20, 20);
+        g.drawRect((int)nearest.center().x - 10, (int)nearest.center().y - 10, 20, 20);
     }
 
-    private final Vector2D VecQ = new Vector2D(Math.sin(Math.toRadians(60)) * Math.sqrt(3) * 0.5 * (1.0 / Math.cos(Math.toRadians(30))), Math.cos(Math.toRadians(60)) * Math.sqrt(3) * 0.5 * (1.0 / Math.cos(Math.toRadians(30))));
-    private final Vector2D VecR = new Vector2D(Math.sin(Math.toRadians(180)) * Math.sqrt(3) * 0.5 * (1.0 / Math.cos(Math.toRadians(30))), Math.cos(Math.toRadians(180)) * Math.sqrt(3) * 0.5 * (1.0 / Math.cos(Math.toRadians(30))));
-    private final Vector2D VecS = new Vector2D(Math.sin(Math.toRadians(-60)) * Math.sqrt(3) * 0.5 * (1.0 / Math.cos(Math.toRadians(30))), Math.cos(Math.toRadians(-60)) * Math.sqrt(3) * 0.5 * (1.0 / Math.cos(Math.toRadians(30))));
+    private final Vector2D vecFromAng(double ang) {
+        return new Vector2D(Math.sin(Math.toRadians(ang)) * Math.sqrt(3) * 0.5 * (1.0 / Math.cos(Math.toRadians(30))), Math.cos(Math.toRadians(ang)) * Math.sqrt(3) * 0.5 * (1.0 / Math.cos(Math.toRadians(30))));
+    }
+
+    private final Vector2D VecQ = vecFromAng(60);
+    private final Vector2D VecR = vecFromAng(180);
+    private final Vector2D VecS = vecFromAng(-60);
     public Vector2D hexCoordsToCenter(Vector3D coords) {
         Vector2D res = new Vector2D(0, 0);
         res.addip(VecQ.mul(coords.x * side)).addip(VecR.mul(coords.y * side)).addip(VecS.mul(coords.z * side));

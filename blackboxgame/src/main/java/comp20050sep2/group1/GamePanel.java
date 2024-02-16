@@ -2,13 +2,13 @@ package comp20050sep2.group1;
 
 import comp20050sep2.group1.utils.Vector2D;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
-import javax.swing.JPanel;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -108,7 +108,38 @@ public class GamePanel extends JPanel implements Runnable{
         this.graphics = null;
     }
 
+    private ImageIcon backgroundImage;
+    private boolean imageFailed = false;
+    private void drawBackgroundImage() {
+        if (imageFailed)
+            return;
+
+        if (backgroundImage == null) {
+            try {
+                backgroundImage = new ImageIcon(this.getClass().getResource("/bg.jpg"));
+            } catch (NullPointerException e) {
+                System.out.println("background image missing");
+                imageFailed = true;
+                return;
+            }
+        }
+
+        Vector2D imageSize = new Vector2D(backgroundImage.getIconWidth(), backgroundImage.getIconHeight());
+        Vector2D viewport = new Vector2D(GamePanel.get().getSize().width, GamePanel.get().getSize().height);
+
+        double scale = 1.0;
+        if (imageSize.y != viewport.y)
+            scale = viewport.y / imageSize.y;
+
+        double toLeft = (imageSize.x * scale - viewport.x) / 2.0;
+
+        Graphics2D g = GamePanel.get().graphics;
+
+        g.drawImage(backgroundImage.getImage(), (int)-toLeft, 0, (int)(imageSize.x * scale), (int)viewport.y, null);
+    }
+
     public void draw(){
+        drawBackgroundImage();
         board.draw();
     }
 
