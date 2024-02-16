@@ -1,5 +1,7 @@
 package comp20050sep2.group1;
 
+import comp20050sep2.group1.utils.Vector2D;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
@@ -7,18 +9,21 @@ import java.awt.geom.Line2D;
 public class Hexagon {
     
     double side;
-    double x,y;
+    Vector2D pos;
 
-    Hexagon(double side, double x, double y){
-        this.x = x;
-        this.y = y;
+    Hexagon(double side, Vector2D pos){
+        this.pos = pos;
         this.side = side;
+    }
+
+    public Vector2D center() {
+        return new Vector2D(pos);
     }
 
     public void drawHexagon(){
         
-        double a1 = x;
-        double a2 = y;
+        double a1 = pos.x;
+        double a2 = pos.y - Math.sqrt(3) * side * 0.5 * (1.0 / Math.cos(Math.toRadians(30)));
 
         double b1 = a1 - (side * Math.cos(Math.toRadians(30)));
         double b2 = a2 + (side * Math.sin(Math.toRadians(30)));

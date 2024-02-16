@@ -1,5 +1,7 @@
 package comp20050sep2.group1;
 
+import comp20050sep2.group1.utils.Vector2D;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -18,6 +20,8 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public Graphics2D graphics;
+
+    public Vector2D mouseCoords = new Vector2D(0, 0);
     
     //Screen settings
     final int originalTileSize = 16;    //16 x 16 tiles
@@ -34,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable{
     HexBoard board;
 
     KeyHandler keyH = new KeyHandler();
+    MouseMoveHandler mouseMoveHandler = new MouseMoveHandler();
     Thread gameThread;
 
     public GamePanel() {
@@ -41,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
+        this.addMouseMotionListener(mouseMoveHandler);
         this.setFocusable(true);
     }
 
@@ -50,7 +56,7 @@ public class GamePanel extends JPanel implements Runnable{
         gameThread.start();
 
 
-        board = new HexBoard(60, 500, 300, 3);
+        board = new HexBoard(60, new Vector2D(500, 400), 3);
     }
     
     @Override
