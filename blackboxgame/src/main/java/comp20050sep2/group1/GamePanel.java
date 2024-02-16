@@ -9,6 +9,15 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable{
+
+    private static GamePanel INSTANCE;
+    public static GamePanel get() {
+        if (INSTANCE == null)
+            INSTANCE = new GamePanel();
+        return INSTANCE;
+    }
+
+    public Graphics2D graphics;
     
     //Screen settings
     final int originalTileSize = 16;    //16 x 16 tiles
@@ -21,6 +30,8 @@ public class GamePanel extends JPanel implements Runnable{
     final int maXScreenRow = 12;
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maXScreenRow;
+
+    HexBoard board;
 
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
@@ -38,6 +49,8 @@ public class GamePanel extends JPanel implements Runnable{
         gameThread = new Thread(this);
         gameThread.start();
 
+
+        board = new HexBoard(60, 500, 300, 3);
     }
     
     @Override
@@ -84,43 +97,13 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        draw(g);
-
+        this.graphics = (Graphics2D)g;
+        draw();
+        this.graphics = null;
     }
 
-    public void draw(Graphics g){
-        
-        int size = 50;
-        int x = 640;
-        int y = 480 - 50;
-
-        Hexagon h = new Hexagon((Graphics2D)g, size, x, y);
-        h.drawHexagon();
-
-        h = new Hexagon((Graphics2D)g, size, x + 100 * Math.cos(Math.toRadians(30)), y);
-        h.drawHexagon();
-        h = new Hexagon((Graphics2D)g, size, x - 100 * Math.cos(Math.toRadians(30)), y);
-        h.drawHexagon();
-
-        h = new Hexagon((Graphics2D)g, size, x + 43.5, y + 150 * Math.sin(Math.toRadians(30)));
-        h.drawHexagon();
-        h = new Hexagon((Graphics2D)g, size, x - 43.5, y + 150 * Math.sin(Math.toRadians(30)));
-        h.drawHexagon();
-
-        h = new Hexagon((Graphics2D)g, size, x + 43.5, y - 150 * Math.sin(Math.toRadians(30)));
-        h.drawHexagon();
-        h = new Hexagon((Graphics2D)g, size, x - 43.5, y - 150 * Math.sin(Math.toRadians(30)));
-        h.drawHexagon();
-
-
-        for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 2 * (6 * i); j++){
-                
-            }
-        }
-
-        
-
+    public void draw(){
+        board.draw();
     }
 
 }

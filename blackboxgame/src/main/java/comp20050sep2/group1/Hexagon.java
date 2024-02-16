@@ -9,15 +9,10 @@ public class Hexagon {
     double side;
     double x,y;
 
-    Graphics2D g;
-
-    Hexagon(Graphics2D g, double side, double x, double y){
+    Hexagon(double side, double x, double y){
         this.x = x;
         this.y = y;
         this.side = side;
-
-        this.g = g;
-
     }
 
     public void drawHexagon(){
@@ -40,6 +35,8 @@ public class Hexagon {
         double f1 = a1;
         double f2 = a2 + 2 * side;
 
+
+        Graphics2D g = GamePanel.get().graphics;
         g.setColor(Color.white);
         g.draw(new Line2D.Double(a1, a2, b1, b2));    //top left
         g.draw(new Line2D.Double(a1, a2, c1, c2));    //top right
@@ -47,7 +44,5 @@ public class Hexagon {
         g.draw(new Line2D.Double(c1, c2, e1, e2));
         g.draw(new Line2D.Double(f1, f2, d1, d2));
         g.draw(new Line2D.Double(f1, f2, e1, e2));
-
     }
-
 }

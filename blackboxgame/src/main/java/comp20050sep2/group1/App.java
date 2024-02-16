@@ -11,15 +11,14 @@ public class App
         window.setResizable(false);
         window.setTitle("Demo game");
 
-        GamePanel gamePanel = new GamePanel();
-        window.add(gamePanel);
+        window.add(GamePanel.get());
 
         window.pack();
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
-        gamePanel.startGameThread();
+        GamePanel.get().startGameThread();
 
     }
 }
