@@ -103,4 +103,14 @@ public class HexBoard {
 
         return leaderHex;
     }
+
+    public void reposition(Vector2D coords) {
+        final Vector2D delta = coords.sub(this.pos);
+
+        this.pos = coords;
+
+        for (Hexagon h : hexes) {
+            h.reposition(h.pos.add(delta));
+        }
+    }
 }

@@ -35,6 +35,8 @@ public class GamePanel extends JPanel implements Runnable{
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maXScreenRow;
 
+    Vector2D lastSize;
+
     HexBoard board;
 
     KeyHandler keyH = new KeyHandler();
@@ -50,6 +52,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.addKeyListener(keyH);
         this.addMouseMotionListener(mouseMoveHandler);
         this.setFocusable(true);
+        this.lastSize = new Vector2D(screenWidth, screenHeight);
     }
 
     public void startGameThread(){
@@ -57,8 +60,9 @@ public class GamePanel extends JPanel implements Runnable{
         gameThread = new Thread(this);
         gameThread.start();
 
+        Vector2D viewport = new Vector2D(GamePanel.get().getSize().width, GamePanel.get().getSize().height);
 
-        board = new HexBoard(60, new Vector2D(500, 400), 3);
+        board = new HexBoard(60, viewport.mul(0.5), 3);
     }
     
     @Override
@@ -141,6 +145,12 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void draw(){
+        // check for resize
+        Vector2D viewport = new Vector2D(GamePanel.get().getSize().width, GamePanel.get().getSize().height);
+        if (!viewport.equals(lastSize)) {
+            board.reposition(viewport.mul(0.5));
+        }
+
         drawBackgroundImage();
         board.draw();
     }

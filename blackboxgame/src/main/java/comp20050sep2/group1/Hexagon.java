@@ -50,4 +50,8 @@ public class Hexagon {
         g.draw(new Line2D.Double(f1, f2, d1, d2));
         g.draw(new Line2D.Double(f1, f2, e1, e2));
     }
+
+    public void reposition(Vector2D pos) {
+        this.pos = pos;
+    }
 }

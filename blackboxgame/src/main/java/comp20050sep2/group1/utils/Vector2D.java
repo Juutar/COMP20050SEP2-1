@@ -14,6 +14,10 @@ public class Vector2D {
         this.y = ref.y;
     }
 
+    public boolean equals(Vector2D o) {
+        return o.x == x && o.y == y;
+    }
+
     public Vector2D addip(Vector2D o) {
         return addip(o.x, o.y);
     }
@@ -34,6 +38,22 @@ public class Vector2D {
         this.x *= s;
         this.y *= sy;
         return this;
+    }
+
+    public Vector2D sub(double x, double y) {
+        return new Vector2D(this.x - x, this.y - y);
+    }
+
+    public Vector2D sub(Vector2D o) {
+        return new Vector2D(x - o.x, y - o.y);
+    }
+
+    public Vector2D add(double x, double y) {
+        return new Vector2D(this.x + x, this.y + y);
+    }
+
+    public Vector2D add(Vector2D o) {
+        return new Vector2D(x + o.x, y + o.y);
     }
 
     public Vector2D mul(double s) {
