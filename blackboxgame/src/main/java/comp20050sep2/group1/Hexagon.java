@@ -10,12 +10,13 @@ public class Hexagon {
     
     double side;
     Vector2D pos;
-    boolean atomHolder;
+
+    Atom trueAtom;
+    Atom guessAtom;
 
     Hexagon(double side, Vector2D pos){
         this.pos = pos;
         this.side = side;
-        this.atomHolder = false;
     }
 
     public Vector2D center() {
@@ -52,15 +53,22 @@ public class Hexagon {
         g.draw(new Line2D.Double(f1, f2, d1, d2));
         g.draw(new Line2D.Double(f1, f2, e1, e2));
 
-        if(atomHolder){
-            drawAtom(g);
+        if(guessAtom != null){
+            guessAtom.drawAtom(g);
         }
 
     }
 
-    public void drawAtom(Graphics2D g){
-        g.setColor(Color.white);
-        g.fillOval((int)center().x - 10, (int)center().y - 10, 20, 20);
+    public void placeTrueAtom() {
+        trueAtom = new Atom(this);
+    }
+
+    public void toggleGuess() {
+        if(guessAtom == null) {
+            guessAtom = new Atom(this);
+        } else {
+            guessAtom = null;
+        }
     }
 
     public void reposition(Vector2D pos) {
