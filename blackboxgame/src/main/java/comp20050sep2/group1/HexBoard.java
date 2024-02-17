@@ -72,9 +72,6 @@ public class HexBoard {
             hex.drawHexagon();
         }
 
-        // test purposes
-        g.drawRect((int)this.pos.x - 3, (int)this.pos.y - 3, 6, 6);
-
         // highlight nearest hex
         Hexagon nearest = closestHexToCoords(GamePanel.get().mouseCoords);
 
