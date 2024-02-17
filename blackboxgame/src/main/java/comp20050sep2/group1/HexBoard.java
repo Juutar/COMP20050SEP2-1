@@ -72,7 +72,10 @@ public class HexBoard {
 
         // highlight nearest hex
         Hexagon nearest = closestHexToCoords(GamePanel.get().mouseCoords);
-        g.drawRect((int)nearest.center().x - 10, (int)nearest.center().y - 10, 20, 20);
+
+        g.setColor(Color.red);
+        g.fillOval((int)nearest.center().x - 10, (int)nearest.center().y - 10, 20, 20);
+        g.setColor(Color.white);
     }
 
     private final Vector2D vecFromAng(double ang) {
