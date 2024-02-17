@@ -14,11 +14,16 @@ public class HexBoard {
     private double side;
     private int size;
 
+    public int atomIndex;
+    public Hexagon[] atomHexagons;
+
     public HexBoard(double side, Vector2D pos, int size /* from 0, how many rings */) {
         hexes.add(new Hexagon(side, pos));
         this.side = side;
         this.pos = pos;
         this.size = size;
+        this.atomIndex = 0;
+        this.atomHexagons = new Hexagon[6];
 
         for (int i = 1; i <= size; ++i) {
 

@@ -3,14 +3,12 @@ package comp20050sep2.group1;
 import comp20050sep2.group1.utils.Vector2D;
 
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable, MouseListener{
 
     private static GamePanel INSTANCE;
     public static GamePanel get() {
@@ -53,7 +51,9 @@ public class GamePanel extends JPanel implements Runnable{
         this.addMouseMotionListener(mouseMoveHandler);
         this.setFocusable(true);
         this.lastSize = new Vector2D(screenWidth, screenHeight);
+        this.addMouseListener(this);
     }
+
 
     public void startGameThread(){
 
@@ -63,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable{
         Vector2D viewport = new Vector2D(GamePanel.get().getSize().width, GamePanel.get().getSize().height);
 
         board = new HexBoard(60, viewport.mul(0.5), 3);
+
     }
     
     @Override
@@ -110,6 +111,9 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         this.graphics = (Graphics2D)g;
+
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         draw();
         this.graphics = null;
     }
@@ -153,6 +157,40 @@ public class GamePanel extends JPanel implements Runnable{
 
         drawBackgroundImage();
         board.draw();
+
+    }
+
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(board.atomIndex < 6){
+            board.atomHexagons[board.atomIndex] = board.closestHexToCoords(new Vector2D(e.getX(), e.getY()));
+            board.atomHexagons[board.atomIndex ++].atomHolder = true;
+        }
+    }
+
+
+    @Override
+    public void mouseEntered(MouseEvent arg0) {
+        
+    }
+
+
+    @Override
+    public void mouseExited(MouseEvent arg0) {
+        
+    }
+
+
+    @Override
+    public void mousePressed(MouseEvent arg0) {
+        
+    }
+
+
+    @Override
+    public void mouseReleased(MouseEvent arg0) {
+        
     }
 
 }

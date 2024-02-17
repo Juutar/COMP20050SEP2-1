@@ -10,10 +10,12 @@ public class Hexagon {
     
     double side;
     Vector2D pos;
+    boolean atomHolder;
 
     Hexagon(double side, Vector2D pos){
         this.pos = pos;
         this.side = side;
+        this.atomHolder = false;
     }
 
     public Vector2D center() {
@@ -49,6 +51,16 @@ public class Hexagon {
         g.draw(new Line2D.Double(c1, c2, e1, e2));
         g.draw(new Line2D.Double(f1, f2, d1, d2));
         g.draw(new Line2D.Double(f1, f2, e1, e2));
+
+        if(atomHolder){
+            drawAtom(g);
+        }
+
+    }
+
+    public void drawAtom(Graphics2D g){
+        g.setColor(Color.white);
+        g.fillOval((int)center().x, (int)center().y, 20, 20);
     }
 
     public void reposition(Vector2D pos) {
