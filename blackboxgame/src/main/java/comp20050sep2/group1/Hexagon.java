@@ -60,7 +60,7 @@ public class Hexagon {
 
     public void drawAtom(Graphics2D g){
         g.setColor(Color.white);
-        g.fillOval((int)center().x, (int)center().y, 20, 20);
+        g.fillOval((int)center().x - 10, (int)center().y - 10, 20, 20);
     }
 
     public void reposition(Vector2D pos) {
