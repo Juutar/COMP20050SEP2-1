@@ -11,8 +11,9 @@ public class Hexagon {
     double side;
     Vector2D pos;
 
-    Atom trueAtom;
     Atom guessAtom;
+    Atom trueAtom;
+    boolean trueAtomVisible;
 
     Hexagon(double side, Vector2D pos){
         this.pos = pos;
@@ -53,23 +54,27 @@ public class Hexagon {
         g.draw(new Line2D.Double(f1, f2, d1, d2));
         g.draw(new Line2D.Double(f1, f2, e1, e2));
 
-        if(hasGuessAtom()){
+        if (hasGuessAtom()){
             guessAtom.drawAtom(g);
+        }
+
+        if (trueAtomVisible) {
+            trueAtom.drawAtom(g);
         }
 
     }
 
-    public void placeTrueAtom() {
-        trueAtom = new Atom(this);
-    }
+    public void placeTrueAtom() { trueAtom = new Atom(this, false); }
+
+    public void toggleTrue() { trueAtomVisible = !trueAtomVisible; }
 
     public boolean hasGuessAtom() {
         return guessAtom != null;
     }
 
     public boolean toggleGuess() {
-        if(guessAtom == null) {
-            guessAtom = new Atom(this);
+        if (guessAtom == null) {
+            guessAtom = new Atom(this, true);
         } else {
             guessAtom = null;
         }

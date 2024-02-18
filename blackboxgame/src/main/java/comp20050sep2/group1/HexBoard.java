@@ -5,6 +5,8 @@ import comp20050sep2.group1.utils.Vector3D;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 public class HexBoard {
 
@@ -14,16 +16,21 @@ public class HexBoard {
     private double side;
     private int size;
 
+    public int numAtoms;
     public int atomIndex;
-    public Hexagon[] atomHexagons;
+    public Hexagon[] guessAtomHexagons;
+    public Hexagon[] trueAtomHexagons;
 
-    public HexBoard(double side, Vector2D pos, int size /* from 0, how many rings */) {
+    public HexBoard(double side, Vector2D pos, int size /* from 0, how many rings */, int numAtoms) {
         hexes.add(new Hexagon(side, pos));
         this.side = side;
         this.pos = pos;
         this.size = size;
+        this.numAtoms = numAtoms;
         this.atomIndex = 0;
-        this.atomHexagons = new Hexagon[6];
+        this.guessAtomHexagons = new Hexagon[numAtoms];
+        this.trueAtomHexagons = new Hexagon[numAtoms];
+
 
         for (int i = 1; i <= size; ++i) {
 
@@ -43,6 +50,8 @@ public class HexBoard {
                     angle -= 360;
             } while (angle != 30);
         }
+
+        placeTrueAtoms();
     }
 
     private void drawBackgroundPoly() {
@@ -117,5 +126,18 @@ public class HexBoard {
         for (Hexagon h : hexes) {
             h.reposition(h.pos.add(delta));
         }
+    }
+
+    private void placeTrueAtoms() {
+        Random random = new Random();
+        int randHexIndex;
+        for(int i = 0; i < trueAtomHexagons.length; i++) {
+            do {
+                randHexIndex = random.nextInt(0, hexes.size());
+            } while (Arrays.asList(trueAtomHexagons).contains(hexes.get(randHexIndex)));
+            trueAtomHexagons[i] = hexes.get(randHexIndex);
+            trueAtomHexagons[i].placeTrueAtom();
+        }
+
     }
 }

@@ -36,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
     Vector2D lastSize;
 
     HexBoard board;
+    ShowButton showButton;
 
     KeyHandler keyH = new KeyHandler();
     MouseMoveHandler mouseMoveHandler = new MouseMoveHandler();
@@ -52,6 +53,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
         this.setFocusable(true);
         this.lastSize = new Vector2D(screenWidth, screenHeight);
         this.addMouseListener(this);
+
     }
 
 
@@ -62,8 +64,11 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
         Vector2D viewport = new Vector2D(GamePanel.get().getSize().width, GamePanel.get().getSize().height);
 
-        board = new HexBoard(60, viewport.mul(0.5), 3);
+        board = new HexBoard(60, viewport.mul(0.5), 3, 6);
 
+        showButton = new ShowButton();
+        showButton.addMouseListener(this);
+        this.add(showButton);
     }
     
     @Override
@@ -163,12 +168,19 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        Vector2D vec = new Vector2D(e.getX(), e.getY());
-        if(board.closestHexToCoords(vec).hasGuessAtom() || board.atomIndex < 6){
-            if(board.closestHexToCoords(vec).toggleGuess()) {
-                board.atomHexagons[board.atomIndex++] = board.closestHexToCoords(vec);
-            } else {
-                board.atomHexagons[board.atomIndex--] = null;
+        if(e.getSource() == showButton) {
+            showButton.toggleState();
+            for(Hexagon hex : board.trueAtomHexagons) {
+                hex.toggleTrue();
+            }
+        } else {
+            Vector2D vec = new Vector2D(e.getX(), e.getY());
+            if (board.closestHexToCoords(vec).hasGuessAtom() || board.atomIndex < board.numAtoms){
+                if (board.closestHexToCoords(vec).toggleGuess()) {
+                    board.guessAtomHexagons[board.atomIndex++] = board.closestHexToCoords(vec);
+                } else {
+                    board.guessAtomHexagons[board.atomIndex--] = null;
+                }
             }
         }
     }
