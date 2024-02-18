@@ -53,7 +53,7 @@ public class Hexagon {
         g.draw(new Line2D.Double(f1, f2, d1, d2));
         g.draw(new Line2D.Double(f1, f2, e1, e2));
 
-        if(guessAtom != null){
+        if(hasGuessAtom()){
             guessAtom.drawAtom(g);
         }
 
@@ -63,12 +63,17 @@ public class Hexagon {
         trueAtom = new Atom(this);
     }
 
-    public void toggleGuess() {
+    public boolean hasGuessAtom() {
+        return guessAtom != null;
+    }
+
+    public boolean toggleGuess() {
         if(guessAtom == null) {
             guessAtom = new Atom(this);
         } else {
             guessAtom = null;
         }
+        return guessAtom != null;
     }
 
     public void reposition(Vector2D pos) {

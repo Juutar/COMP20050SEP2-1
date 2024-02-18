@@ -163,10 +163,13 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(board.atomIndex < 6){
-            Vector2D vec = new Vector2D(e.getX(), e.getY());
-            board.closestHexToCoords(vec).toggleGuess();
-            board.atomHexagons[board.atomIndex++] = board.closestHexToCoords(vec);
+        Vector2D vec = new Vector2D(e.getX(), e.getY());
+        if(board.closestHexToCoords(vec).hasGuessAtom() || board.atomIndex < 6){
+            if(board.closestHexToCoords(vec).toggleGuess()) {
+                board.atomHexagons[board.atomIndex++] = board.closestHexToCoords(vec);
+            } else {
+                board.atomHexagons[board.atomIndex--] = null;
+            }
         }
     }
 
