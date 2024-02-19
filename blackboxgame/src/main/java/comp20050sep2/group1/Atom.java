@@ -2,11 +2,7 @@ package comp20050sep2.group1;
 
 import comp20050sep2.group1.utils.Vector2D;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.font.GraphicAttribute;
-import java.awt.font.ShapeGraphicAttribute;
-import java.awt.geom.Ellipse2D;
 
 public class Atom {
 
