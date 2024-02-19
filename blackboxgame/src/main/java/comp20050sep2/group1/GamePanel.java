@@ -179,7 +179,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
                 if (board.closestHexToCoords(vec).toggleGuess()) {
                     board.guessAtomHexagons[board.atomIndex++] = board.closestHexToCoords(vec);
                 } else {
-                    board.guessAtomHexagons[board.atomIndex--] = null;
+                    board.guessAtomHexagons[--board.atomIndex] = null;
                 }
             }
         }
