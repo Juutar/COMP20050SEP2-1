@@ -46,7 +46,7 @@ public class Hexagon {
 
 
         Graphics2D g = GamePanel.get().graphics;
-        g.setColor(Color.white);
+        g.setColor(Color.gray);
         g.draw(new Line2D.Double(a1, a2, b1, b2));    //top left
         g.draw(new Line2D.Double(a1, a2, c1, c2));    //top right
         g.draw(new Line2D.Double(b1, b2, d1, d2));

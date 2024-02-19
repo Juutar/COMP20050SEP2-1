@@ -1,25 +1,27 @@
 package comp20050sep2.group1;
 
 
-import javax.swing.JLabel;
+import java.awt.Color;
+import java.awt.Font;
 
-import comp20050sep2.group1.utils.Vector2D;
-import comp20050sep2.group1.utils.Vector3D;
+import javax.swing.JLabel;
 
 public class BoardLabel extends JLabel{
     
     private String text;
-    private Vector2D hexCoors;
+    private Hexagon h;
 
-    BoardLabel(String text, Vector3D coors){
+    BoardLabel(String text, Hexagon h){
 
         this.text = text;
-        this.hexCoors = GamePanel.get().board.hexCoordsToCenter(coors);
+        this.h = h;
 
     }
 
-    public void writeText(){
-        GamePanel.get().graphics.drawString(text, (int)hexCoors.x, (int)hexCoors.y);
+    public void writeText(int xOffset, int yOffset){
+        GamePanel.get().graphics.setColor(new Color(255, 150, 150));
+        GamePanel.get().graphics.setFont(new Font("Arial", Font.TYPE1_FONT, 15));
+        GamePanel.get().graphics.drawString(text, (int)h.center().x + xOffset, (int)h.center().y + yOffset);
     }
 
 }
