@@ -16,6 +16,8 @@ public class HexBoard {
     private double side;
     private int size;
 
+    public boolean toggleAtomSelector;
+
     public int numAtoms;
     public int atomIndex;
     public Hexagon[] guessAtomHexagons;
@@ -28,6 +30,7 @@ public class HexBoard {
         this.size = size;
         this.numAtoms = numAtoms;
         this.atomIndex = 0;
+        this.toggleAtomSelector = true;
         this.guessAtomHexagons = new Hexagon[numAtoms];
         this.trueAtomHexagons = new Hexagon[numAtoms];
 
@@ -82,7 +85,7 @@ public class HexBoard {
         for(int i = 19; i < 37; i ++){
             labels[i - 19] = new BoardLabel("" + (i - 18), hexes.get(i));
             if(i <= 25){
-                labels[i - 19].writeText(80, 5);
+                labels[i - 19].writeText(90, 5);
             }
             else if(i <= 27){
                 labels[i - 19].writeText(-10, -70);
@@ -100,12 +103,16 @@ public class HexBoard {
             hex.drawHexagon();
         }
 
+        g.fillRect((int)hexes.get(0).center().x - 5, (int)hexes.get(0).center().y - 5, 10, 10);
+
         // highlight nearest hex
         Hexagon nearest = closestHexToCoords(GamePanel.get().mouseCoords);
 
-        g.setColor(Color.red);
-        g.fillOval((int)nearest.center().x - 10, (int)nearest.center().y - 10, 20, 20);
-        g.setColor(Color.white);
+        if(toggleAtomSelector){
+            g.setColor(Color.red);
+            g.fillOval((int)nearest.center().x - 10, (int)nearest.center().y - 10, 20, 20);
+            g.setColor(Color.white);
+        }
     }
 
     private final Vector2D vecFromAng(double ang) {
