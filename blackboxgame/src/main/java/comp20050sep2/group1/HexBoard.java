@@ -79,23 +79,23 @@ public class HexBoard {
         Graphics2D g = GamePanel.get().graphics;
         drawBackgroundPoly();
 
-        BoardLabel[] labels = new BoardLabel[18];
+        BoardLabel[] labels = new BoardLabel[52];
 
-        for(int i = 19; i < 37; i ++){
-            labels[i - 19] = new BoardLabel("" + (i - 18), hexes.get(i));
-            if(i <= 25){
-                labels[i - 19].writeText(90, 5);
-            }
-            else if(i <= 27){
-                labels[i - 19].writeText(-10, -70);
-            }
-            else if(i <= 34){
-                labels[i - 19].writeText(-110, 5);
-            }
-            else if(i <= 36){
-                labels[i - 19].writeText(-10, 80);
-            }
-        }
+        // for(int i = 19; i < 37; i ++){
+        //     labels[i - 19] = new BoardLabel("" + (i - 18), hexes.get(i));
+        //     if(i <= 25){
+        //         labels[i - 19].writeText(90, 5);
+        //     }
+        //     else if(i <= 27){
+        //         labels[i - 19].writeText(-10, -70);
+        //     }
+        //     else if(i <= 34){
+        //         labels[i - 19].writeText(-110, 5);
+        //     }
+        //     else if(i <= 36){
+        //         labels[i - 19].writeText(-10, 80);
+        //     }
+        // }
 
         g.setColor(Color.WHITE);
         for (Hexagon hex : hexes) {
