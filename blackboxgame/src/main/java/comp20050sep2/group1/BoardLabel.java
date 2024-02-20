@@ -11,6 +11,10 @@ public class BoardLabel extends JLabel{
     private String text;
     private Hexagon h;
 
+    public Hexagon getH() {
+        return h;
+    }
+
     BoardLabel(String text, Hexagon h){
 
         this.text = text;

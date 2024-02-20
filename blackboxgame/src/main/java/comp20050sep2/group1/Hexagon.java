@@ -15,6 +15,8 @@ public class Hexagon {
     Atom trueAtom;
     boolean trueAtomVisible;
 
+    Vector2D por;
+
     Hexagon(double side, Vector2D pos){
         this.pos = pos;
         this.side = side;

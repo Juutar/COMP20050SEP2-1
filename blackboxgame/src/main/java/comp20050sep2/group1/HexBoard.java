@@ -86,6 +86,7 @@ public class HexBoard {
             labels[i - 19] = new BoardLabel("" + (i - 18), hexes.get(i));
             if(i <= 25){
                 labels[i - 19].writeText(90, 5);
+                labels[i - 19].getH().por = new Vector2D(labels[i - 19].getH().center().x + side, labels[i - 19].getH().center().y);
             }
             else if(i <= 27){
                 labels[i - 19].writeText(-10, -70);
@@ -111,6 +112,14 @@ public class HexBoard {
         if(toggleAtomSelector){
             g.setColor(Color.red);
             g.fillOval((int)nearest.center().x - 10, (int)nearest.center().y - 10, 20, 20);
+            g.setColor(Color.white);
+        }
+        else{
+            Hexagon nearestEdge = closestPerimeterHexToCoors(GamePanel.get().mouseCoords);
+            Arrowhead aHead = new Arrowhead(null);
+            aHead.drawArrow();
+            g.setColor(Color.lightGray);
+            g.fillOval((int)nearestEdge.center().x - 10, (int)nearestEdge.center().y - 10, 20, 20);
             g.setColor(Color.white);
         }
     }
@@ -142,6 +151,35 @@ public class HexBoard {
         }
 
         return leaderHex;
+    }
+
+    public Hexagon closestPerimeterHexToCoors(Vector2D coords){
+        Hexagon leaderHex = hexes.get(19);
+        double leader = Double.MAX_VALUE;
+        
+        for(int i = 19; i < 37; i++){
+            
+            Hexagon h = hexes.get(i);
+            double dist = h.center().distanceSquared(coords);
+
+            if(dist < leader){
+                leaderHex = h;
+                leader = dist;
+            }
+        }
+
+        return leaderHex;
+    }
+
+    public Vector2D closestSide(Hexagon h){
+
+        double x = GamePanel.get().mouseCoords.x;
+        double y = GamePanel.get().mouseCoords.y;
+
+        double angle;
+
+        return null;
+
     }
 
     public void reposition(Vector2D coords) {
