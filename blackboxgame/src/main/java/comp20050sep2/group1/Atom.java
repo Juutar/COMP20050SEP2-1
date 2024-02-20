@@ -15,7 +15,7 @@ public class Atom {
         this.pos = new Vector2D(hexagon.pos.x-(hexagon.side/2), hexagon.pos.y-(hexagon.side/2));
         this.radius = hexagon.side;
         this.color = (isGuess ? Color.white : Color.red);
-        this.circleInfluence = new CircleInfluence(this);
+        this.circleInfluence = new CircleInfluence(this, 1.1);
     }
 
     public void drawAtom(Graphics2D g) {
