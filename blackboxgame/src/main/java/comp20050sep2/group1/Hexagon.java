@@ -1,6 +1,7 @@
 package comp20050sep2.group1;
 
 import comp20050sep2.group1.utils.Vector2D;
+import comp20050sep2.group1.utils.Vector3D;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -15,7 +16,8 @@ public class Hexagon {
     boolean trueAtomVisible;
     boolean evaluate = true;
 
-    Vector2D por;
+    int pointableSides;
+    Vector3D normal;
 
     Hexagon(double side, Vector2D pos){
         this.pos = pos;

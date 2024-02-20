@@ -20,6 +20,30 @@ public class BoardLabel extends JLabel{
         this.text = text;
         this.h = h;
 
+        int index = Integer.parseInt(text) - 19;
+
+        if(index % 3 == 0){
+            this.h.pointableSides = 3;
+        }
+        else{
+            this.h.pointableSides = 2;
+        }
+
+        if(index <= 25){
+            //vector = 
+            //angle = 120
+            //if i % 3 == 0 --> angle +/-= 30
+        }
+        else if(index <= 27){
+            //
+        }
+        else if(index <= 34){
+            
+        }
+        else if(index <= 36){
+            
+        }
+
     }
 
     public void writeText(int xOffset, int yOffset){
