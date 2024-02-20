@@ -159,8 +159,6 @@ public class HexBoard {
         }
         else{
             Hexagon nearestEdge = closestPerimeterHexToCoors(GamePanel.get().mouseCoords);
-            Arrowhead aHead = new Arrowhead(null);
-            aHead.drawArrow();
             g.setColor(Color.lightGray);
             g.fillOval((int)nearestEdge.center().x - 10, (int)nearestEdge.center().y - 10, 20, 20);
             g.setColor(Color.white);
@@ -196,7 +194,13 @@ public class HexBoard {
 
         }
 
+        Arrowhead ah = new Arrowhead(pos, 100);
         
+        // ah.drawArrow();
+        // ah.setDirection(60);
+        // g.setColor(Color.blue);
+        // ah.drawArrow();
+        // g.setColor(Color.white);
 
     }
 

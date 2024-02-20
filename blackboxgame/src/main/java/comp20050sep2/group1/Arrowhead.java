@@ -2,19 +2,66 @@ package comp20050sep2.group1;
 
 import comp20050sep2.group1.utils.Vector2D;
 
+//based on calculations, in order to get to the midpoint of an equilateral triangle
+//increase y by hypotenuse / 2
+//increase x by sqrt(3) * h / 2
+
+/*
+ * (1)
+ * |\
+ * |  \
+ * |    >   (0)     vertices of the triangle
+ * |  /
+ * | /
+ *  (2)
+ */
+
 public class Arrowhead {
     
-    Vector2D pos;
+    double x;
+    double y;
     double dir;
+    double size;        //distance between the center and a vertex
 
-    Arrowhead(Vector2D pos){
-        this.pos = pos;
-        double dir;
+    Vector2D[] vertices;
+
+    Arrowhead(Vector2D pos, double size){
+        this.x = pos.x;     //center of the triangle: x
+        this.y = pos.y;     //center of the triangle: y
+        this.dir = 0;
+        this.size = size;
+
+        vertices = new Vector2D[3];
+
+        vertices[0] = new Vector2D();
+        vertices[1] = new Vector2D();
+        vertices[2] = new Vector2D();
+
+        vertices[0].x = x + this.size;
+        vertices[0].y = y;
+
+        vertices[1].x = x - size * Math.cos(Math.toRadians(60 + 30));
+        vertices[1].y = y - size * Math.sin(Math.toRadians(60 + 30));
+
+        vertices[2].x = x - size * Math.cos(Math.toRadians(60 + 30));
+        vertices[2].y = y + size * Math.sin(Math.toRadians(60 + 30));
+
+    }
+
+    public void setDirection(double dir){
+        
+        for(int i = 0; i < 3; i ++){
+            vertices[i].x += size * Math.cos(Math.toRadians(dir - this.dir));
+            vertices[i].y += size * Math.sin(Math.toRadians(dir - this.dir));
+        }
+
+        this.dir = dir;
+
     }
 
     public void drawArrow(){
 
-        GamePanel.get().graphics.fillPolygon(new int[]{10, 30, 10}, new int[]{10, 20, 30}, 3);
+        GamePanel.get().graphics.fillPolygon(new int[]{(int)vertices[0].x, (int)vertices[1].x, (int)vertices[2].x}, new int[]{(int)vertices[0].y, (int)vertices[1].y, (int)vertices[2].y}, 3);
 
     }
 
