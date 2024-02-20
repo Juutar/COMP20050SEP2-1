@@ -10,9 +10,9 @@ public class CircleInfluence {
     double radius;
     Color color;
 
-    public CircleInfluence(Atom atom, double scale) {
-        this.pos = new Vector2D(atom.pos.x - (atom.radius*scale), atom.pos.y - (atom.radius*scale));
-        this.radius = atom.radius*3*scale;
+    public CircleInfluence(Atom atom, Hexagon hex) {
+        this.pos = new Vector2D(hex.pos.x - 1.6*hex.side, hex.pos.y - 1.6*hex.side);
+        this.radius = hex.side*3.2;
         this.color = atom.color;
     }
 

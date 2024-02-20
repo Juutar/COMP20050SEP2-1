@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
 public class ShowRayButton extends AbstractShowButton {
-    
+
     public ShowRayButton(Vector2D pos){
         super(pos);
     }

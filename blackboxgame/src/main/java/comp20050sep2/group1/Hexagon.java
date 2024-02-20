@@ -56,12 +56,12 @@ public class Hexagon {
         g.draw(new Line2D.Double(f1, f2, d1, d2));
         g.draw(new Line2D.Double(f1, f2, e1, e2));
 
-        if (hasGuessAtom()){
-            guessAtom.drawAtom(g);
-        }
-
         if (trueAtomVisible) {
             trueAtom.drawAtom(g);
+        }
+
+        if (hasGuessAtom()){
+            guessAtom.drawAtom(g);
         }
 
     }
