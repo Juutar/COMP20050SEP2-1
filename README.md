@@ -2,6 +2,6 @@
 
 ## Blackbox+ 
 
-![alt text](/Gameplay.png)
+![alt text](/Gameplay2.png)
 
 ### Sprint 1
