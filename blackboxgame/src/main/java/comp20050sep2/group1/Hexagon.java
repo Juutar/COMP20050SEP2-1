@@ -2,8 +2,7 @@ package comp20050sep2.group1;
 
 import comp20050sep2.group1.utils.Vector2D;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Line2D;
 
 public class Hexagon {
@@ -14,7 +13,7 @@ public class Hexagon {
     Atom guessAtom;
     Atom trueAtom;
     boolean trueAtomVisible;
-    boolean evaluate;
+    boolean evaluate = true;
 
     Vector2D por;
 
@@ -97,9 +96,10 @@ public class Hexagon {
     }
 
     private void drawTick(Graphics2D g) {
-        g.setColor(Color.green);
-        g.drawLine((int) this.pos.x - 5, (int) this.pos.y + 5, (int) this.pos.x, (int) this.pos.y);
-        g.drawLine((int) this.pos.x + 10, (int) this.pos.y + 5, (int) this.pos.x, (int) this.pos.y);
+        g.setColor(new Color(22, 196, 65));
+        g.setStroke(new BasicStroke(6, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        g.drawLine((int) this.pos.x - 17, (int) this.pos.y - 5, (int) this.pos.x - 7, (int) this.pos.y + 10);
+        g.drawLine((int) this.pos.x + 18, (int) this.pos.y - 10, (int) this.pos.x - 7, (int) this.pos.y + 10);
     }
     private void drawCross(Graphics2D g) {
         g.setColor(Color.black);
