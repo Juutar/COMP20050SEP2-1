@@ -71,21 +71,50 @@ public class HexBoard {
 
         }
 
-        int k = 1;
+        double start_x, start_y;
+        double end_x, end_y;
 
+        int pointableSides;
+        int angleOffset = 0;
 
+        int k = 0;
+        int indexOffset = 0;
 
         for(int i = 6 * size + 1; i < 37; i ++){
-            
-            int offset = 0;
 
-            for(int j = 0; j < hexes.get(i).pointableSides; j ++){
-                hexes.get(i).boardLabels[j] = new BoardLabel("s" + k ++);
-                
-                hexes.get(i).boardLabels[j].x = hexes.get(i).center().x + (5 * offset);
-                hexes.get(i).boardLabels[j].y = hexes.get(i).center().y;
-                offset += 10;
+            k = hexes.get(i).pointableSides;
+
+            int j = 0;
+
+            for(j = 0; j < hexes.get(i).pointableSides; j ++){
+                hexes.get(i).boardLabels[j] = new BoardLabel("" + (indexOffset + k --));
             }
+
+            indexOffset += j;
+
+        }
+
+        for(int i = 19; i < 37; i ++){
+
+            pointableSides = hexes.get(i).pointableSides;
+            
+            start_x = hexes.get(i).center().x;
+            start_y = hexes.get(i).center().y;
+
+            if(((i - 19) % 3 == 0) && ((i - 19) != 0)){
+                angleOffset -= 60;
+            }
+
+            for(int j = 0; j < pointableSides; j ++){
+
+                end_x = start_x + (side + 10) * Math.cos(Math.toRadians((j * 60) + angleOffset));
+                end_y = start_y + (side + 10) * Math.sin(Math.toRadians((j * 60) + angleOffset));
+
+                hexes.get(i).boardLabels[j].x = end_x;
+                hexes.get(i).boardLabels[j].y = end_y;
+
+            }
+
         }
 
     }
@@ -158,14 +187,16 @@ public class HexBoard {
 
             for(int j = 0; j < pointableSides; j ++){
 
-                end_x = start_x + side * Math.cos(Math.toRadians((j * 60) + angleOffset));
-                end_y = start_y + side * Math.sin(Math.toRadians((j * 60) + angleOffset));
+                end_x = start_x + (side + 13) * Math.cos(Math.toRadians((j * 60) + angleOffset));
+                end_y = start_y + (side + 13) * Math.sin(Math.toRadians((j * 60) + angleOffset));
 
                 g.drawLine((int)start_x, (int)start_y, (int)end_x, (int)end_y);
 
             }
 
         }
+
+        
 
     }
 
