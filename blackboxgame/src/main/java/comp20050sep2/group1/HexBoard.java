@@ -143,7 +143,7 @@ public class HexBoard {
         double end_x, end_y;
 
         int pointableSides;
-        int offsetAngle = 0;
+        int angleOffset = 0;
         
         for(int i = 19; i < 37; i ++){
 
@@ -152,10 +152,14 @@ public class HexBoard {
             start_x = hexes.get(i).center().x;
             start_y = hexes.get(i).center().y;
 
-            for(int j = 0 + offsetAngle; j < pointableSides; j ++){
+            if(((i - 19) % 3 == 0) && ((i - 19) != 0)){
+                angleOffset -= 60;
+            }
 
-                end_x = start_x + side * Math.cos(Math.toRadians(j * 60));
-                end_y = start_y + side * Math.sin(Math.toRadians(j * 60));
+            for(int j = 0; j < pointableSides; j ++){
+
+                end_x = start_x + side * Math.cos(Math.toRadians((j * 60) + angleOffset));
+                end_y = start_y + side * Math.sin(Math.toRadians((j * 60) + angleOffset));
 
                 g.drawLine((int)start_x, (int)start_y, (int)end_x, (int)end_y);
 
