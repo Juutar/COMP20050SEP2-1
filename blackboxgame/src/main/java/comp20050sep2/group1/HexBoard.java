@@ -23,6 +23,8 @@ public class HexBoard {
     public Hexagon[] guessAtomHexagons;
     public Hexagon[] trueAtomHexagons;
 
+    boolean evaluate;
+
     public HexBoard(double side, Vector2D pos, int size /* from 0, how many rings */, int numAtoms) {
         hexes.add(new Hexagon(side, pos));
         this.side = side;
@@ -205,6 +207,9 @@ public class HexBoard {
             trueAtomHexagons[i] = hexes.get(randHexIndex);
             trueAtomHexagons[i].placeTrueAtom();
         }
+    }
 
+    public void toggleEvaluate() {
+        evaluate = !evaluate;
     }
 }
