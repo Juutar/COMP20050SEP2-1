@@ -19,7 +19,7 @@ public class BoardLabel extends JLabel{
 
     }
 
-    public void writeText(int xOffset, int yOffset){
+    public void writeText(){
         GamePanel.get().graphics.setColor(new Color(255, 150, 150));
         GamePanel.get().graphics.setFont(new Font("Arial", Font.TYPE1_FONT, 15));
         GamePanel.get().graphics.drawString(text, (int)x, (int)y);

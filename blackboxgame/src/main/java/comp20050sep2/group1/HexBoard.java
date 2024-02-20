@@ -57,6 +57,35 @@ public class HexBoard {
         }
 
         placeTrueAtoms();
+
+        for(int i = 19; i < 37; i ++){
+            
+            if((i - 19) % 3 == 0){
+                hexes.get(i).pointableSides = 3;
+            }
+            else{
+                hexes.get(i).pointableSides = 2;
+            }
+
+            hexes.get(i).boardLabels = new BoardLabel[hexes.get(i).pointableSides];
+
+        }
+
+        int k = 1;
+
+        for(int i = 19; i < 37; i ++){
+            
+            int offset = 0;
+
+            for(int j = 0; j < hexes.get(i).pointableSides; j ++){
+                hexes.get(i).boardLabels[j] = new BoardLabel("s" + k ++);
+                
+                hexes.get(i).boardLabels[j].x = hexes.get(i).center().x + (5 * offset);
+                hexes.get(i).boardLabels[j].y = hexes.get(i).center().y;
+                offset += 10;
+            }
+        }
+
     }
 
     private void drawBackgroundPoly() {
@@ -81,27 +110,12 @@ public class HexBoard {
         Graphics2D g = GamePanel.get().graphics;
         drawBackgroundPoly();
 
-        BoardLabel[] labels = new BoardLabel[52];
-
-        // for(int i = 19; i < 37; i ++){
-        //     labels[i - 19] = new BoardLabel("" + (i - 18), hexes.get(i));
-        //     if(i <= 25){
-        //         labels[i - 19].writeText(90, 5);
-        //     }
-        //     else if(i <= 27){
-        //         labels[i - 19].writeText(-10, -70);
-        //     }
-        //     else if(i <= 34){
-        //         labels[i - 19].writeText(-110, 5);
-        //     }
-        //     else if(i <= 36){
-        //         labels[i - 19].writeText(-10, 80);
-        //     }
-        // }
-
         g.setColor(Color.WHITE);
         for (Hexagon hex : hexes) {
             hex.drawHexagon();
+            if(hex.pointableSides != 0){
+                for(BoardLabel bl : hex.boardLabels){ bl.writeText(); }
+            }
         }
 
         // highlight nearest hex

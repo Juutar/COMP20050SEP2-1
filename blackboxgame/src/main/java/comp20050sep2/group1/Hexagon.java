@@ -1,7 +1,6 @@
 package comp20050sep2.group1;
 
 import comp20050sep2.group1.utils.Vector2D;
-import comp20050sep2.group1.utils.Vector3D;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -16,11 +15,13 @@ public class Hexagon {
     boolean trueAtomVisible;
 
     int pointableSides;
-    Vector3D normal;
+    BoardLabel[] boardLabels;
 
     Hexagon(double side, Vector2D pos){
         this.pos = pos;
         this.side = side;
+        this.pointableSides = 0;
+        this.boardLabels = null;
     }
 
     public Vector2D center() {
