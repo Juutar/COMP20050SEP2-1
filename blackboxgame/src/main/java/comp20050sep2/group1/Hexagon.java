@@ -3,8 +3,7 @@ package comp20050sep2.group1;
 import comp20050sep2.group1.utils.Vector2D;
 import comp20050sep2.group1.utils.Vector3D;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Line2D;
 
 public class Hexagon {
@@ -12,10 +11,9 @@ public class Hexagon {
     double side;
     Vector2D pos;
 
-    Atom guessAtom;
-    Atom trueAtom;
+    Atom guessAtom = null;
+    Atom trueAtom = null;
     boolean trueAtomVisible;
-    boolean evaluate;
 
     int pointableSides;
     Vector3D normal;
@@ -67,10 +65,11 @@ public class Hexagon {
             guessAtom.drawAtom(g);
         }
 
-        if (evaluate) {
-            if (guessAtom != null && trueAtom != null) {
+        if (GamePanel.get().board.evaluate) {
+            if (hasGuessAtom() && hasTrueAtom()) {
                 drawTick(g);
-            } else if ((guessAtom != null && trueAtom == null) || (guessAtom == null && trueAtom != null)) {
+            }
+            if ((hasGuessAtom() && !hasTrueAtom()) || (!hasGuessAtom() && hasTrueAtom())) {
                 drawCross(g);
             }
         }
@@ -79,11 +78,14 @@ public class Hexagon {
 
     public void placeTrueAtom() { trueAtom = new Atom(this, false); }
 
-    public void toggleTrue() { trueAtomVisible = !trueAtomVisible; }
+    public void toggleTrue() {
+        trueAtomVisible = !trueAtomVisible;
+    }
 
     public boolean hasGuessAtom() {
         return guessAtom != null;
     }
+    public boolean hasTrueAtom() { return trueAtom != null; }
 
     public boolean toggleGuess() {
         if (guessAtom == null) {
@@ -99,11 +101,20 @@ public class Hexagon {
     }
 
     private void drawTick(Graphics2D g) {
-        g.setColor(Color.green);
-        g.drawLine((int) this.pos.x - 5, (int) this.pos.y + 5, (int) this.pos.x, (int) this.pos.y);
-        g.drawLine((int) this.pos.x + 10, (int) this.pos.y + 5, (int) this.pos.x, (int) this.pos.y);
+        g.setColor(new Color(22, 196, 65));
+        Stroke initialStroke = g.getStroke();
+        g.setStroke(new BasicStroke(6, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        g.drawLine((int) this.pos.x - 17, (int) this.pos.y - 5, (int) this.pos.x - 7, (int) this.pos.y + 10);
+        g.drawLine((int) this.pos.x + 18, (int) this.pos.y - 10, (int) this.pos.x - 7, (int) this.pos.y + 10);
+        g.setStroke(initialStroke);
     }
     private void drawCross(Graphics2D g) {
+        int offset = 10;
         g.setColor(Color.black);
+        Stroke initialStroke = g.getStroke();
+        g.setStroke(new BasicStroke(6, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        g.drawLine((int) this.pos.x - 20 + offset, (int) this.pos.y - 20 + offset, (int) this.pos.x + offset, (int) this.pos.y + offset);
+        g.drawLine((int) this.pos.x + offset, (int) this.pos.y - 20 + offset, (int) this.pos.x - 20 + offset, (int) this.pos.y + offset);
+        g.setStroke(initialStroke);
     }
 }

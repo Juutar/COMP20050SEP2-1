@@ -179,6 +179,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
             for(Hexagon hex : board.trueAtomHexagons) {
                 hex.toggleTrue();
             }
+            board.toggleEvaluate();
         }
         else if(e.getSource() == showRayButton){
             System.out.println("Button pressed");
