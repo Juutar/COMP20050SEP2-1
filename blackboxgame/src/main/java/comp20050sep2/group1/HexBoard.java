@@ -81,12 +81,10 @@ public class HexBoard {
 
         BoardLabel[] labels = new BoardLabel[18];
 
-        g.setColor(Color.blue);
         for(int i = 19; i < 37; i ++){
             labels[i - 19] = new BoardLabel("" + (i - 18), hexes.get(i));
             if(i <= 25){
                 labels[i - 19].writeText(90, 5);
-                labels[i - 19].getH().por = new Vector2D(labels[i - 19].getH().center().x + side, labels[i - 19].getH().center().y);
             }
             else if(i <= 27){
                 labels[i - 19].writeText(-10, -70);
@@ -103,8 +101,6 @@ public class HexBoard {
         for (Hexagon hex : hexes) {
             hex.drawHexagon();
         }
-
-        g.fillRect((int)hexes.get(0).center().x - 5, (int)hexes.get(0).center().y - 5, 10, 10);
 
         // highlight nearest hex
         Hexagon nearest = closestHexToCoords(GamePanel.get().mouseCoords);
@@ -171,12 +167,19 @@ public class HexBoard {
         return leaderHex;
     }
 
-    public Vector2D closestSide(Hexagon h){
+    public Vector2D closestSide(){
 
         double x = GamePanel.get().mouseCoords.x;
         double y = GamePanel.get().mouseCoords.y;
 
-        double angle;
+        Hexagon h = closestPerimeterHexToCoors(new Vector2D(x, y));
+
+        if(h.pointableSides == 3){
+            
+        }
+        else if(h.pointableSides == 2){
+
+        }
 
         return null;
 
