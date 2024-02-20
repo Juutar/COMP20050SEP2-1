@@ -10,12 +10,14 @@ public class Atom {
     double radius;
     Color color;
     CircleInfluence circleInfluence;
+    double guessScale = 1.5;
 
     public Atom(Hexagon hexagon, boolean isGuess) {
-        this.pos = new Vector2D(hexagon.pos.x-(hexagon.side/2), hexagon.pos.y-(hexagon.side/2));
-        this.radius = hexagon.side;
+        this.pos = new Vector2D(hexagon.pos.x - (isGuess ? (hexagon.side/2) : (hexagon.side/2) * guessScale),
+                                hexagon.pos.y - (isGuess ? (hexagon.side/2) : (hexagon.side/2) * guessScale));
+        this.radius = (isGuess ? hexagon.side : hexagon.side * 1.5);
         this.color = (isGuess ? Color.white : Color.red);
-        this.circleInfluence = new CircleInfluence(this, 1.1);
+        this.circleInfluence = new CircleInfluence(this, hexagon);
     }
 
     public void drawAtom(Graphics2D g) {

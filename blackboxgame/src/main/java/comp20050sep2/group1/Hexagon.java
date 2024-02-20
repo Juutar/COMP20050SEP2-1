@@ -15,6 +15,7 @@ public class Hexagon {
     Atom guessAtom;
     Atom trueAtom;
     boolean trueAtomVisible;
+    boolean evaluate;
 
     int pointableSides;
     Vector3D normal;
@@ -58,12 +59,20 @@ public class Hexagon {
         g.draw(new Line2D.Double(f1, f2, d1, d2));
         g.draw(new Line2D.Double(f1, f2, e1, e2));
 
+        if (trueAtomVisible) {
+            trueAtom.drawAtom(g);
+        }
+
         if (hasGuessAtom()){
             guessAtom.drawAtom(g);
         }
 
-        if (trueAtomVisible) {
-            trueAtom.drawAtom(g);
+        if (evaluate) {
+            if (guessAtom != null && trueAtom != null) {
+                drawTick(g);
+            } else if ((guessAtom != null && trueAtom == null) || (guessAtom == null && trueAtom != null)) {
+                drawCross(g);
+            }
         }
 
     }
@@ -87,5 +96,14 @@ public class Hexagon {
 
     public void reposition(Vector2D pos) {
         this.pos = pos;
+    }
+
+    private void drawTick(Graphics2D g) {
+        g.setColor(Color.green);
+        g.drawLine((int) this.pos.x - 5, (int) this.pos.y + 5, (int) this.pos.x, (int) this.pos.y);
+        g.drawLine((int) this.pos.x + 10, (int) this.pos.y + 5, (int) this.pos.x, (int) this.pos.y);
+    }
+    private void drawCross(Graphics2D g) {
+        g.setColor(Color.black);
     }
 }
