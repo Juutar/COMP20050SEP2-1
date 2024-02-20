@@ -60,7 +60,7 @@ public class HexBoard {
 
         for(int i = 19; i < 37; i ++){
             
-            if((i - 19) % 3 == 0){
+            if((i - 19) % size == 0){
                 hexes.get(i).pointableSides = 3;
             }
             else{
@@ -73,7 +73,9 @@ public class HexBoard {
 
         int k = 1;
 
-        for(int i = 19; i < 37; i ++){
+
+
+        for(int i = 6 * size + 1; i < 37; i ++){
             
             int offset = 0;
 
@@ -134,6 +136,33 @@ public class HexBoard {
             g.fillOval((int)nearestEdge.center().x - 10, (int)nearestEdge.center().y - 10, 20, 20);
             g.setColor(Color.white);
         }
+
+        //test
+
+        double start_x, start_y;
+        double end_x, end_y;
+
+        int pointableSides;
+        int offsetAngle = 0;
+        
+        for(int i = 19; i < 37; i ++){
+
+            pointableSides = hexes.get(i).pointableSides;
+            
+            start_x = hexes.get(i).center().x;
+            start_y = hexes.get(i).center().y;
+
+            for(int j = 0 + offsetAngle; j < pointableSides; j ++){
+
+                end_x = start_x + side * Math.cos(Math.toRadians(j * 60));
+                end_y = start_y + side * Math.sin(Math.toRadians(j * 60));
+
+                g.drawLine((int)start_x, (int)start_y, (int)end_x, (int)end_y);
+
+            }
+
+        }
+
     }
 
     private final Vector2D vecFromAng(double ang) {
