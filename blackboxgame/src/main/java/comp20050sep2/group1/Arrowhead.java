@@ -40,22 +40,29 @@ public class Arrowhead {
         vertices[0].x = x + this.size;
         vertices[0].y = y;
 
-        vertices[1].x = x - size * Math.cos(Math.toRadians(60 + 30));
-        vertices[1].y = y - size * Math.sin(Math.toRadians(60 + 30));
+        vertices[1].x = x - size * Math.cos(Math.toRadians(60));
+        vertices[1].y = y - size * Math.sin(Math.toRadians(60));
 
-        vertices[2].x = x - size * Math.cos(Math.toRadians(60 + 30));
-        vertices[2].y = y + size * Math.sin(Math.toRadians(60 + 30));
+        vertices[2].x = x - size * Math.cos(Math.toRadians(60));
+        vertices[2].y = y + size * Math.sin(Math.toRadians(60));
 
     }
 
     public void setDirection(double dir){
         
-        for(int i = 0; i < 3; i ++){
-            vertices[i].x += size * Math.cos(Math.toRadians(dir - this.dir));
-            vertices[i].y += size * Math.sin(Math.toRadians(dir - this.dir));
-        }
+        this.x += size * Math.cos(Math.toRadians(dir));
+        this.y += size * Math.sin(Math.toRadians(dir));
 
         this.dir = dir;
+
+        vertices[0].x = x + this.size * Math.cos(Math.toRadians(dir));
+        vertices[0].y = y * Math.cos(Math.toRadians(dir));
+
+        vertices[1].x = x - size * Math.cos(Math.toRadians((60 + dir) % 360));
+        vertices[1].y = y - size * Math.sin(Math.toRadians((60 + dir) % 360));
+
+        vertices[2].x = x - size * Math.cos(Math.toRadians((60 + dir) % 360));
+        vertices[2].y = y + size * Math.sin(Math.toRadians((60 + dir) % 360));
 
     }
 

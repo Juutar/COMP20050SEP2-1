@@ -142,10 +142,15 @@ public class HexBoard {
         drawBackgroundPoly();
 
         g.setColor(Color.WHITE);
+
         for (Hexagon hex : hexes) {
             hex.drawHexagon();
             if(hex.pointableSides != 0){
-                for(BoardLabel bl : hex.boardLabels){ bl.writeText(); }
+                for(BoardLabel bl : hex.boardLabels){ 
+                    if(bl != closestLabelToMouseCoors()){
+                        bl.writeText();
+                    }
+                 }
             }
         }
 
@@ -165,6 +170,8 @@ public class HexBoard {
         }
 
         //test
+
+        
 
         double start_x, start_y;
         double end_x, end_y;
@@ -194,10 +201,10 @@ public class HexBoard {
 
         }
 
-        Arrowhead ah = new Arrowhead(pos, 100);
+        // Arrowhead ah = new Arrowhead(pos, 100);
         
         // ah.drawArrow();
-        // ah.setDirection(60);
+        // ah.setDirection(50);
         // g.setColor(Color.blue);
         // ah.drawArrow();
         // g.setColor(Color.white);
@@ -231,6 +238,32 @@ public class HexBoard {
         }
 
         return leaderHex;
+    }
+
+    public BoardLabel closestLabelToMouseCoors(){
+        BoardLabel leaderLabel = hexes.get(19).boardLabels[0];
+        double leader = Double.MAX_VALUE;
+
+        double mouse_x, mouse_y;
+        double dist;
+        Vector2D mouse_vec, label_vec;
+
+        for(int i = 19; i < 37; i ++){
+            for(int j = 0; j < hexes.get(i).pointableSides; j ++){
+                mouse_x = GamePanel.get().mouseCoords.x;
+                mouse_y = GamePanel.get().mouseCoords.y;
+                mouse_vec = new Vector2D(mouse_x, mouse_y);
+                label_vec = new Vector2D(hexes.get(i).boardLabels[j].x, hexes.get(i).boardLabels[j].y);
+                dist = mouse_vec.distanceSquared(label_vec);
+                if(dist < leader){
+                    leaderLabel = hexes.get(i).boardLabels[j];
+                    leader = dist;
+                }
+            }
+        }
+
+        return leaderLabel;
+
     }
 
     public Hexagon closestPerimeterHexToCoors(Vector2D coords){
