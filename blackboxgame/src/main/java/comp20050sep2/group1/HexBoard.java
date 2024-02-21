@@ -1,12 +1,14 @@
 package comp20050sep2.group1;
 
-import comp20050sep2.group1.utils.Vector2D;
-import comp20050sep2.group1.utils.Vector3D;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+
+import comp20050sep2.group1.utils.Vector2D;
+import comp20050sep2.group1.utils.Vector3D;
 
 public class HexBoard {
 
@@ -147,7 +149,16 @@ public class HexBoard {
             hex.drawHexagon();
             if(hex.pointableSides != 0){
                 for(BoardLabel bl : hex.boardLabels){ 
-                    if(bl != closestLabelToMouseCoors()){
+                    if(!toggleAtomSelector){
+                        if(bl != closestLabelToMouseCoors()){
+                            bl.writeText();
+                        }
+                        else{
+                            GamePanel.get().graphics.setColor(Color.white);
+                            g.drawLine((int)bl.x, (int)bl.y, (int)hex.center().x, (int)hex.center().y);
+                        }
+                    }
+                    else{
                         bl.writeText();
                     }
                  }
@@ -168,46 +179,6 @@ public class HexBoard {
             g.fillOval((int)nearestEdge.center().x - 10, (int)nearestEdge.center().y - 10, 20, 20);
             g.setColor(Color.white);
         }
-
-        //test
-
-        
-
-        double start_x, start_y;
-        double end_x, end_y;
-
-        int pointableSides;
-        int angleOffset = 0;
-        
-        for(int i = 19; i < 37; i ++){
-
-            pointableSides = hexes.get(i).pointableSides;
-            
-            start_x = hexes.get(i).center().x;
-            start_y = hexes.get(i).center().y;
-
-            if(((i - 19) % 3 == 0) && ((i - 19) != 0)){
-                angleOffset -= 60;
-            }
-
-            for(int j = 0; j < pointableSides; j ++){
-
-                end_x = start_x + (side + 13) * Math.cos(Math.toRadians((j * 60) + angleOffset));
-                end_y = start_y + (side + 13) * Math.sin(Math.toRadians((j * 60) + angleOffset));
-
-                g.drawLine((int)start_x, (int)start_y, (int)end_x, (int)end_y);
-
-            }
-
-        }
-
-        // Arrowhead ah = new Arrowhead(pos, 100);
-        
-        // ah.drawArrow();
-        // ah.setDirection(50);
-        // g.setColor(Color.blue);
-        // ah.drawArrow();
-        // g.setColor(Color.white);
 
     }
 
