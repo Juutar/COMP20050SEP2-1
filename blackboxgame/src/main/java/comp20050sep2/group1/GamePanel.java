@@ -67,11 +67,11 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
         board = new HexBoard(60, viewport.mul(0.5), 3, 6);
 
-        showButton = new ShowAtomButton(new Vector2D(screenWidth/2.0, screenHeight/10.0));
+        showButton = new ShowAtomButton(new Vector2D((screenWidth - 150)/2.0, screenHeight - screenHeight/10.0 + 40));
         showButton.addMouseListener(this);
         this.add(showButton);
 
-        showRayButton = new ShowRayButton(new Vector2D(screenWidth/2.0, screenHeight - screenHeight/10.0));
+        showRayButton = new ShowRayButton(new Vector2D((screenWidth - 150)/2.0 + showButton.width + 2, screenHeight - screenHeight/10.0 + 40));
         showRayButton.addMouseListener(this);
         this.add(showRayButton);
 
