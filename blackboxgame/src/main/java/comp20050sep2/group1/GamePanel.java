@@ -182,7 +182,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
             board.toggleEvaluate();
         }
         else if(e.getSource() == showRayButton){
-            System.out.println("Button pressed");
             board.toggleAtomSelector = !board.toggleAtomSelector;
         }
         else if(board.toggleAtomSelector){
