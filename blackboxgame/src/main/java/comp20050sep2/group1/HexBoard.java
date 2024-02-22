@@ -214,21 +214,17 @@ public class HexBoard {
         return leaderHex;
     }
 
-    public BoardLabel closestLabelToMouseCoors(){
+    public BoardLabel closestLabelToCoords(Vector2D coords){
         BoardLabel leaderLabel = hexes.get(19).boardLabels[0];
         double leader = Double.MAX_VALUE;
 
-        double mouse_x, mouse_y;
         double dist;
-        Vector2D mouse_vec, label_vec;
+        Vector2D labelVec;
 
         for(int i = 19; i < 37; i ++){
             for(int j = 0; j < hexes.get(i).pointableSides; j ++){
-                mouse_x = GamePanel.get().mouseCoords.x;
-                mouse_y = GamePanel.get().mouseCoords.y;
-                mouse_vec = new Vector2D(mouse_x, mouse_y);
-                label_vec = new Vector2D(hexes.get(i).boardLabels[j].x, hexes.get(i).boardLabels[j].y);
-                dist = mouse_vec.distanceSquared(label_vec);
+                labelVec = new Vector2D(hexes.get(i).boardLabels[j].x, hexes.get(i).boardLabels[j].y);
+                dist = coords.distanceSquared(labelVec);
                 if(dist < leader){
                     leaderLabel = hexes.get(i).boardLabels[j];
                     leader = dist;
@@ -237,6 +233,11 @@ public class HexBoard {
         }
 
         return leaderLabel;
+    }
+
+    public BoardLabel closestLabelToMouseCoors(){
+        
+        return closestLabelToCoords(GamePanel.get().mouseCoords);
 
     }
 
