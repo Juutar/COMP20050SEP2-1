@@ -184,10 +184,24 @@ public class Sprint1Tests
     }
 
     @Test
-    public void testLabelsRendering() {}
+    public void testLabelsRendering() {
+        GamePanel.get().startGameThread();
+        int numSides = 0;
+        for(Hexagon h : GamePanel.get().board.getHexes()) {
+            if(h.pointableSides == 0) {
+                assertNull(h.boardLabels);
+            } else {
+                assertEquals(h.pointableSides, h.boardLabels.length);
+                numSides += h.pointableSides;
+            }
+        }
+        assertEquals(42, numSides);
+    }
 
     @Test
-    public void testRayPointerRendering() {}
+    public void testRayPointerRendering() {
+        
+    }
 
     @Test
     public void testAtomButton() {
