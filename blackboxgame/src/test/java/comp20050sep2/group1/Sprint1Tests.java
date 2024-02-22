@@ -34,10 +34,29 @@ public class Sprint1Tests
     }
 
     @Test
-    public void testAtomRendering() {
+    public void testGuessAtomRendering() {
         GamePanel.get().startGameThread();
-        assertNull(GamePanel.get().board.guessAtomHexagons[0].guessAtom);
+        Hexagon hexagon = new Hexagon(5, new Vector2D(3, 6));
+        hexagon.toggleGuess();
+        assertNotNull(hexagon.guessAtom);
 
+        Atom atom = hexagon.guessAtom;
+        assertEquals(atom.GUESS_COLOR, atom.color);
+        assertEquals(hexagon.side, atom.radius, 0.0);
+        assertTrue(hexagon.pos.equals(atom.pos));
+    }
+
+    @Test
+    public void testTrueAtomRendering() {
+        GamePanel.get().startGameThread();
+        Hexagon hexagon = new Hexagon(5, new Vector2D(3, 6));
+        hexagon.placeTrueAtom();
+        assertNotNull(hexagon.trueAtom);
+
+        Atom atom = hexagon.trueAtom;
+        assertEquals(atom.TRUE_COLOR, atom.color);
+        assertEquals(hexagon.side, atom.radius, 0.0);
+        assertTrue(hexagon.pos.equals(atom.pos));
     }
 
     @Test
@@ -99,7 +118,15 @@ public class Sprint1Tests
     public void testAtomProperties() {}
 
     @Test
-    public void testCirclesInfluenceRendering() {}
+    public void testCirclesInfluenceRendering() {
+        Atom atom = new Atom(new Vector2D(0, 0), 5, false);
+        assertTrue(atom.circleInfluence.pos.equals(atom.pos));
+        assertTrue(atom.circleInfluence.radius > atom.radius);
+        assertEquals(atom.circleInfluence.color, atom.color);
+
+        Atom guessAtom = new Atom(new Vector2D(0, 0), 5, true);
+        assertEquals(atom.circleInfluence.color, atom.color);
+    }
 
     @Test
     public void testLabelsRendering() {}
