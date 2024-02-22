@@ -66,11 +66,11 @@ public class Hexagon {
         }
 
         if (GamePanel.get().board.evaluate) {
-            if (hasGuessAtom() && hasTrueAtom()) {
-                drawTick(g);
+            if (isCorrect()) {
+                AbstractTick.drawTick(pos, side/2);
             }
-            if ((hasGuessAtom() && !hasTrueAtom()) || (!hasGuessAtom() && hasTrueAtom())) {
-                drawCross(g);
+            if (isIncorrect()) {
+                AbstractCross.drawCross(pos, side);
             }
         }
 
@@ -100,21 +100,7 @@ public class Hexagon {
         this.pos = pos;
     }
 
-    private void drawTick(Graphics2D g) {
-        g.setColor(new Color(22, 196, 65));
-        Stroke initialStroke = g.getStroke();
-        g.setStroke(new BasicStroke(6, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-        g.drawLine((int) this.pos.x - 17, (int) this.pos.y - 5, (int) this.pos.x - 7, (int) this.pos.y + 10);
-        g.drawLine((int) this.pos.x + 18, (int) this.pos.y - 10, (int) this.pos.x - 7, (int) this.pos.y + 10);
-        g.setStroke(initialStroke);
-    }
-    private void drawCross(Graphics2D g) {
-        int offset = 10;
-        g.setColor(Color.black);
-        Stroke initialStroke = g.getStroke();
-        g.setStroke(new BasicStroke(6, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-        g.drawLine((int) this.pos.x - 20 + offset, (int) this.pos.y - 20 + offset, (int) this.pos.x + offset, (int) this.pos.y + offset);
-        g.drawLine((int) this.pos.x + offset, (int) this.pos.y - 20 + offset, (int) this.pos.x - 20 + offset, (int) this.pos.y + offset);
-        g.setStroke(initialStroke);
-    }
+    public boolean isCorrect() { return hasGuessAtom() && hasTrueAtom(); }
+    public boolean isIncorrect() { return (hasGuessAtom() && !hasTrueAtom()) || (!hasGuessAtom() && hasTrueAtom()); }
+
 }

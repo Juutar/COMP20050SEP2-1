@@ -16,21 +16,21 @@ public class Sprint1Tests
     * Depend on interfaces and not concrete volatile implementation
     * Hide app structure from tests
     * Keep tests independents
-    * minimize asserts (1 concept != 1 theme
+    * minimize asserts (1 concept != 1 theme)
     * */
 
     /*
     * Unit testing: modules individually
     * Integration testing: major subsystems
     * Performance testing: computation and rendering delays
-    * Regression tesing:
+    * Regression testing:
      */
     @Test
     public void testHexagonRendering() {
         GamePanel.get().startGameThread();
         int size = GamePanel.get().board.getSize();
         assertEquals(1 + (6L *size*(size+1) / 2), GamePanel.get().board.getNumHexes());
-
+        // TODO Find way to test
     }
 
     @Test
