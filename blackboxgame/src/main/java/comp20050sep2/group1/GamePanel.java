@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
     Vector2D lastSize;
 
     HexBoard board;
-    ShowAtomButton showButton;
+    ShowAtomButton showAtomButton;
     ShowRayButton showRayButton;
 
     KeyHandler keyH = new KeyHandler();
@@ -67,11 +67,11 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
         board = new HexBoard(60, viewport.mul(0.5), 3, 6);
 
-        showButton = new ShowAtomButton(new Vector2D((screenWidth - 150)/2.0, screenHeight - screenHeight/10.0 + 40));
-        showButton.addMouseListener(this);
-        this.add(showButton);
+        showAtomButton = new ShowAtomButton(new Vector2D((screenWidth - 150)/2.0, screenHeight - screenHeight/10.0 + 40));
+        showAtomButton.addMouseListener(this);
+        this.add(showAtomButton);
 
-        showRayButton = new ShowRayButton(new Vector2D((screenWidth - 150)/2.0 + showButton.width + 2, screenHeight - screenHeight/10.0 + 40));
+        showRayButton = new ShowRayButton(new Vector2D((screenWidth - 150)/2.0 + showAtomButton.width + 2, screenHeight - screenHeight/10.0 + 40));
         showRayButton.addMouseListener(this);
         this.add(showRayButton);
 
@@ -174,8 +174,8 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.getSource() == showButton) {
-            showButton.toggleState();
+        if(e.getSource() == showAtomButton) {
+            showAtomButton.toggleState();
             for(Hexagon hex : board.trueAtomHexagons) {
                 hex.toggleTrue();
             }

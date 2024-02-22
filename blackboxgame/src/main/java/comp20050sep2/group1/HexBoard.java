@@ -269,4 +269,5 @@ public class HexBoard {
 
     public int getNumHexes() { return hexes.size();}
     public int getSize() { return size; }
+    public ArrayList<Hexagon> getHexes() { return hexes; }
 }

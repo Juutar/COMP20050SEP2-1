@@ -8,6 +8,7 @@ import java.awt.*;
 
 public abstract class AbstractShowButton extends JButton {
 
+    Vector2D pos;
     int width = 150;
     int height = 40;
     boolean stateShow;
@@ -23,6 +24,7 @@ public abstract class AbstractShowButton extends JButton {
 
 
     public AbstractShowButton(Vector2D pos){
+        this.pos = pos;
         setLocation((int) pos.x - width/2, (int) pos.y - height/2);
         setSize(width, height);
         setFont(new Font(Font.DIALOG, Font.PLAIN, 12));
@@ -52,5 +54,8 @@ public abstract class AbstractShowButton extends JButton {
         }
         stateShow = !stateShow;
     }
+
+    public Vector2D getPos() { return this.pos; }
+    public boolean isStateShow() { return this.stateShow; }
 
 }
