@@ -139,14 +139,13 @@ public class HexBoard {
         g.fillPolygon(backgroundPoly);
     }
 
-    public void draw() {
-        Graphics2D g = GamePanel.get().graphics;
+    public void draw(Graphics2D g) {
         drawBackgroundPoly();
 
         g.setColor(Color.WHITE);
 
         for (Hexagon hex : hexes) {
-            hex.drawHexagon();
+            hex.drawHexagon(g);
             if(hex.pointableSides != 0){
                 for(BoardLabel bl : hex.boardLabels){ 
                     if(!toggleAtomSelector){
