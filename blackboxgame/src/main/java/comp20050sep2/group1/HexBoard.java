@@ -14,9 +14,9 @@ public class HexBoard {
 
     public Vector2D pos;
 
-    private ArrayList<Hexagon> hexes = new ArrayList<>();
-    private double side;
-    private int size;
+    private final ArrayList<Hexagon> hexes = new ArrayList<>();
+    private final double side;
+    private final int size;
 
     public boolean toggleAtomSelector;
 
@@ -139,13 +139,14 @@ public class HexBoard {
         g.fillPolygon(backgroundPoly);
     }
 
-    public void draw(Graphics2D g) {
+    public void drawBoard() {
         drawBackgroundPoly();
 
+        Graphics2D g = GamePanel.get().graphics;
         g.setColor(Color.WHITE);
 
         for (Hexagon hex : hexes) {
-            hex.drawHexagon(g);
+            hex.drawHexagon();
             if(hex.pointableSides != 0){
                 for(BoardLabel bl : hex.boardLabels){ 
                     if(!toggleAtomSelector){
@@ -264,4 +265,7 @@ public class HexBoard {
     public void toggleEvaluate() {
         evaluate = !evaluate;
     }
+
+    public int getNumHexes() { return hexes.size();}
+    public int getSize() { return size; }
 }

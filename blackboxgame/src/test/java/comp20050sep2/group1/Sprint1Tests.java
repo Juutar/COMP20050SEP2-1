@@ -27,48 +27,53 @@ public class Sprint1Tests
      */
     @Test
     public void testHexagonRendering() {
-        //test num hexagons
+        GamePanel.get().startGameThread();
+        int size = GamePanel.get().board.getSize();
+        assertEquals(1 + (6L *size*(size+1) / 2), GamePanel.get().board.getNumHexes());
+
     }
 
     @Test
     public void testAtomRendering() {
-        //test shape
+        GamePanel.get().startGameThread();
+        assertNull(GamePanel.get().board.guessAtomHexagons[0].guessAtom);
+
     }
 
     @Test
     public void testAtomToggle_OneAtom() {
         GamePanel.get().startGameThread();
         assertNull(GamePanel.get().board.guessAtomHexagons[0]);
+        assertNull(GamePanel.get().board.guessAtomHexagons[0].guessAtom);
 
         GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, GamePanel.get().screenWidth/2, GamePanel.get().screenHeight/2, 1, false));
         assertNotNull(GamePanel.get().board.guessAtomHexagons[0]);
+        assertNotNull(GamePanel.get().board.guessAtomHexagons[0].guessAtom);
 
         GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 2, 0, GamePanel.get().screenWidth/2, GamePanel.get().screenHeight/2, 1, false));
         assertNull(GamePanel.get().board.guessAtomHexagons[0]);
+        assertNull(GamePanel.get().board.guessAtomHexagons[0].guessAtom);
     }
 
     @Test
     public void testAtomToggle_ThreeAtoms() {
         GamePanel.get().startGameThread();
-        assertNull(GamePanel.get().board.guessAtomHexagons[0]);
-        assertNull(GamePanel.get().board.guessAtomHexagons[1]);
-        assertNull(GamePanel.get().board.guessAtomHexagons[3]);
+        assertNull(GamePanel.get().board.guessAtomHexagons[2]);
+        assertNull(GamePanel.get().board.guessAtomHexagons[2].guessAtom);
 
         GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, GamePanel.get().screenWidth/2, GamePanel.get().screenHeight/2, 1, false));
         GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 2, 0, GamePanel.get().screenWidth, GamePanel.get().screenHeight/2, 1, false));
         GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 3, 0, GamePanel.get().screenWidth/2, GamePanel.get().screenHeight, 1, false));
 
-        assertNotNull(GamePanel.get().board.guessAtomHexagons[0]);
-        assertNotNull(GamePanel.get().board.guessAtomHexagons[1]);
         assertNotNull(GamePanel.get().board.guessAtomHexagons[2]);
+        assertNotNull(GamePanel.get().board.guessAtomHexagons[2].guessAtom);
 
         GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 4, 0, GamePanel.get().screenWidth/2, GamePanel.get().screenHeight/2, 1, false));
         GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 5, 0, GamePanel.get().screenWidth, GamePanel.get().screenHeight/2, 1, false));
         GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 6, 0, GamePanel.get().screenWidth/2, GamePanel.get().screenHeight, 1, false));
 
-        assertNull(GamePanel.get().board.guessAtomHexagons[0]);
-        assertNull(GamePanel.get().board.guessAtomHexagons[1]);
         assertNull(GamePanel.get().board.guessAtomHexagons[2]);
+        assertNull(GamePanel.get().board.guessAtomHexagons[2].guessAtom);
     }
 
     @Test

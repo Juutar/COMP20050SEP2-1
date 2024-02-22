@@ -10,17 +10,18 @@ public class CircleInfluence {
     double radius;
     Color color;
 
-    public CircleInfluence(Atom atom, Hexagon hex) {
-        this.pos = new Vector2D(hex.pos.x - 1.6*hex.side, hex.pos.y - 1.6*hex.side);
-        this.radius = hex.side*3.2;
-        this.color = atom.color;
+    public CircleInfluence(Vector2D pos, double radius, Color color) {
+        this.pos =  pos;
+        this.radius = radius;
+        this.color = color;
     }
 
-    public void drawCircleInfluence(Graphics2D g) {
+    public void drawCircleInfluence() {
+        Graphics2D g = GamePanel.get().graphics;
         g.setColor(color);
         Stroke initialStroke = g.getStroke();
         g.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0, new float[]{10.0F}, 0.0F));
-        g.drawOval((int) pos.x, (int) pos.y, (int) radius, (int) radius);
+        g.drawOval((int) (pos.x-radius/2), (int) (pos.y-radius/2), (int) radius, (int) radius);
         g.setStroke(initialStroke);
     }
 }

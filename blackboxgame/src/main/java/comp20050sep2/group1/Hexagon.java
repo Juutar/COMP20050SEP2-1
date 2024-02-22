@@ -28,7 +28,7 @@ public class Hexagon {
         return new Vector2D(pos);
     }
 
-    public void drawHexagon(Graphics2D g){
+    public void drawHexagon(){
         
         double a1 = pos.x;
         double a2 = pos.y - Math.sqrt(3) * side * 0.5 * (1.0 / Math.cos(Math.toRadians(30)));
@@ -48,7 +48,7 @@ public class Hexagon {
         double f1 = a1;
         double f2 = a2 + 2 * side;
 
-
+        Graphics2D g = GamePanel.get().graphics;
         g.setColor(Color.gray);
         g.draw(new Line2D.Double(a1, a2, b1, b2));    //top left
         g.draw(new Line2D.Double(a1, a2, c1, c2));    //top right
@@ -58,11 +58,11 @@ public class Hexagon {
         g.draw(new Line2D.Double(f1, f2, e1, e2));
 
         if (trueAtomVisible) {
-            trueAtom.drawAtom(g);
+            trueAtom.drawAtom();
         }
 
         if (hasGuessAtom()){
-            guessAtom.drawAtom(g);
+            guessAtom.drawAtom();
         }
 
         if (GamePanel.get().board.evaluate) {
@@ -76,7 +76,7 @@ public class Hexagon {
 
     }
 
-    public void placeTrueAtom() { trueAtom = new Atom(this, false); }
+    public void placeTrueAtom() { trueAtom = new Atom(center(), side, false); }
 
     public void toggleTrue() {
         trueAtomVisible = !trueAtomVisible;
@@ -89,7 +89,7 @@ public class Hexagon {
 
     public boolean toggleGuess() {
         if (guessAtom == null) {
-            guessAtom = new Atom(this, true);
+            guessAtom = new Atom(center(), side, true);
         } else {
             guessAtom = null;
         }
