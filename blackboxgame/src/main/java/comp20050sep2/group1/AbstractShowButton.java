@@ -16,7 +16,7 @@ public abstract class AbstractShowButton extends JButton {
     String hideText;
 
     Color backgroundColor = new Color(0.0F, 0.F, 0.F, 0.5F);
-    Color altBackgroundColor = new Color(0.5F, 0.5F, 0.5F, 0.5F);
+    Color altBackgroundColor = new Color(1.0F, 1.0F, 1.0F, 1.0F);
     Color foregroundColor = Color.white;
     Color altForegroundColor = Color.black;
     LineBorder border = new LineBorder(foregroundColor, 1);

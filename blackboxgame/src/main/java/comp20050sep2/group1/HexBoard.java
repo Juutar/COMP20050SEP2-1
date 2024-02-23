@@ -112,8 +112,7 @@ public class HexBoard {
                 end_x = start_x + (side + 10) * Math.cos(Math.toRadians((j * 60) + angleOffset));
                 end_y = start_y + (side + 10) * Math.sin(Math.toRadians((j * 60) + angleOffset));
 
-                hexes.get(i).boardLabels[j].x = end_x;
-                hexes.get(i).boardLabels[j].y = end_y;
+                hexes.get(i).boardLabels[j].pos = new Vector2D(end_x, end_y);
 
             }
 
@@ -149,17 +148,8 @@ public class HexBoard {
             hex.drawHexagon();
             if(hex.pointableSides != 0){
                 for(BoardLabel bl : hex.boardLabels){ 
-                    if(!atomSelectorOn){
-                        if(bl != closestLabelToMouseCoors()){
-                            bl.writeText();
-                        }
-                        else{
-                            GamePanel.get().graphics.setColor(Color.white);
-                            g.drawLine((int)bl.x, (int)bl.y, (int)hex.center().x, (int)hex.center().y);
-                            g.setColor(Color.lightGray);
-                            g.fillOval((int)hex.center().x - 10, (int)hex.center().y - 10, 20, 20);
-                            g.setColor(Color.white);
-                        }
+                    if(!atomSelectorOn && bl == closestLabelToMouseCoors()){
+                        AbstractRayPointer.drawRayPointer(bl.pos, hex.center());
                     }
                     else{
                         bl.writeText();
@@ -223,8 +213,7 @@ public class HexBoard {
 
         for(int i = 19; i < 37; i ++){
             for(int j = 0; j < hexes.get(i).pointableSides; j ++){
-                labelVec = new Vector2D(hexes.get(i).boardLabels[j].x, hexes.get(i).boardLabels[j].y);
-                dist = coords.distanceSquared(labelVec);
+                dist = coords.distanceSquared(hexes.get(i).boardLabels[j].pos);
                 if(dist < leader){
                     leaderLabel = hexes.get(i).boardLabels[j];
                     leader = dist;

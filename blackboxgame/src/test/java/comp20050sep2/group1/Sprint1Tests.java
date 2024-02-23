@@ -25,16 +25,16 @@ public class Sprint1Tests
     * Performance testing: computation and rendering delays
     * Regression testing:
      */
+
     @Test
-    public void testHexagonRendering() {
+    public void testHexagonBoard() {
         GamePanel.get().startGameThread();
         int size = GamePanel.get().board.getSize();
         assertEquals(1 + (6L *size*(size+1) / 2), GamePanel.get().board.getNumHexes());
-        // TODO Find way to test
     }
 
     @Test
-    public void testGuessAtomRendering() {
+    public void testGuessAtoms() {
         GamePanel.get().startGameThread();
         Hexagon hexagon = new Hexagon(5, new Vector2D(3, 6));
         hexagon.toggleGuess();
@@ -47,7 +47,7 @@ public class Sprint1Tests
     }
 
     @Test
-    public void testTrueAtomRendering() {
+    public void testTrueAtoms() {
         GamePanel.get().startGameThread();
         Hexagon hexagon = new Hexagon(5, new Vector2D(3, 6));
         hexagon.placeTrueAtom();
@@ -167,13 +167,14 @@ public class Sprint1Tests
             }
         }
 
+        assertNotNull(hexagon);
         assertFalse(hexagon.isCorrect());
         assertFalse(hexagon.isIncorrect());
     }
 
 
     @Test
-    public void testCirclesInfluenceRendering() {
+    public void testCirclesInfluence() {
         Atom atom = new Atom(new Vector2D(0, 0), 5, false);
         assertTrue(atom.circleInfluence.pos.equals(atom.pos));
         assertTrue(atom.circleInfluence.radius > atom.radius);
@@ -184,7 +185,7 @@ public class Sprint1Tests
     }
 
     @Test
-    public void testLabelsRendering() {
+    public void testLabels() {
         GamePanel.get().startGameThread();
         int numSides = 0;
         for(Hexagon h : GamePanel.get().board.getHexes()) {
@@ -199,8 +200,13 @@ public class Sprint1Tests
     }
 
     @Test
-    public void testRayPointerRendering() {
-
+    public void testRayPointers() {
+        GamePanel.get().startGameThread();
+        Vector2D pos = new Vector2D(GamePanel.get().screenWidth, GamePanel.get().screenHeight/2.0);
+        Hexagon hexagon = GamePanel.get().board.closestHexToCoords(pos);
+        BoardLabel label = GamePanel.get().board.closestLabelToCoords(pos); //function used to replace labels with ray pointers
+        assertNotNull(hexagon.boardLabels);
+        assertTrue(Arrays.asList(hexagon.boardLabels).contains(label));
     }
 
     @Test
