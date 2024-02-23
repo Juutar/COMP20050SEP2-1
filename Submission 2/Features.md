@@ -1,7 +1,7 @@
 
 ##### Rendering Hexagon Board: 
 
-The board is currently rendered at game start with size 3 for easier debugging. We mentioned that we would introduce the feature to resize it in sprint 4, when we will set the default size at 5.
+The board is currently rendered at game start with size 3 for easier debugging. Size 3 means that there are 3 layers of hexagons around the central hexagon in the grid. However, this means there are 37 hexagons in the grid. We mentioned that we would introduce the feature to resize it in sprint 4, when we will set the default size at 5 which will result in 91 hexagons.
 Because this feature is mainly rendering, the test covers the number of Hexagons in the board depending on its size.
 
 ##### Place / Remove Atoms
