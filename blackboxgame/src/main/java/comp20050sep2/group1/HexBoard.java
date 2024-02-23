@@ -60,9 +60,9 @@ public class HexBoard {
 
         placeTrueAtoms();
 
-        for(int i = 19; i < 37; i ++){
+        for(int i = numHexesPerBoardSize(size-1); i < getNumHexes(); i ++){
             
-            if((i - 19) % size == 0){
+            if((i - numHexesPerBoardSize(size-1)) % size == 0){
                 hexes.get(i).pointableSides = 3;
             }
             else{
@@ -82,7 +82,7 @@ public class HexBoard {
         int k = 0;
         int indexOffset = 0;
 
-        for(int i = 6 * size + 1; i < 37; i ++){
+        for(int i = 6 * size + 1; i < getNumHexes(); i ++){
 
             k = hexes.get(i).pointableSides;
 
@@ -96,14 +96,14 @@ public class HexBoard {
 
         }
 
-        for(int i = 19; i < 37; i ++){
+        for(int i = numHexesPerBoardSize(size-1); i < getNumHexes(); i ++){
 
             pointableSides = hexes.get(i).pointableSides;
             
             start_x = hexes.get(i).center().x;
             start_y = hexes.get(i).center().y;
 
-            if(((i - 19) % 3 == 0) && ((i - 19) != 0)){
+            if(((i - numHexesPerBoardSize(size-1)) % 3 == 0) && ((i - numHexesPerBoardSize(size-1)) != 0)){
                 angleOffset -= 60;
             }
 
@@ -261,4 +261,8 @@ public class HexBoard {
     public int getNumHexes() { return hexes.size();}
     public int getSize() { return size; }
     public ArrayList<Hexagon> getHexes() { return hexes; }
+
+    public static int numHexesPerBoardSize(int size) {
+        return (int) (1 + (6L *size*(size+1) / 2));
+    }
 }

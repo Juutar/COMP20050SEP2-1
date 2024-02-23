@@ -10,6 +10,7 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 /* TODO Defect Testing ?*/
+/* TODO Remove Useless Classes*/
 public class Sprint1Tests
 {
     /*
@@ -23,7 +24,7 @@ public class Sprint1Tests
     * Unit testing: modules individually
     * Integration testing: major subsystems
     * Performance testing: computation and rendering delays
-    * Regression testing:
+    * Regression testing: modified code didn't break previous features
      */
 
     @Test
