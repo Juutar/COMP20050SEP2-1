@@ -3,7 +3,6 @@ package comp20050sep2.group1;
 import comp20050sep2.group1.utils.Vector2D;
 import org.junit.Test;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
@@ -181,7 +180,6 @@ public class Sprint1Tests
         assertTrue(atom.circleInfluence.radius > atom.radius);
         assertEquals(atom.circleInfluence.color, atom.color);
 
-        Atom guessAtom = new Atom(new Vector2D(0, 0), 5, true);
         assertEquals(atom.circleInfluence.color, atom.color);
     }
 

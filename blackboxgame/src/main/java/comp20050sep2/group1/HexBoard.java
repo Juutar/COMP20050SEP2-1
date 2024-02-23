@@ -209,7 +209,6 @@ public class HexBoard {
         double leader = Double.MAX_VALUE;
 
         double dist;
-        Vector2D labelVec;
 
         for(int i = 19; i < 37; i ++){
             for(int j = 0; j < hexes.get(i).pointableSides; j ++){
