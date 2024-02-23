@@ -14,4 +14,11 @@ public class ShowAtomButton extends AbstractShowButton {
         showText = "Show True Atoms";
         hideText = "Hide True Atoms";
     }
+
+    @Override
+    public void performAction() {
+        toggleState();
+        GamePanel.get().board.toggleTrueAtomsVisible();
+        GamePanel.get().board.toggleEvaluate();
+    }
 }

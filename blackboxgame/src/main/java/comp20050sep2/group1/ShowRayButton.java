@@ -13,4 +13,10 @@ public class ShowRayButton extends AbstractShowButton {
         showText = "Set Rays";
         hideText = "Set Atoms";
     }
+
+    @Override
+    public void performAction() {
+        toggleState();
+        GamePanel.get().board.toggleAtomSelectorOn();
+    }
 }

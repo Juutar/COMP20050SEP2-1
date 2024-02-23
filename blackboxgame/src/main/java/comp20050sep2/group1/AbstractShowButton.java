@@ -38,7 +38,7 @@ public abstract class AbstractShowButton extends JButton {
         setVisible(true);
     }
 
-    public abstract void setCustomTexts();
+    abstract public void setCustomTexts();
 
     public void toggleState() {
         if(stateShow) {
@@ -54,6 +54,8 @@ public abstract class AbstractShowButton extends JButton {
         }
         stateShow = !stateShow;
     }
+
+    abstract public void performAction();
 
     public Vector2D getPos() { return this.pos; }
     public boolean isStateShow() { return this.stateShow; }

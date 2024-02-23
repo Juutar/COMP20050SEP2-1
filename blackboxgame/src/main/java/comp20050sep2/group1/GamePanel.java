@@ -175,16 +175,12 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getSource() == showAtomButton) {
-            showAtomButton.toggleState();
-            for(Hexagon hex : board.trueAtomHexagons) {
-                hex.toggleTrue();
-            }
-            board.toggleEvaluate();
+            showAtomButton.performAction();
         }
         else if(e.getSource() == showRayButton){
-            board.toggleAtomSelector = !board.toggleAtomSelector;
+            showRayButton.performAction();
         }
-        else if(board.toggleAtomSelector){
+        else if(board.atomSelectorOn){
             Vector2D vec = new Vector2D(e.getX(), e.getY());
             if (board.closestHexToCoords(vec).hasGuessAtom() || board.atomIndex < board.numAtoms){
                 if (board.closestHexToCoords(vec).toggleGuess()) {

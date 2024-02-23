@@ -12,7 +12,6 @@ public class Hexagon {
 
     Atom guessAtom = null;
     Atom trueAtom = null;
-    boolean trueAtomVisible;
 
     int pointableSides;
     BoardLabel[] boardLabels;
@@ -57,7 +56,7 @@ public class Hexagon {
         g.draw(new Line2D.Double(f1, f2, d1, d2));
         g.draw(new Line2D.Double(f1, f2, e1, e2));
 
-        if (trueAtomVisible) {
+        if (hasTrueAtom() && GamePanel.get().board.trueAtomsVisible) {
             trueAtom.drawAtom();
         }
 
@@ -77,10 +76,6 @@ public class Hexagon {
     }
 
     public void placeTrueAtom() { trueAtom = new Atom(center(), side, false); }
-
-    public void toggleTrue() {
-        trueAtomVisible = !trueAtomVisible;
-    }
 
     public boolean hasGuessAtom() {
         return guessAtom != null;

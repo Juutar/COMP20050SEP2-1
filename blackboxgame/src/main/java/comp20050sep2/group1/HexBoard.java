@@ -18,14 +18,14 @@ public class HexBoard {
     private final double side;
     private final int size;
 
-    public boolean toggleAtomSelector;
+    public boolean atomSelectorOn;
+    public boolean trueAtomsVisible;
+    public boolean evaluate;
 
     public int numAtoms;
     public int atomIndex;
     public Hexagon[] guessAtomHexagons;
     public Hexagon[] trueAtomHexagons;
-
-    boolean evaluate;
 
     public HexBoard(double side, Vector2D pos, int size /* from 0, how many rings */, int numAtoms) {
         hexes.add(new Hexagon(side, pos));
@@ -34,7 +34,7 @@ public class HexBoard {
         this.size = size;
         this.numAtoms = numAtoms;
         this.atomIndex = 0;
-        this.toggleAtomSelector = true;
+        this.atomSelectorOn = true;
         this.guessAtomHexagons = new Hexagon[numAtoms];
         this.trueAtomHexagons = new Hexagon[numAtoms];
 
@@ -149,7 +149,7 @@ public class HexBoard {
             hex.drawHexagon();
             if(hex.pointableSides != 0){
                 for(BoardLabel bl : hex.boardLabels){ 
-                    if(!toggleAtomSelector){
+                    if(!atomSelectorOn){
                         if(bl != closestLabelToMouseCoors()){
                             bl.writeText();
                         }
@@ -171,7 +171,7 @@ public class HexBoard {
         // highlight nearest hex
         Hexagon nearest = closestHexToCoords(GamePanel.get().mouseCoords);
 
-        if(toggleAtomSelector){
+        if(atomSelectorOn){
             g.setColor(Color.red);
             g.fillOval((int)nearest.center().x - 10, (int)nearest.center().y - 10, 20, 20);
             g.setColor(Color.white);
@@ -266,6 +266,8 @@ public class HexBoard {
     public void toggleEvaluate() {
         evaluate = !evaluate;
     }
+    public void toggleTrueAtomsVisible() { trueAtomsVisible = !trueAtomsVisible; }
+    public void toggleAtomSelectorOn() { atomSelectorOn = !atomSelectorOn; }
 
     public int getNumHexes() { return hexes.size();}
     public int getSize() { return size; }

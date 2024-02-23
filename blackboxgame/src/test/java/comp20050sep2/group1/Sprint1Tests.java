@@ -3,7 +3,6 @@ package comp20050sep2.group1;
 import comp20050sep2.group1.utils.Vector2D;
 import org.junit.Test;
 
-import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
@@ -200,7 +199,7 @@ public class Sprint1Tests
 
     @Test
     public void testRayPointerRendering() {
-        
+
     }
 
     @Test
@@ -222,5 +221,21 @@ public class Sprint1Tests
 
 
     @Test
-    public void testRayButton() {}
+    public void testRayButton() {
+        GamePanel.get().startGameThread();
+        ShowRayButton button = GamePanel.get().showRayButton;
+
+        assertTrue(button.isStateShow());
+        assertTrue(GamePanel.get().board.closestLabelToMouseCoors());
+        assertTrue(GamePanel.get().board.atomSelectorOn);
+
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, (int) button.pos.x, (int) button.pos.y, 1, false));
+        assertFalse(button.isStateShow());
+        assertFalse(GamePanel.get().board.atomSelectorOn);
+
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, (int) button.pos.x, (int) button.pos.y, 1, false));
+        assertTrue(button.isStateShow());
+        assertTrue(GamePanel.get().board.atomSelectorOn);
+
+    }
 }
