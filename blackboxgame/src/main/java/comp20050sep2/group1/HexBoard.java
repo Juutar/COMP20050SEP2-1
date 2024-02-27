@@ -254,10 +254,6 @@ public class HexBoard {
     public int getSize() { return size; }
     public ArrayList<Hexagon> getHexes() { return hexes; }
 
-//    public static int numHexesPerBoardSize(int size) {
-//        return (int) (1 + (6L *size*(size+1) / 2));
-//    }
-
     public int numOuterHexes() {
         return 6 * size;
     }
@@ -265,4 +261,5 @@ public class HexBoard {
     public int numLabels() {
         return (size+1) * 2 * 6 - 6;
     }
+
 }
