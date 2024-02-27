@@ -87,17 +87,17 @@ public class HexBoard {
         for (int i = getNumHexes() - numOuterHexes(); i < getNumHexes(); i ++) {
 
                 for (int j = 0; j < hexes.get(i).pointableSides; j++) {
-                    // Angle depends on:
-                    //      - division by numLabels/6 mod360(150° - 30 * floor(division))
-                    //      - even (30, 150, 270) or odd (90, 210, 330)
 
+                    //default angle for hexagon size
                     int angle = Math.floorMod(-60 * Math.floorDiv(labelIndex, numLabels()/6), 360);
 
+                    //angle offset if label is even/odd
                     if ((angle + 30) / 60 % 2 == 1 && labelIndex % 2 == 1
                             || (angle + 30) / 60 % 2 == 0 && labelIndex % 2 == 0) {
                         angle = Math.floorMod(angle+60, 360);
                     }
 
+                    //angle offset if label is first of subset (if label is first of 3-label hexagon)
                     if (labelIndex % (numLabels()/6) == 1) {
                         angle = Math.floorMod(angle+120, 360);
                     }
