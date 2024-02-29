@@ -28,7 +28,7 @@ public class HexBoard {
     public Hexagon[] trueAtomHexagons;
 
     public HexBoard(double side, Vector2D pos, int size /* from 0, how many rings */, int numAtoms) {
-        hexes.add(new Hexagon(side, pos));
+        hexes.add(new Hexagon(side, pos, new Vector3D(0, 0, 0)));
         this.side = side;
         this.pos = pos;
         this.size = size;
@@ -49,7 +49,7 @@ public class HexBoard {
                 for (int j = 0; j < i; ++j) {
                     double addX = Math.sin(Math.toRadians(angleForMore)) * Math.sqrt(3) * side * j;
                     double addY = Math.cos(Math.toRadians(angleForMore)) * Math.sqrt(3) * side * j;
-                    hexes.add(new Hexagon(side, new Vector2D(pos.x + addX + Math.sin(Math.toRadians(angle)) * distance, pos.y + addY + Math.cos(Math.toRadians(angle)) * distance)));
+                    hexes.add(new Hexagon(side, new Vector2D(pos.x + addX + Math.sin(Math.toRadians(angle)) * distance, pos.y + addY + Math.cos(Math.toRadians(angle)) * distance), Vector3D.angleToCoors((int) angleForMore).scalMult(i)));
                 }
 
                 angle += 60;
@@ -177,7 +177,7 @@ public class HexBoard {
     private final Vector2D VecS = vecFromAng(-60);
     public Vector2D hexCoordsToCenter(Vector3D coords) {
         Vector2D res = new Vector2D(0, 0);
-        res.addip(VecQ.mul(coords.x * side)).addip(VecR.mul(coords.y * side)).addip(VecS.mul(coords.z * side));
+        res.addip(VecQ.mul(coords.q * side)).addip(VecR.mul(coords.r * side)).addip(VecS.mul(coords.s * side));
         res = res.mul(1, -1);
         res.addip(this.pos);
         return res;

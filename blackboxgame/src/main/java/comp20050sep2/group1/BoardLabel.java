@@ -9,7 +9,8 @@ import java.awt.Font;
 import javax.swing.JLabel;
 
 public class BoardLabel extends JLabel{
-    
+
+    Hexagon hexagon;
     private String text;
     Vector2D pos;
 

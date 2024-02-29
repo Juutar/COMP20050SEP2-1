@@ -1,6 +1,7 @@
 package comp20050sep2.group1;
 
 import comp20050sep2.group1.utils.Vector2D;
+import comp20050sep2.group1.utils.Vector3D;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -9,6 +10,7 @@ public class Hexagon {
     
     double side;
     Vector2D pos;
+    Vector3D coors;
 
     Atom guessAtom = null;
     Atom trueAtom = null;
@@ -16,9 +18,10 @@ public class Hexagon {
     int pointableSides;
     BoardLabel[] boardLabels;
 
-    Hexagon(double side, Vector2D pos){
+    Hexagon(double side, Vector2D pos, Vector3D coors){
         this.pos = pos;
         this.side = side;
+        this.coors = coors;
         this.pointableSides = 0;
         this.boardLabels = null;
     }
@@ -55,6 +58,7 @@ public class Hexagon {
         g.draw(new Line2D.Double(c1, c2, e1, e2));
         g.draw(new Line2D.Double(f1, f2, d1, d2));
         g.draw(new Line2D.Double(f1, f2, e1, e2));
+        //g.drawString(coors.toString(), (int) pos.x, (int) pos.y);
 
         if (hasTrueAtom() && GamePanel.get().board.trueAtomsVisible) {
             trueAtom.drawAtom();

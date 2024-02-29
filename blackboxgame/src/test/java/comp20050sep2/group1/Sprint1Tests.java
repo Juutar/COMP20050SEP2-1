@@ -1,6 +1,7 @@
 package comp20050sep2.group1;
 
 import comp20050sep2.group1.utils.Vector2D;
+import comp20050sep2.group1.utils.Vector3D;
 import org.junit.Test;
 
 import java.awt.event.MouseEvent;
@@ -36,7 +37,7 @@ public class Sprint1Tests
     @Test
     public void testGuessAtoms() {
         GamePanel.get().startGameThread();
-        Hexagon hexagon = new Hexagon(5, new Vector2D(3, 6));
+        Hexagon hexagon = new Hexagon(5, new Vector2D(3, 6), new Vector3D(0, 0, 0));
         hexagon.toggleGuess();
         assertNotNull(hexagon.guessAtom);
 
@@ -49,7 +50,7 @@ public class Sprint1Tests
     @Test
     public void testTrueAtoms() {
         GamePanel.get().startGameThread();
-        Hexagon hexagon = new Hexagon(5, new Vector2D(3, 6));
+        Hexagon hexagon = new Hexagon(5, new Vector2D(3, 6), new Vector3D(0, 0, 0));
         hexagon.placeTrueAtom();
         assertNotNull(hexagon.trueAtom);
 
