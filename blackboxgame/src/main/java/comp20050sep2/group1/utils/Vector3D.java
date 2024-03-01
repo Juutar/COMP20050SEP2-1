@@ -15,11 +15,11 @@ public class Vector3D {
 
     public static Vector3D angleToCoors(int angle) {
         return switch (angle%360) {
-            case 30 -> new Vector3D(-1, 0, 1);
-            case 90 -> new Vector3D(-1, 1, 0);
+            case 30 -> new Vector3D(1, -1, 0);
+            case 90 -> new Vector3D(1, 0, -1);
             case 150 -> new Vector3D(0, 1, -1);
-            case 210 -> new Vector3D(1, 0, -1);
-            case 270 -> new Vector3D(1, -1, 0);
+            case 210 -> new Vector3D(-1, 1, 0);
+            case 270 -> new Vector3D(-1, 0, 1);
             case 330 -> new Vector3D(0, -1, 1);
             default -> null;
         };

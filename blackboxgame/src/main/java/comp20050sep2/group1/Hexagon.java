@@ -58,7 +58,7 @@ public class Hexagon {
         g.draw(new Line2D.Double(c1, c2, e1, e2));
         g.draw(new Line2D.Double(f1, f2, d1, d2));
         g.draw(new Line2D.Double(f1, f2, e1, e2));
-        //g.drawString(coors.toString(), (int) pos.x, (int) pos.y);
+        g.drawString(coors.toString(), (int) pos.x, (int) pos.y);
 
         if (hasTrueAtom() && GamePanel.get().board.trueAtomsVisible) {
             trueAtom.drawAtom();

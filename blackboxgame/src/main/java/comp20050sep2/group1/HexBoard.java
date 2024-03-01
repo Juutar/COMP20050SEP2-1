@@ -49,7 +49,9 @@ public class HexBoard {
                 for (int j = 0; j < i; ++j) {
                     double addX = Math.sin(Math.toRadians(angleForMore)) * Math.sqrt(3) * side * j;
                     double addY = Math.cos(Math.toRadians(angleForMore)) * Math.sqrt(3) * side * j;
-                    hexes.add(new Hexagon(side, new Vector2D(pos.x + addX + Math.sin(Math.toRadians(angle)) * distance, pos.y + addY + Math.cos(Math.toRadians(angle)) * distance), Vector3D.angleToCoors((int) angleForMore).scalMult(i)));
+                    int angleViewed = Math.floorMod((int) (2*150 - angleForMore), 360);
+                    System.out.println("AngleForMore: " + angleForMore + ", AngleViewed: " + angleViewed);
+                    hexes.add(new Hexagon(side, new Vector2D(pos.x + addX + Math.sin(Math.toRadians(angle)) * distance, pos.y + addY + Math.cos(Math.toRadians(angle)) * distance), Vector3D.angleToCoors(angleViewed).scalMult(i)));
                 }
 
                 angle += 60;
@@ -79,37 +81,11 @@ public class HexBoard {
     }
 
     private void assignLabels() {
-        double start_x, start_y;
-        double end_x, end_y;
-
         int labelIndex = 1;
-
-        for (int i = getNumHexes() - numOuterHexes(); i < getNumHexes(); i ++) {
-
-                for (int j = 0; j < hexes.get(i).pointableSides; j++) {
-
-                    //default angle for hexagon size
-                    int angle = Math.floorMod(-60 * Math.floorDiv(labelIndex, numLabels()/6), 360);
-
-                    //angle offset if label is even/odd
-                    if ((angle + 30) / 60 % 2 == 1 && labelIndex % 2 == 1
-                            || (angle + 30) / 60 % 2 == 0 && labelIndex % 2 == 0) {
-                        angle = Math.floorMod(angle+60, 360);
-                    }
-
-                    //angle offset if label is first of subset (if label is first of 3-label hexagon)
-                    if (labelIndex % (numLabels()/6) == 1) {
-                        angle = Math.floorMod(angle+120, 360);
-                    }
-
-                    start_x = hexes.get(i).center().x;
-                    start_y = hexes.get(i).center().y;
-
-                    end_x = start_x + (1.2*side) * Math.cos(Math.toRadians(angle));
-                    end_y = start_y + (1.2*side) * Math.sin(Math.toRadians(angle));
-
-                    hexes.get(i).boardLabels[j] = new BoardLabel("" + labelIndex++, new Vector2D(end_x, end_y));
-                }
+        for (int i = getNumHexes() - numOuterHexes(); i < getNumHexes(); i++) {
+            for (int j = 0; j < hexes.get(i).pointableSides; j++, labelIndex++) {
+                hexes.get(i).boardLabels[j] = new BoardLabel("" + labelIndex, hexes.get(i), computeLabelAngle(labelIndex));
+            }
         }
     }
 
@@ -220,6 +196,23 @@ public class HexBoard {
         
         return closestLabelToCoords(GamePanel.get().mouseCoords);
 
+    }
+
+    public int computeLabelAngle(int labelIndex) {
+        //default angle for hexagon position
+        int angle = Math.floorMod(150 - (60 * Math.floorDiv(labelIndex, numLabels()/6)), 360);
+
+        //angle offset if label is even/odd
+        if ((angle + 30) / 60 % 2 == 1 && labelIndex % 2 == 1
+                || (angle + 30) / 60 % 2 == 0 && labelIndex % 2 == 0) {
+            angle = Math.floorMod(angle-60, 360);
+        }
+
+        //angle offset if label is first of subset (if label is first of 3-label hexagon)
+        if (labelIndex % (numLabels()/6) == 1) {
+            angle = Math.floorMod(angle+120, 360);
+        }
+        return angle;
     }
 
     public void reposition(Vector2D coords) {
