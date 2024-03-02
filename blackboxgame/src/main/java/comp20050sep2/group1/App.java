@@ -2,10 +2,8 @@ package comp20050sep2.group1;
 
 import javax.swing.JFrame;
 
-public class App 
-{
-    public static void main( String[] args )
-    {
+public class App {
+    public static void main(String[] args) {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
@@ -19,6 +17,5 @@ public class App
         window.setVisible(true);
 
         GamePanel.get().startGameThread();
-
     }
 }

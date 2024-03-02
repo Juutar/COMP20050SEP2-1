@@ -22,10 +22,9 @@ public abstract class AbstractShowButton extends JButton {
     LineBorder border = new LineBorder(foregroundColor, 1);
     LineBorder altBorder = new LineBorder(altForegroundColor, 1);
 
-
-    public AbstractShowButton(Vector2D pos){
+    public AbstractShowButton(Vector2D pos) {
         this.pos = pos;
-        setLocation((int) pos.x - width/2, (int) pos.y - height/2);
+        setLocation((int) pos.x - width / 2, (int) pos.y - height / 2);
         setSize(width, height);
         setFont(new Font(Font.DIALOG, Font.PLAIN, 12));
         setBorder(border);
@@ -41,7 +40,7 @@ public abstract class AbstractShowButton extends JButton {
     abstract public void setCustomTexts();
 
     public void toggleState() {
-        if(stateShow) {
+        if (stateShow) {
             setText(hideText);
             setBackground(altBackgroundColor);
             setForeground(altForegroundColor);
@@ -57,7 +56,11 @@ public abstract class AbstractShowButton extends JButton {
 
     abstract public void performAction();
 
-    public Vector2D getPos() { return this.pos; }
-    public boolean isStateShow() { return this.stateShow; }
+    public Vector2D getPos() {
+        return this.pos;
+    }
 
+    public boolean isStateShow() {
+        return this.stateShow;
+    }
 }

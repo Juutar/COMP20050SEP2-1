@@ -10,11 +10,11 @@ public class Vector3D {
     }
 
     public Vector3D scalMult(int scalar) {
-        return new Vector3D(q*scalar, r*scalar, s*scalar);
+        return new Vector3D(q * scalar, r * scalar, s * scalar);
     }
 
     public static Vector3D angleToCoords(int angle) {
-        return switch (angle%360) {
+        return switch (angle % 360) {
             case 30 -> new Vector3D(1, -1, 0);
             case 90 -> new Vector3D(1, 0, -1);
             case 150 -> new Vector3D(0, 1, -1);
@@ -27,6 +27,6 @@ public class Vector3D {
 
     @Override
     public String toString() {
-        return "[ " + q + ", " + r + ", " + s +" ]";
+        return "[ " + q + ", " + r + ", " + s + " ]";
     }
 }

@@ -15,8 +15,10 @@ public class AbstractCross {
 
         g.setColor(color);
         g.setStroke(stroke);
-        g.drawLine((int) (pos.x - radius/4), (int) (pos.y - radius/4), (int) (pos.x + radius/4), (int) (pos.y + radius/4));
-        g.drawLine((int) (pos.x + radius/4), (int) (pos.y - radius/4), (int) (pos.x - radius/4), (int) (pos.y + radius/4));
+        g.drawLine((int) (pos.x - radius / 4), (int) (pos.y - radius / 4), (int) (pos.x + radius / 4),
+                (int) (pos.y + radius / 4));
+        g.drawLine((int) (pos.x + radius / 4), (int) (pos.y - radius / 4), (int) (pos.x - radius / 4),
+                (int) (pos.y + radius / 4));
         g.setStroke(initialStroke);
     }
 }

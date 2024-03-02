@@ -9,14 +9,13 @@ public class AbstractTick {
     public static final Color color = Color.black;
     public static final Stroke stroke = new BasicStroke(3, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 
-
     public static void drawTick(Vector2D pos, double radius) {
         Graphics2D g = GamePanel.get().graphics;
         Stroke initialStroke = g.getStroke();
 
         g.setColor(color);
         g.setStroke(stroke);
-        g.drawOval((int) (pos.x-radius/2), (int) (pos.y-radius/2), (int) radius, (int) radius);
+        g.drawOval((int) (pos.x - radius / 2), (int) (pos.y - radius / 2), (int) radius, (int) radius);
 
         g.setStroke(initialStroke);
     }

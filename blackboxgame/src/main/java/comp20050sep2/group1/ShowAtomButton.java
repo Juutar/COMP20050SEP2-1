@@ -2,7 +2,6 @@ package comp20050sep2.group1;
 
 import comp20050sep2.group1.utils.Vector2D;
 
-
 public class ShowAtomButton extends AbstractShowButton {
 
     public ShowAtomButton(Vector2D pos) {

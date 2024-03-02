@@ -17,17 +17,17 @@ import comp20050sep2.group1.utils.Vector2D;
  */
 
 public class Arrowhead {
-    
+
     double x;
     double y;
     double dir;
-    double size;        //distance between the center and a vertex
+    double size; // distance between the center and a vertex
 
     Vector2D[] vertices;
 
-    Arrowhead(Vector2D pos, double size){
-        this.x = pos.x;     //center of the triangle: x
-        this.y = pos.y;     //center of the triangle: y
+    Arrowhead(Vector2D pos, double size) {
+        this.x = pos.x; // center of the triangle: x
+        this.y = pos.y; // center of the triangle: y
         this.dir = 0;
         this.size = size;
 
@@ -48,8 +48,8 @@ public class Arrowhead {
 
     }
 
-    public void setDirection(double dir){
-        
+    public void setDirection(double dir) {
+
         this.x += size * Math.cos(Math.toRadians(dir));
         this.y += size * Math.sin(Math.toRadians(dir));
 
@@ -66,10 +66,10 @@ public class Arrowhead {
 
     }
 
-    public void drawArrow(){
-
-        GamePanel.get().graphics.fillPolygon(new int[]{(int)vertices[0].x, (int)vertices[1].x, (int)vertices[2].x}, new int[]{(int)vertices[0].y, (int)vertices[1].y, (int)vertices[2].y}, 3);
-
+    public void drawArrow() {
+        GamePanel.get().graphics.fillPolygon(
+                new int[] { (int) vertices[0].x, (int) vertices[1].x, (int) vertices[2].x },
+                new int[] { (int) vertices[0].y, (int) vertices[1].y, (int) vertices[2].y }, 3);
     }
 
 }

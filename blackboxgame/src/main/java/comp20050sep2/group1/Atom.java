@@ -18,14 +18,13 @@ public class Atom {
         this.pos = pos;
         this.radius = radius;
         this.color = (isGuess ? GUESS_COLOR : TRUE_COLOR);
-        this.circleInfluence = new CircleInfluence(pos, radius*3, color);
-
+        this.circleInfluence = new CircleInfluence(pos, radius * 3, color);
     }
 
     public void drawAtom() {
         Graphics2D g = GamePanel.get().graphics;
         g.setColor(color);
-        g.fillOval((int) (pos.x-radius/2), (int) (pos.y-radius/2), (int) radius, (int) radius);
+        g.fillOval((int) (pos.x - radius / 2), (int) (pos.y - radius / 2), (int) radius, (int) radius);
         circleInfluence.drawCircleInfluence();
     }
 }
