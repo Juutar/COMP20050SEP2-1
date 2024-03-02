@@ -138,9 +138,6 @@ public class HexBoard {
             g.setColor(Color.white);
         }
 
-        // Arrowhead ah = new Arrowhead(pos, 15);
-        // ah.drawArrow();
-
     }
 
     private final Vector2D vecFromAng(double ang) {
