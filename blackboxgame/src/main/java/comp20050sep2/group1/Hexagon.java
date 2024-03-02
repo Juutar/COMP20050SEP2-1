@@ -10,7 +10,7 @@ public class Hexagon {
     
     double side;
     Vector2D pos;
-    Vector3D coors;
+    Vector3D coords;
 
     Atom guessAtom = null;
     Atom trueAtom = null;
@@ -18,10 +18,10 @@ public class Hexagon {
     int pointableSides;
     BoardLabel[] boardLabels;
 
-    Hexagon(double side, Vector2D pos, Vector3D coors){
+    Hexagon(double side, Vector2D pos, Vector3D coords){
         this.pos = pos;
         this.side = side;
-        this.coors = coors;
+        this.coords = coords;
         this.pointableSides = 0;
         this.boardLabels = null;
     }
@@ -58,7 +58,7 @@ public class Hexagon {
         g.draw(new Line2D.Double(c1, c2, e1, e2));
         g.draw(new Line2D.Double(f1, f2, d1, d2));
         g.draw(new Line2D.Double(f1, f2, e1, e2));
-        g.drawString(coors.toString(), (int) pos.x, (int) pos.y);
+        g.drawString(coords.toString(), (int) pos.x, (int) pos.y);
 
         if (hasTrueAtom() && GamePanel.get().board.trueAtomsVisible) {
             trueAtom.drawAtom();

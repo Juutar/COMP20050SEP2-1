@@ -13,7 +13,7 @@ public class Vector3D {
         return new Vector3D(q*scalar, r*scalar, s*scalar);
     }
 
-    public static Vector3D angleToCoors(int angle) {
+    public static Vector3D angleToCoords(int angle) {
         return switch (angle%360) {
             case 30 -> new Vector3D(1, -1, 0);
             case 90 -> new Vector3D(1, 0, -1);

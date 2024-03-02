@@ -51,7 +51,7 @@ public class HexBoard {
                     double addY = Math.cos(Math.toRadians(angleForMore)) * Math.sqrt(3) * side * j;
                     int angleViewed = Math.floorMod((int) (2*150 - angleForMore), 360);
                     System.out.println("AngleForMore: " + angleForMore + ", AngleViewed: " + angleViewed);
-                    hexes.add(new Hexagon(side, new Vector2D(pos.x + addX + Math.sin(Math.toRadians(angle)) * distance, pos.y + addY + Math.cos(Math.toRadians(angle)) * distance), Vector3D.angleToCoors(angleViewed).scalMult(i)));
+                    hexes.add(new Hexagon(side, new Vector2D(pos.x + addX + Math.sin(Math.toRadians(angle)) * distance, pos.y + addY + Math.cos(Math.toRadians(angle)) * distance), Vector3D.angleToCoords(angleViewed).scalMult(i)));
                 }
 
                 angle += 60;
@@ -117,7 +117,7 @@ public class HexBoard {
             hex.drawHexagon();
             if(hex.boardLabels != null){
                 for(BoardLabel bl : hex.boardLabels){
-                    if(!atomSelectorOn && bl == closestLabelToMouseCoors()){
+                    if(!atomSelectorOn && bl == closestLabelToMouseCoords()){
                         AbstractRayPointer.drawRayPointer(bl.pos, hex.center());
                     }
                     else {
@@ -192,7 +192,7 @@ public class HexBoard {
         return leaderLabel;
     }
 
-    public BoardLabel closestLabelToMouseCoors(){
+    public BoardLabel closestLabelToMouseCoords(){
         
         return closestLabelToCoords(GamePanel.get().mouseCoords);
 
