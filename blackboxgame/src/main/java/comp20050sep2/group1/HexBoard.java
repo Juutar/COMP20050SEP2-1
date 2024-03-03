@@ -3,18 +3,18 @@ package comp20050sep2.group1;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
+import comp20050sep2.group1.utils.BiMap;
 import comp20050sep2.group1.utils.Vector2D;
 import comp20050sep2.group1.utils.Vector3D;
+
+import static java.lang.Math.abs;
 
 public class HexBoard {
 
     public Vector2D pos;
-
-    private final ArrayList<Hexagon> hexes = new ArrayList<>();
+    private final BiMap<Vector3D, Hexagon> hexes;
     private final double side;
     private final int size;
 
@@ -24,35 +24,53 @@ public class HexBoard {
 
     public int numAtoms;
     public int atomIndex;
-    public Hexagon[] guessAtomHexagons;
-    public Hexagon[] trueAtomHexagons;
+    public Vector3D[] guessAtomHexagons;
+    public Vector3D[] trueAtomHexagons;
+    public Vector3D[] outerHexes;
 
     public HexBoard(double side, Vector2D pos, int size /* from 0, how many rings */, int numAtoms) {
-        hexes.add(new Hexagon(side, pos, new Vector3D(0, 0, 0)));
+        hexes = new BiMap<>();
+        hexes.add(new Vector3D(0, 0, 0), new Hexagon(side, pos));
         this.side = side;
         this.pos = pos;
         this.size = size;
         this.numAtoms = numAtoms;
         this.atomIndex = 0;
         this.atomSelectorOn = true;
-        this.guessAtomHexagons = new Hexagon[numAtoms];
-        this.trueAtomHexagons = new Hexagon[numAtoms];
+        this.guessAtomHexagons = new Vector3D[numAtoms];
+        this.trueAtomHexagons = new Vector3D[numAtoms];
+        this.outerHexes = new Vector3D[numOuterHexes()];
 
+        Vector3D direction = new Vector3D();
+        direction.setCoorsFromAngle(150);
+        Vector3D nextHexagonVec = new Vector3D();
+        nextHexagonVec.sum(direction);
+
+        int outerHexesIndex = 0;
         for (int i = 1; i <= size; ++i) {
             double angle = 30;
             double distance = Math.sqrt(3) * side * i;
+            int coorsAngle = 30;
+            direction.setCoorsFromAngle(coorsAngle);
 
             do {
                 double angleForMore = angle + 120;
                 for (int j = 0; j < i; ++j) {
                     double addX = Math.sin(Math.toRadians(angleForMore)) * Math.sqrt(3) * side * j;
                     double addY = Math.cos(Math.toRadians(angleForMore)) * Math.sqrt(3) * side * j;
-                    int angleViewed = Math.floorMod((int) (2 * 150 - angleForMore), 360);
-                    System.out.println("AngleForMore: " + angleForMore + ", AngleViewed: " + angleViewed);
-                    hexes.add(new Hexagon(side,
-                            new Vector2D(pos.x + addX + Math.sin(Math.toRadians(angle)) * distance,
-                                    pos.y + addY + Math.cos(Math.toRadians(angle)) * distance),
-                            Vector3D.angleToCoords(angleViewed).scalMult(i)));
+
+                    System.out.println(nextHexagonVec.toString());
+                    hexes.add(nextHexagonVec.copy(), new Hexagon(side, new Vector2D(pos.x + addX + Math.sin(Math.toRadians(angle)) * distance, pos.y + addY + Math.cos(Math.toRadians(angle)) * distance)));
+                    if (isOuterHex(nextHexagonVec)) { outerHexes[outerHexesIndex++] = nextHexagonVec.copy(); }
+                    nextHexagonVec.sum(direction);
+                }
+
+                coorsAngle = Math.floorMod(coorsAngle - 60, 360);
+                if(coorsAngle == 30) {
+                    direction.setCoorsFromAngle(150);
+                    nextHexagonVec.sum(direction);
+                } else {
+                    direction.setCoorsFromAngle(coorsAngle);
                 }
 
                 angle += 60;
@@ -68,23 +86,21 @@ public class HexBoard {
     }
 
     private void assignPointableSides() {
-        for (int i = getNumHexes() - numOuterHexes(); i < getNumHexes(); i++) {
-            if ((i - getNumHexes() + numOuterHexes()) % size == 0) {
-                hexes.get(i).pointableSides = 3;
-            } else {
-                hexes.get(i).pointableSides = 2;
-            }
-
-            hexes.get(i).boardLabels = new BoardLabel[hexes.get(i).pointableSides];
-        }
+       for(Vector3D vec : outerHexes) {
+           if(vec.q == 0 || vec.r == 0 || vec.s == 0) {
+               hexes.getValue(vec).pointableSides = 3;
+           } else {
+               hexes.getValue(vec).pointableSides = 2;
+           }
+           hexes.getValue(vec).boardLabels = new BoardLabel[hexes.getValue(vec).pointableSides];
+       }
     }
 
     private void assignLabels() {
         int labelIndex = 1;
-        for (int i = getNumHexes() - numOuterHexes(); i < getNumHexes(); i++) {
-            for (int j = 0; j < hexes.get(i).pointableSides; j++, labelIndex++) {
-                hexes.get(i).boardLabels[j] = new BoardLabel("" + labelIndex, hexes.get(i),
-                        computeLabelAngle(labelIndex));
+        for (Vector3D vec : outerHexes) {
+            for (int j = 0; j < hexes.getValue(vec).pointableSides; j++, labelIndex++) {
+                hexes.getValue(vec).boardLabels[j] = new BoardLabel("" + labelIndex, hexes.getValue(vec), computeLabelAngle(labelIndex));
             }
         }
     }
@@ -116,7 +132,7 @@ public class HexBoard {
         Graphics2D g = GamePanel.get().graphics;
         g.setColor(Color.WHITE);
 
-        for (Hexagon hex : hexes) {
+        for (Hexagon hex : hexes.getValueSet()) {
             hex.drawHexagon();
             if (hex.boardLabels != null) {
                 for (BoardLabel bl : hex.boardLabels) {
@@ -159,8 +175,8 @@ public class HexBoard {
 
     public Hexagon closestHexToCoords(Vector2D coords) {
         double leader = Double.MAX_VALUE;
-        Hexagon leaderHex = this.hexes.get(0);
-        for (Hexagon h : this.hexes) {
+        Hexagon leaderHex = this.hexes.getValue(new Vector3D(0, 0, 0));
+        for (Hexagon h : hexes.getValueSet()) {
             double dist = h.center().distanceSquared(coords);
             if (dist < leader) {
                 leaderHex = h;
@@ -171,14 +187,13 @@ public class HexBoard {
         return leaderHex;
     }
 
-    public BoardLabel closestLabelToCoords(Vector2D coords) {
-        BoardLabel leaderLabel = hexes.get(getNumHexes() - numOuterHexes()).boardLabels[0];
+    public BoardLabel closestLabelToCoords(Vector2D coords){
+        BoardLabel leaderLabel = hexes.getValue(outerHexes[0]).boardLabels[0];
         double leader = Double.MAX_VALUE;
-
         double dist;
 
-        for (int i = getNumHexes() - numOuterHexes(); i < getNumHexes(); i++) {
-            for (BoardLabel bl : hexes.get(i).boardLabels) {
+        for (Vector3D vec : outerHexes) {
+            for (BoardLabel bl : hexes.getValue(vec).boardLabels){
                 dist = coords.distanceSquared(bl.pos);
                 if (dist < leader) {
                     leaderLabel = bl;
@@ -190,7 +205,7 @@ public class HexBoard {
         return leaderLabel;
     }
 
-    public BoardLabel closestLabelToMouseCoords() {
+    public BoardLabel closestLabelToMouseCoords(){
         return closestLabelToCoords(GamePanel.get().mouseCoords);
     }
 
@@ -217,20 +232,27 @@ public class HexBoard {
 
         this.pos = coords;
 
-        for (Hexagon h : hexes) {
+        for (Hexagon h : hexes.getValueSet()) {
             h.reposition(h.pos.add(delta));
         }
     }
 
     private void placeTrueAtoms() {
         Random random = new Random();
-        int randHexIndex;
-        for (int i = 0; i < trueAtomHexagons.length; i++) {
-            do {
-                randHexIndex = random.nextInt(0, hexes.size());
-            } while (Arrays.asList(trueAtomHexagons).contains(hexes.get(randHexIndex)));
-            trueAtomHexagons[i] = hexes.get(randHexIndex);
-            trueAtomHexagons[i].placeTrueAtom();
+        int q, r, s;
+        Vector3D randomVector;
+        for(int i = 0; i < trueAtomHexagons.length; i++) {
+            do{
+                do {
+                    q = random.nextInt(-size, size);
+                    r = random.nextInt(-size, size);
+                    s = -q-r;
+
+                } while (!(q + r + s == 0) || (s > size) || (s < -size));
+                randomVector = new Vector3D(q, r, s);
+            } while(Arrays.asList(trueAtomHexagons).contains(randomVector));
+            trueAtomHexagons[i] = randomVector;
+            hexes.getValue(trueAtomHexagons[i]).placeTrueAtom();
         }
     }
 
@@ -246,17 +268,10 @@ public class HexBoard {
         atomSelectorOn = !atomSelectorOn;
     }
 
-    public int getNumHexes() {
-        return hexes.size();
-    }
 
-    public int getSize() {
-        return size;
-    }
-
-    public ArrayList<Hexagon> getHexes() {
-        return hexes;
-    }
+    public int numHexes() { return 6*size*(size+1)/2+1;}
+    public int getSize() { return size; }
+    public BiMap<Vector3D, Hexagon> getHexes() { return hexes; }
 
     public int numOuterHexes() {
         return 6 * size;
@@ -264,5 +279,15 @@ public class HexBoard {
 
     public int numLabels() {
         return (size + 1) * 2 * 6 - 6;
+    }
+
+
+    public boolean isOuterHex(Vector3D vec) {
+        return vec.q == size || vec.r == size || vec.s == size
+                || vec.q == -size || vec.r == -size || vec.s == -size;
+    }
+
+    public boolean isOuterHex(Hexagon hex) {
+        return isOuterHex(hexes.getKey(hex));
     }
 }

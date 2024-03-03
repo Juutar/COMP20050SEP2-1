@@ -188,7 +188,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
             Vector2D vec = new Vector2D(e.getX(), e.getY());
             if (board.closestHexToCoords(vec).hasGuessAtom() || board.atomIndex < board.numAtoms){
                 if (board.closestHexToCoords(vec).toggleGuess()) {
-                    board.guessAtomHexagons[board.atomIndex++] = board.closestHexToCoords(vec);
+                    board.guessAtomHexagons[board.atomIndex++] = board.getHexes().getKey(board.closestHexToCoords(vec));
                 } else {
                     board.guessAtomHexagons[--board.atomIndex] = null;
                 }

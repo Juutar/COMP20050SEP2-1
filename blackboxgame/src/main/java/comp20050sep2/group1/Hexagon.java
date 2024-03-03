@@ -5,23 +5,24 @@ import comp20050sep2.group1.utils.Vector3D;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Hexagon {
 
     double side;
     Vector2D pos;
-    Vector3D coords;
 
     Atom guessAtom = null;
     Atom trueAtom = null;
 
     int pointableSides;
     BoardLabel[] boardLabels;
+    ArrayList<Hexagon> neighbors;
 
-    Hexagon(double side, Vector2D pos, Vector3D coords) {
+    Hexagon(double side, Vector2D pos){
         this.pos = pos;
         this.side = side;
-        this.coords = coords;
         this.pointableSides = 0;
         this.boardLabels = null;
     }
@@ -58,7 +59,7 @@ public class Hexagon {
         g.draw(new Line2D.Double(c1, c2, e1, e2));
         g.draw(new Line2D.Double(f1, f2, d1, d2));
         g.draw(new Line2D.Double(f1, f2, e1, e2));
-        g.drawString(coords.toString(), (int) pos.x, (int) pos.y);
+        //g.drawString(GamePanel.get().board.getHexes().getKey(this).toString(), (int) pos.x, (int) pos.y);
 
         if (hasTrueAtom() && GamePanel.get().board.trueAtomsVisible) {
             trueAtom.drawAtom();
