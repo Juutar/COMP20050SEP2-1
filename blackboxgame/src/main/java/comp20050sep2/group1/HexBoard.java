@@ -91,20 +91,24 @@ public class HexBoard {
         System.out.println("debug");
 
         int k = 1;
-        
+
+        //h stores the current hexagon who's neighbours we have to find
+
         while(hexes_iter.hasNext()){
             Hexagon h = hexes_iter.next();
             if(h.hasTrueAtom()){
-                Vector3D coordsVec = hexes.getKey(h);
 
+                Vector3D coordsVec = hexes.getKey(h);       //get the coordinates of the hexagon
                 System.out.println("for hexagon : " + hexes.getKey(h));
-                
+
                 for(int angle = 0; angle <= 300; angle += 60){
 
-                    if(hexes.getKeySet().contains(coordsVec.getNeighbouringCoords(angle))){
-                        hexes.getValue(coordsVec.getNeighbouringCoords(angle)).underInfluence = true;
-                        System.out.println(k++ + " " + new Vector3D().binaryAdd(coordsVec, coordsVec.getNeighbouringCoords(angle)));
+                    Vector3D neighbour = Vector3D.binaryAdd(coordsVec, coordsVec.getNeighbouringCoords(angle));
+                    if(hexes.getKeySet().contains(neighbour)){
+                        hexes.getValue(neighbour).underInfluence = true;
+                        System.out.println(k++ + " " + neighbour);
                     }
+
                 }
 
                 k = 1;

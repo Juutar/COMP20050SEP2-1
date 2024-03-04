@@ -64,7 +64,7 @@ public class Vector3D {
         this.s = s + vec.s;
     }
 
-    public Vector3D binaryAdd(Vector3D a, Vector3D b){
+    public static Vector3D binaryAdd(Vector3D a, Vector3D b){
         return new Vector3D(a.q + b.q, a.r + b.r, a.s + b.s);
     }
 
