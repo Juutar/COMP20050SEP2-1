@@ -1,7 +1,6 @@
 package comp20050sep2.group1;
 
 import comp20050sep2.group1.utils.Vector2D;
-import comp20050sep2.group1.utils.Vector3D;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
