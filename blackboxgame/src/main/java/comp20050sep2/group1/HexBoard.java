@@ -171,6 +171,7 @@ public class HexBoard {
         g.setColor(Color.WHITE);
 
         for (Hexagon hex : hexes.getValueSet()) {
+            
             hex.drawHexagon();
             
             if (hex.boardLabels != null) {
@@ -182,6 +183,9 @@ public class HexBoard {
                     }
                 }
             }
+
+            //temp code
+
             if(hex.underInfluence){
                 g.setColor(Color.MAGENTA);
                 g.fillRect((int)hex.center().x - 7, (int)hex.center().y - 7, 15, 15);
@@ -197,6 +201,12 @@ public class HexBoard {
             g.fillOval((int) nearest.center().x - 10, (int) nearest.center().y - 10, 20, 20);
             g.setColor(Color.white);
         }
+
+        Ray r = new Ray(hexes.getValue(new Vector3D()));
+        r.addHextoRoute(hexes.getValue(new Vector3D(1, 0, -1)));
+        r.addHextoRoute(hexes.getValue(new Vector3D(0, 3, -3)));
+
+        r.drawRay();
 
     }
 

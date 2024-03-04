@@ -1,6 +1,7 @@
 package comp20050sep2.group1;
 
 import comp20050sep2.group1.utils.Vector2D;
+import comp20050sep2.group1.utils.Vector3D;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -170,7 +171,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
         drawBackgroundImage();
 
         if(board != null){
+
             board.drawBoard();
+
         }
 
     }
@@ -193,6 +196,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
                     board.guessAtomHexagons[--board.atomIndex] = null;
                 }
             }
+        }
+        else if(!board.atomSelectorOn){     //shooting rays
+
         }
 
     }
