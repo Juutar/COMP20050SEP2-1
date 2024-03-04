@@ -7,9 +7,10 @@ import java.awt.Stroke;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import comp20050sep2.group1.utils.Vector3D;
+
 public class Ray {
     
-    public Hexagon startHex;
     public ArrayList<Hexagon> points;
     
     public Ray(Hexagon startHex){
@@ -36,7 +37,9 @@ public class Ray {
         graphics.setStroke(new BasicStroke(5));
 
         while(iterator.hasNext()){
+            
             currHex = iterator.next();
+
             graphics.drawLine(
                 (int)prevHex.center().x,
                 (int)prevHex.center().y,
@@ -50,6 +53,34 @@ public class Ray {
 
         graphics.setStroke(prevStroke);
 
+    }
+
+    public void drawToLabel(BoardLabel label, boolean entry){       //entry false = exiting the board, entry true = entering the board
+        
+        Graphics2D graphics = GamePanel.get().graphics;
+        graphics.setColor(Color.BLUE);
+        Stroke prevStroke = graphics.getStroke();
+        graphics.setStroke(new BasicStroke(5));
+        
+        if(entry == true){
+            GamePanel.get().graphics.drawLine((int)label.pos.x, (int)label.pos.y, (int)points.get(0).center().x, (int)points.get(0).center().y);
+        }
+        else if(entry == false){
+            GamePanel.get().graphics.drawLine((int)label.pos.x, (int)label.pos.y, (int)points.get(points.size() - 1).center().x, (int)points.get(points.size() - 1).center().y);
+        }
+
+        graphics.setStroke(prevStroke);
+
+    }
+
+    public void setNext(Vector3D vel){
+        
+        Vector3D next = Vector3D.binaryAdd(vel, GamePanel.get().board.getHexes().getKey(points.get(points.size() - 1)));
+
+        if(GamePanel.get().board.getHexes().getKeySet().contains(next)){
+            points.add(GamePanel.get().board.getHexes().getValue(next));
+        }
+        
     }
 
     public static void drawRayHexes(Hexagon a, Hexagon b){

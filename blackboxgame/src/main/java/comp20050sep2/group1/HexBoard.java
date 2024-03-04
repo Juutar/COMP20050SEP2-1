@@ -202,11 +202,20 @@ public class HexBoard {
             g.setColor(Color.white);
         }
 
-        Ray r = new Ray(hexes.getValue(new Vector3D()));
-        r.addHextoRoute(hexes.getValue(new Vector3D(1, 0, -1)));
-        r.addHextoRoute(hexes.getValue(new Vector3D(0, 3, -3)));
+        for(Vector3D v : hexes.getKeySet()){
+            Ray r = new Ray(hexes.getValue(new Vector3D()));
+            r.setNext(v);
+            r.drawRay();
 
-        r.drawRay();
+            if(hexes.getValue(v).boardLabels != null){
+                for(int i = 0; i < hexes.getValue(v).boardLabels.length; i ++){
+                    r.drawToLabel(hexes.getValue(v).boardLabels[i], false);
+                }
+            }
+        }
+
+        // r.drawRay();
+        
 
     }
 
