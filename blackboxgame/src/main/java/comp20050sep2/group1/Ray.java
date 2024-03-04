@@ -83,6 +83,10 @@ public class Ray {
         
     }
 
+    public void setNextHex(Hexagon h){
+        points.add(h);
+    }
+
     public static void drawRayHexes(Hexagon a, Hexagon b){
         
         GamePanel.get().graphics.setColor(Color.gray);
