@@ -32,9 +32,9 @@ public class Ray {
         Hexagon currHex;
 
         Graphics2D graphics = GamePanel.get().graphics;
-        graphics.setColor(Color.BLUE);
+        graphics.setColor(Color.gray);
         Stroke prevStroke = graphics.getStroke();
-        graphics.setStroke(new BasicStroke(5));
+        graphics.setStroke(new BasicStroke(3));
 
         while(iterator.hasNext()){
             
@@ -58,9 +58,9 @@ public class Ray {
     public void drawToLabel(BoardLabel label, boolean entry){       //entry false = exiting the board, entry true = entering the board
         
         Graphics2D graphics = GamePanel.get().graphics;
-        graphics.setColor(Color.BLUE);
+        graphics.setColor(Color.gray);
         Stroke prevStroke = graphics.getStroke();
-        graphics.setStroke(new BasicStroke(5));
+        graphics.setStroke(new BasicStroke(3));
         
         if(entry == true){
             GamePanel.get().graphics.drawLine((int)label.pos.x, (int)label.pos.y, (int)points.get(0).center().x, (int)points.get(0).center().y);
@@ -85,9 +85,9 @@ public class Ray {
 
     public static void drawRayHexes(Hexagon a, Hexagon b){
         
-        GamePanel.get().graphics.setColor(Color.BLUE);
+        GamePanel.get().graphics.setColor(Color.gray);
         Stroke prevStroke = GamePanel.get().graphics.getStroke();
-        GamePanel.get().graphics.setStroke(new BasicStroke(5));
+        GamePanel.get().graphics.setStroke(new BasicStroke(3));
 
         GamePanel.get().graphics.drawLine(
             (int)a.center().x,
