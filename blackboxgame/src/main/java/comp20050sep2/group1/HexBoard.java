@@ -9,8 +9,6 @@ import comp20050sep2.group1.utils.BiMap;
 import comp20050sep2.group1.utils.Vector2D;
 import comp20050sep2.group1.utils.Vector3D;
 
-import static java.lang.Math.abs;
-
 public class HexBoard {
 
     public Vector2D pos;
@@ -88,6 +86,10 @@ public class HexBoard {
 
     private void assignNeighbours(){
         
+        for(int i = 0; i < hexes.size(); i ++){
+            
+        }
+
     }
 
     private void assignPointableSides() {
@@ -139,6 +141,9 @@ public class HexBoard {
 
         for (Hexagon hex : hexes.getValueSet()) {
             hex.drawHexagon();
+            g.setColor(Color.BLUE);
+            g.drawString("" + hexes.getKey(hex), (int)hex.center().x, (int)hex.center().y);       //write the coordinates on
+            g.setColor(Color.WHITE);
             if (hex.boardLabels != null) {
                 for (BoardLabel bl : hex.boardLabels) {
                     if (!atomSelectorOn && bl == closestLabelToMouseCoords()) {
