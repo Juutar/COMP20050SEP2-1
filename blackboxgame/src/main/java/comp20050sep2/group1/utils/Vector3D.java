@@ -38,10 +38,28 @@ public class Vector3D {
         };
     }
 
+
+    //this function works relative to the x-axis
+    public Vector3D getNeighbouringCoords(int angle){
+        switch(angle % 360){
+            case 0 -> { return new Vector3D(angle, angle, angle); }
+            case 60 -> { return new Vector3D(angle, angle, angle); }
+            case 120 -> { return new Vector3D(angle, angle, angle); }
+            case 180 -> { return new Vector3D(angle, angle, angle); }
+            case 240 -> { return new Vector3D(angle, angle, angle); }
+            case 300 -> { return new Vector3D(angle, angle, angle); }
+            default -> { return new Vector3D(0, 0, 0); }        //itself
+        }
+    }
+
     public void sum(Vector3D vec) {
         this.q = q + vec.q;
         this.r = r + vec.r;
         this.s = s + vec.s;
+    }
+
+    public Vector3D addInv(){
+        return new Vector3D(-1 * this.q, -1 * this.r, -1 * this.s);
     }
 
     @Override

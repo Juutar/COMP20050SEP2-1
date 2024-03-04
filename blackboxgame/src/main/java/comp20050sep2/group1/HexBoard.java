@@ -80,14 +80,24 @@ public class HexBoard {
         placeTrueAtoms();
         assignPointableSides();
         assignLabels();
-        assignNeighbours();
+        // assignNeighbours();
 
     }
 
     private void assignNeighbours(){
         
-        for(int i = 0; i < hexes.size(); i ++){
-            
+        Iterator<Hexagon> hexes_iter = hexes.getValueSet().iterator();
+        
+        while(hexes_iter.hasNext()){
+            Hexagon h = hexes_iter.next();
+            if(hexes_iter.next().hasTrueAtom()){
+                Vector3D coordsVec = hexes.getKey(h);
+                for(int angle = 0; angle <= 360; angle += 60){
+                    if(hexes.getKeySet().contains(coordsVec.getNeighbouringCoords(angle))){
+                        hexes.getValue(coordsVec.getNeighbouringCoords(angle)).atomInfluence = coordsVec.getNeighbouringCoords(angle);
+                    }
+                }
+            }
         }
 
     }

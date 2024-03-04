@@ -17,6 +17,8 @@ public class Hexagon {
 
     public Vector3D atomInfluence;
 
+    public boolean influence;
+
     int pointableSides;
     BoardLabel[] boardLabels;
     ArrayList<Hexagon> neighbors;
