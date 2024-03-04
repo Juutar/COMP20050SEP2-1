@@ -13,6 +13,12 @@ public class Vector3D {
         }
     }
 
+    public Vector3D(Vector3D ref){
+        this.q = ref.q;
+        this.r = ref.r;
+        this.s = ref.s;
+    }
+
     public Vector3D() {
         this.q = 0;
         this.r = 0;
@@ -42,12 +48,12 @@ public class Vector3D {
     //this function works relative to the x-axis
     public Vector3D getNeighbouringCoords(int angle){
         switch(angle % 360){
-            case 0 -> { return new Vector3D(angle, angle, angle); }
-            case 60 -> { return new Vector3D(angle, angle, angle); }
-            case 120 -> { return new Vector3D(angle, angle, angle); }
-            case 180 -> { return new Vector3D(angle, angle, angle); }
-            case 240 -> { return new Vector3D(angle, angle, angle); }
-            case 300 -> { return new Vector3D(angle, angle, angle); }
+            case 0 -> { return new Vector3D(1, 0, -1); }
+            case 60 -> { return new Vector3D(0, 1, -1); }
+            case 120 -> { return new Vector3D(-1, 1, 0); }
+            case 180 -> { return new Vector3D(-1, 0, 1); }
+            case 240 -> { return new Vector3D(0,-1, 1); }
+            case 300 -> { return new Vector3D(1, -1, 0); }
             default -> { return new Vector3D(0, 0, 0); }        //itself
         }
     }
@@ -58,8 +64,8 @@ public class Vector3D {
         this.s = s + vec.s;
     }
 
-    public Vector3D addInv(){
-        return new Vector3D(-1 * this.q, -1 * this.r, -1 * this.s);
+    public Vector3D binaryAdd(Vector3D a, Vector3D b){
+        return new Vector3D(a.q + b.q, a.r + b.r, a.s + b.s);
     }
 
     @Override

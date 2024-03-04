@@ -17,7 +17,7 @@ public class Hexagon {
 
     public Vector3D atomInfluence;
 
-    public boolean influence;
+    public boolean underInfluence;
 
     int pointableSides;
     BoardLabel[] boardLabels;
@@ -28,6 +28,7 @@ public class Hexagon {
         this.side = side;
         this.pointableSides = 0;
         this.boardLabels = null;
+        this.underInfluence = false;
     }
 
     public Vector2D center() {
