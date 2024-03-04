@@ -82,7 +82,12 @@ public class HexBoard {
         placeTrueAtoms();
         assignPointableSides();
         assignLabels();
+        assignNeighbours();
 
+    }
+
+    private void assignNeighbours(){
+        
     }
 
     private void assignPointableSides() {
@@ -290,4 +295,5 @@ public class HexBoard {
     public boolean isOuterHex(Hexagon hex) {
         return isOuterHex(hexes.getKey(hex));
     }
+
 }

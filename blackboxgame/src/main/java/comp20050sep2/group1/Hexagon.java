@@ -6,7 +6,6 @@ import comp20050sep2.group1.utils.Vector3D;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Hexagon {
 
@@ -15,6 +14,8 @@ public class Hexagon {
 
     Atom guessAtom = null;
     Atom trueAtom = null;
+
+    public Vector3D atomInfluence;
 
     int pointableSides;
     BoardLabel[] boardLabels;
@@ -111,4 +112,5 @@ public class Hexagon {
     public boolean isIncorrect() {
         return (hasGuessAtom() && !hasTrueAtom()) || (!hasGuessAtom() && hasTrueAtom());
     }
+
 }

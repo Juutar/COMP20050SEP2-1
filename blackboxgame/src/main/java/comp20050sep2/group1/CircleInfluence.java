@@ -24,4 +24,5 @@ public class CircleInfluence {
         g.drawOval((int) (pos.x - radius / 2), (int) (pos.y - radius / 2), (int) radius, (int) radius);
         g.setStroke(initialStroke);
     }
+
 }
