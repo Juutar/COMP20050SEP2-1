@@ -3,7 +3,10 @@ package comp20050sep2.group1;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Random;
 
 import comp20050sep2.group1.utils.BiMap;
 import comp20050sep2.group1.utils.Vector2D;
@@ -88,10 +91,6 @@ public class HexBoard {
         
         Iterator<Hexagon> hexes_iter = hexes.getValueSet().iterator();
 
-        System.out.println("debug");
-
-        int k = 1;
-
         //h stores the current hexagon who's neighbours we have to find
 
         while(hexes_iter.hasNext()){
@@ -106,12 +105,15 @@ public class HexBoard {
                     Vector3D neighbour = Vector3D.binaryAdd(coordsVec, coordsVec.getNeighbouringCoords(angle));
                     if(hexes.getKeySet().contains(neighbour)){
                         hexes.getValue(neighbour).underInfluence = true;
-                        System.out.println(k++ + " " + neighbour);
+
+                        if(h.neighbors == null){
+                            h.neighbors = new ArrayList<>();
+                        }
+
+                        h.neighbors.add(hexes.getValue(neighbour));
                     }
 
                 }
-
-                k = 1;
 
             }
         }
@@ -167,9 +169,7 @@ public class HexBoard {
 
         for (Hexagon hex : hexes.getValueSet()) {
             hex.drawHexagon();
-            g.setColor(Color.BLUE);
-            g.drawString("" + hexes.getKey(hex), (int)hex.center().x, (int)hex.center().y);       //write the coordinates on
-            g.setColor(Color.WHITE);
+            
             if (hex.boardLabels != null) {
                 for (BoardLabel bl : hex.boardLabels) {
                     if (!atomSelectorOn && bl == closestLabelToMouseCoords()) {
@@ -178,6 +178,10 @@ public class HexBoard {
                         bl.writeText();
                     }
                 }
+            }
+            if(hex.underInfluence){
+                g.setColor(Color.MAGENTA);
+                g.fillRect((int)hex.center().x - 7, (int)hex.center().y - 7, 15, 15);
             }
         }
 
