@@ -98,7 +98,6 @@ public class HexBoard {
             if(h.hasTrueAtom()){
 
                 Vector3D coordsVec = hexes.getKey(h);       //get the coordinates of the hexagon
-                System.out.println("for hexagon : " + hexes.getKey(h));
 
                 for(int angle = 0; angle <= 300; angle += 60){
 
@@ -111,13 +110,17 @@ public class HexBoard {
                         }
 
                         h.neighbors.add(hexes.getValue(neighbour));
+
+                        if(hexes.getValue(neighbour).influenceVector == null){
+                            hexes.getValue(neighbour).influenceVector = coordsVec.getNeighbouringCoords(angle);
+                        }
+                        else{
+                            hexes.getValue(neighbour).influenceVector.sum(coordsVec.getNeighbouringCoords(angle));
+                        }
                     }
-
                 }
-
             }
         }
-
     }
 
     private void assignPointableSides() {
@@ -182,6 +185,7 @@ public class HexBoard {
             if(hex.underInfluence){
                 g.setColor(Color.MAGENTA);
                 g.fillRect((int)hex.center().x - 7, (int)hex.center().y - 7, 15, 15);
+                g.drawString(hex.influenceVector.toString(), (int)hex.center().x, (int)hex.center().y);
             }
         }
 
