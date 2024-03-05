@@ -33,4 +33,9 @@ public class BoardLabel extends JLabel {
         GamePanel.get().graphics.drawString(text, (int) pos.x, (int) pos.y);
     }
 
+    public Vector2D center() {
+        return new Vector2D(hexagon.center().x + Math.sin(Math.toRadians(angle)) * (hexagon.side * 1.2),
+                hexagon.center().y - Math.cos(Math.toRadians(angle)) * (hexagon.side * 1.2));
+    }
+
 }
