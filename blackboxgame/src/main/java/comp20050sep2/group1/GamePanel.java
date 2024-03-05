@@ -241,7 +241,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
             rayList.get(rayList.size() - 1).setNext(vel);
             
 
-            for(int i = 0; i < board.getHexes().size(); i ++){
+            for(int i = 0; i < board.getHexes().size(); i ++){      //i j picked the limit as a big number, there should be a break statement in this when the end is reached
                 
                 oldVel = vel.copy();
 
@@ -259,6 +259,11 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
                 }
 
                 rayList.get(rayList.size() - 1).setNext(vel);
+                if(rayList.get(rayList.size() - 1).points.get(rayList.get(rayList.size() - 1).points.size() - 1) == null){
+                    rayList.get(rayList.size() - 1).points.remove(rayList.get(rayList.size() - 1).points.size() - 1);
+                    System.out.println("the ray reached");
+                    break;
+                }
 
             }
         }

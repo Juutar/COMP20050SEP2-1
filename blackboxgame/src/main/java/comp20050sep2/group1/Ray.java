@@ -80,6 +80,9 @@ public class Ray {
         if(GamePanel.get().board.getHexes().getKeySet().contains(next)){
             points.add(GamePanel.get().board.getHexes().getValue(next));
         }
+        else{
+            points.add(null);
+        }
         
     }
 
