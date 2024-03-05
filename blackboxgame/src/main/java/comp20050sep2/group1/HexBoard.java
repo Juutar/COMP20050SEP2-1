@@ -29,6 +29,8 @@ public class HexBoard {
     public Vector3D[] trueAtomHexagons;
     public Vector3D[] outerHexes;
 
+    public double latestPointerAngle;
+
     public HexBoard(double side, Vector2D pos, int size /* from 0, how many rings */, int numAtoms) {
         hexes = new BiMap<>();
         hexes.add(new Vector3D(0, 0, 0), new Hexagon(side, pos));
@@ -177,7 +179,8 @@ public class HexBoard {
             if (hex.boardLabels != null) {
                 for (BoardLabel bl : hex.boardLabels) {
                     if (!atomSelectorOn && bl == closestLabelToMouseCoords()) {
-                        AbstractRayPointer.drawRayPointer(bl.pos, hex.center());
+                        AbstractRayPointer.drawRayPointer(new Vector2D(bl.pos.x + 10, bl.pos.y - 5), hex.center());
+                        System.out.println("angle is " + closestLabelToMouseCoords().angle);
                     } else {
                         bl.writeText();
                     }
@@ -202,6 +205,7 @@ public class HexBoard {
             g.setColor(Color.white);
         }
 
+        //temp code
         Ray r = new Ray(hexes.getValue(outerHexes[0]));
 
         for(int i = 0; i <= outerHexes.length; i ++){
@@ -209,7 +213,6 @@ public class HexBoard {
         }
 
         r.drawRay();
-        
 
     }
 

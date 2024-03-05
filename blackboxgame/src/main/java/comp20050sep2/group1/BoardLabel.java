@@ -21,10 +21,10 @@ public class BoardLabel extends JLabel {
         this.hexagon = hexagon;
         this.angle = angle;
 
-        this.pos = new Vector2D(hexagon.center().x + Math.sin(Math.toRadians(angle)) * (1.2*hexagon.side) - 10, //needs to be + because JFrame grid starts from upper left corner
-                                hexagon.center().y - Math.cos(Math.toRadians(angle)) * (1.2*hexagon.side) + 5);
+        this.pos = new Vector2D(hexagon.center().x + Math.sin(Math.toRadians(angle)) * (hexagon.side * 1.2) - 10, //needs to be + because JFrame grid starts from upper left corner
+                                hexagon.center().y - Math.cos(Math.toRadians(angle)) * (hexagon.side * 1.2) + 5);
         this.rayDirection = new Vector3D();
-        rayDirection.setCoorsFromAngle((angle + 180)%360);
+        rayDirection.setCoorsFromAngle((angle + 180) % 360);
     }
 
     public void writeText() {

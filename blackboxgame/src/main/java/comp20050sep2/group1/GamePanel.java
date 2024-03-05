@@ -197,7 +197,8 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
             }
         }
         else if(!board.atomSelectorOn){     //shooting rays
-
+            System.out.println("clicked on set rays mode");
+            
         }
 
     }
