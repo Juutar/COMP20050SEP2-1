@@ -20,7 +20,7 @@ public class CircleInfluence {
         Graphics2D g = GamePanel.get().graphics;
         g.setColor(color);
         Stroke initialStroke = g.getStroke();
-        g.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0, new float[] { 10.0F }, 0.0F));
+        g.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0, new float[]{10.0F}, 0.0F));
         g.drawOval((int) (pos.x - radius / 2), (int) (pos.y - radius / 2), (int) radius, (int) radius);
         g.setStroke(initialStroke);
     }

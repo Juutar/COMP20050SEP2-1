@@ -68,8 +68,8 @@ public class Arrowhead {
 
     public void drawArrow() {
         GamePanel.get().graphics.fillPolygon(
-                new int[] { (int) vertices[0].x, (int) vertices[1].x, (int) vertices[2].x },
-                new int[] { (int) vertices[0].y, (int) vertices[1].y, (int) vertices[2].y }, 3);
+                new int[]{(int) vertices[0].x, (int) vertices[1].x, (int) vertices[2].x},
+                new int[]{(int) vertices[0].y, (int) vertices[1].y, (int) vertices[2].y}, 3);
     }
 
 }

@@ -1,58 +1,41 @@
 package comp20050sep2.group1;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import comp20050sep2.group1.utils.Vector2D;
+import comp20050sep2.group1.utils.Vector3D;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-
-import comp20050sep2.group1.utils.Vector2D;
-import comp20050sep2.group1.utils.Vector3D;
-
-public class GamePanel extends JPanel implements Runnable, MouseListener{
+public class GamePanel extends JPanel implements Runnable, MouseListener {
 
     private static GamePanel INSTANCE;
-    public static GamePanel get() {
-        if (INSTANCE == null)
-            INSTANCE = new GamePanel();
-        return INSTANCE;
-    }
-
-    public Graphics2D graphics;
-
-    public Vector2D mouseCoords = new Vector2D(0, 0);
-    public Vector3D lastMousePoint;
-    
     //Screen settings
     final int originalTileSize = 16;    //16 x 16 tiles
     final int scale = 5;
-
-    final int FPS = 60;
-
     public final int tileSize = originalTileSize * scale;  //48
     final int maxScreenCol = 16;
     final int maXScreenRow = 12;
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maXScreenRow;
-
+    final int FPS = 60;
+    public Graphics2D graphics;
+    public Vector2D mouseCoords = new Vector2D(0, 0);
+    public Vector3D lastMousePoint;
     public Ray r;
     public ArrayList<Ray> rayList;
-
     Vector2D lastSize;
-
     HexBoard board;
     ShowAtomButton showAtomButton;
     ShowRayButton showRayButton;
-
     KeyHandler keyH = new KeyHandler();
     MouseMoveHandler mouseMoveHandler = new MouseMoveHandler();
     Thread gameThread;
+    private ImageIcon backgroundImage;
+    private boolean imageFailed = false;
+
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -70,8 +53,13 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
         this.rayList = new ArrayList<>();
     }
 
+    public static GamePanel get() {
+        if (INSTANCE == null)
+            INSTANCE = new GamePanel();
+        return INSTANCE;
+    }
 
-    public void startGameThread(){
+    public void startGameThread() {
 
         gameThread = new Thread(this);
         gameThread.start();
@@ -80,27 +68,27 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
         board = new HexBoard(50, viewport.mul(0.5), 4, 6);
 
-        showAtomButton = new ShowAtomButton(new Vector2D((screenWidth - 200)/15.0 + 10, screenHeight - screenHeight/10.0 + 40));
+        showAtomButton = new ShowAtomButton(new Vector2D((screenWidth - 200) / 15.0 + 10, screenHeight - screenHeight / 10.0 + 40));
         showAtomButton.addMouseListener(this);
         this.add(showAtomButton);
 
-        showRayButton = new ShowRayButton(new Vector2D((screenWidth - 200)/15.0 + 10 + showAtomButton.width + 2, screenHeight - screenHeight/10.0 + 40));
+        showRayButton = new ShowRayButton(new Vector2D((screenWidth - 200) / 15.0 + 10 + showAtomButton.width + 2, screenHeight - screenHeight / 10.0 + 40));
         showRayButton.addMouseListener(this);
         this.add(showRayButton);
 
     }
-    
+
     @Override
     public void run() {
-        
-        double drawInterval = 1000000000/FPS;
+
+        double drawInterval = 1000000000 / FPS;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
         long timer = 0;
         int drawCount = 0;
 
-        while(gameThread != null){
+        while (gameThread != null) {
 
             currentTime = System.nanoTime();
 
@@ -109,14 +97,14 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
             lastTime = currentTime;
 
-            if(delta > 1){
+            if (delta > 1) {
                 update();
                 repaint();
-                delta --;
-                drawCount ++;
+                delta--;
+                drawCount++;
             }
 
-            if(timer >= 1000000000){
+            if (timer >= 1000000000) {
                 System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
@@ -126,15 +114,14 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
     }
 
-    public void update(){
-        
-        
+    public void update() {
+
 
     }
 
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.graphics = (Graphics2D)g;
+        this.graphics = (Graphics2D) g;
 
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -143,8 +130,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
         this.graphics = null;
     }
 
-    private ImageIcon backgroundImage;
-    private boolean imageFailed = false;
     private void drawBackgroundImage() {
         if (imageFailed)
             return;
@@ -170,10 +155,10 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
         Graphics2D g = GamePanel.get().graphics;
 
-        g.drawImage(backgroundImage.getImage(), (int)-toLeft, 0, (int)(imageSize.x * scale), (int)viewport.y, null);
+        g.drawImage(backgroundImage.getImage(), (int) -toLeft, 0, (int) (imageSize.x * scale), (int) viewport.y, null);
     }
 
-    public void draw(){
+    public void draw() {
         // check for resize
         Vector2D viewport = new Vector2D(GamePanel.get().getSize().width, GamePanel.get().getSize().height);
         if (!viewport.equals(lastSize) && board != null) {
@@ -182,9 +167,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
         drawBackgroundImage();
 
-        if(board != null){
+        if (board != null) {
             board.drawBoard();
-            for(Ray r : rayList){
+            for (Ray r : rayList) {
                 r.drawRay((board.closestLabelToMouseCoords().hexagon == r.start) || (board.closestLabelToMouseCoords().hexagon == r.end));
             }
         }
@@ -193,23 +178,20 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.getSource() == showAtomButton) {
+        if (e.getSource() == showAtomButton) {
             showAtomButton.performAction();
-        }
-        else if(e.getSource() == showRayButton){
+        } else if (e.getSource() == showRayButton) {
             showRayButton.performAction();
-        }
-        else if(board.atomSelectorOn){
+        } else if (board.atomSelectorOn) {
             Vector2D vec = new Vector2D(e.getX(), e.getY());
-            if (board.closestHexToCoords(vec).hasGuessAtom() || board.atomIndex < board.numAtoms){
+            if (board.closestHexToCoords(vec).hasGuessAtom() || board.atomIndex < board.numAtoms) {
                 if (board.closestHexToCoords(vec).toggleGuess()) {
                     board.guessAtomHexagons[board.atomIndex++] = board.getHexes().getKey(board.closestHexToCoords(vec));
                 } else {
                     board.guessAtomHexagons[--board.atomIndex] = null;
                 }
             }
-        }
-        else if(!board.atomSelectorOn){     //shooting rays
+        } else if (!board.atomSelectorOn) {     //shooting rays
             Hexagon lastHex = board.closestLabelToMouseCoords().hexagon;
             Vector2D forward = lastHex.pos.sub(board.closestLabelToMouseCoords().center());
             Ray r = new Ray(lastHex, forward);
@@ -221,25 +203,25 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
     @Override
     public void mouseEntered(MouseEvent arg0) {
-        
+
     }
 
 
     @Override
     public void mouseExited(MouseEvent arg0) {
-        
+
     }
 
 
     @Override
     public void mousePressed(MouseEvent arg0) {
-        
+
     }
 
 
     @Override
     public void mouseReleased(MouseEvent arg0) {
-        
+
     }
 
 }

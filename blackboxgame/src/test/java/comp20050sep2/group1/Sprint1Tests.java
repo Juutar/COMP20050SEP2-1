@@ -11,27 +11,26 @@ import static org.junit.Assert.*;
 
 /* TODO Defect Testing ?*/
 /* TODO Remove Useless Classes*/
-public class Sprint1Tests
-{
+public class Sprint1Tests {
     /*
-    * Depend on interfaces and not concrete volatile implementation
-    * Hide app structure from tests
-    * Keep tests independents
-    * minimize asserts (1 concept != 1 theme)
-    * */
+     * Depend on interfaces and not concrete volatile implementation
+     * Hide app structure from tests
+     * Keep tests independents
+     * minimize asserts (1 concept != 1 theme)
+     * */
 
     /*
-    * Unit testing: modules individually
-    * Integration testing: major subsystems
-    * Performance testing: computation and rendering delays
-    * Regression testing: modified code didn't break previous features
+     * Unit testing: modules individually
+     * Integration testing: major subsystems
+     * Performance testing: computation and rendering delays
+     * Regression testing: modified code didn't break previous features
      */
 
     @Test
     public void testHexagonBoard() {
         GamePanel.get().startGameThread();
         int size = GamePanel.get().board.getSize();
-        assertEquals(1 + (6L *size*(size+1) / 2), GamePanel.get().board.numHexes());
+        assertEquals(1 + (6L * size * (size + 1) / 2), GamePanel.get().board.numHexes());
     }
 
     @Test
@@ -65,12 +64,12 @@ public class Sprint1Tests
         GamePanel.get().startGameThread();
         assertNull(GamePanel.get().board.guessAtomHexagons[0]);
 
-        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, GamePanel.get().screenWidth/2, GamePanel.get().screenHeight/2, 1, false));
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, GamePanel.get().screenWidth / 2, GamePanel.get().screenHeight / 2, 1, false));
         Hexagon hexagon = GamePanel.get().board.getHexes().getValue(GamePanel.get().board.guessAtomHexagons[0]);
         assertNotNull(hexagon);
         assertNotNull(hexagon.guessAtom);
 
-        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 2, 0, GamePanel.get().screenWidth/2, GamePanel.get().screenHeight/2, 1, false));
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 2, 0, GamePanel.get().screenWidth / 2, GamePanel.get().screenHeight / 2, 1, false));
         assertNull(GamePanel.get().board.guessAtomHexagons[0]);
         assertNull(hexagon.guessAtom);
     }
@@ -80,17 +79,17 @@ public class Sprint1Tests
         GamePanel.get().startGameThread();
         assertNull(GamePanel.get().board.guessAtomHexagons[2]);
 
-        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, GamePanel.get().screenWidth/2, GamePanel.get().screenHeight/2, 1, false));
-        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 2, 0, GamePanel.get().screenWidth, GamePanel.get().screenHeight/2, 1, false));
-        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 3, 0, GamePanel.get().screenWidth/2, GamePanel.get().screenHeight, 1, false));
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, GamePanel.get().screenWidth / 2, GamePanel.get().screenHeight / 2, 1, false));
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 2, 0, GamePanel.get().screenWidth, GamePanel.get().screenHeight / 2, 1, false));
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 3, 0, GamePanel.get().screenWidth / 2, GamePanel.get().screenHeight, 1, false));
 
         Hexagon hexagon = GamePanel.get().board.getHexes().getValue(GamePanel.get().board.guessAtomHexagons[2]);
         assertNotNull(hexagon);
         assertNotNull(hexagon.guessAtom);
 
-        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 4, 0, GamePanel.get().screenWidth/2, GamePanel.get().screenHeight/2, 1, false));
-        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 5, 0, GamePanel.get().screenWidth, GamePanel.get().screenHeight/2, 1, false));
-        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 6, 0, GamePanel.get().screenWidth/2, GamePanel.get().screenHeight, 1, false));
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 4, 0, GamePanel.get().screenWidth / 2, GamePanel.get().screenHeight / 2, 1, false));
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 5, 0, GamePanel.get().screenWidth, GamePanel.get().screenHeight / 2, 1, false));
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 6, 0, GamePanel.get().screenWidth / 2, GamePanel.get().screenHeight, 1, false));
 
         assertNull(GamePanel.get().board.guessAtomHexagons[2]);
         assertNull(hexagon.guessAtom);
@@ -101,18 +100,18 @@ public class Sprint1Tests
         GamePanel.get().startGameThread();
         assertEquals(6, GamePanel.get().board.guessAtomHexagons.length);
 
-        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, GamePanel.get().screenWidth/2, GamePanel.get().screenHeight/2, 1, false));
-        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 2, 0, GamePanel.get().screenWidth, GamePanel.get().screenHeight/2, 1, false));
-        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 3, 0, GamePanel.get().screenWidth/2, GamePanel.get().screenHeight, 1, false));
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, GamePanel.get().screenWidth / 2, GamePanel.get().screenHeight / 2, 1, false));
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 2, 0, GamePanel.get().screenWidth, GamePanel.get().screenHeight / 2, 1, false));
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 3, 0, GamePanel.get().screenWidth / 2, GamePanel.get().screenHeight, 1, false));
         GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 4, 0, GamePanel.get().screenWidth, GamePanel.get().screenHeight, 1, false));
         GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 5, 0, 0, 0, 1, false));
-        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 6, 0, 0, GamePanel.get().screenHeight/2, 1, false));
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 6, 0, 0, GamePanel.get().screenHeight / 2, 1, false));
 
-        assertTrue(GamePanel.get().board.closestHexToCoords(new Vector2D(0, GamePanel.get().screenHeight/2.0)).hasGuessAtom());
+        assertTrue(GamePanel.get().board.closestHexToCoords(new Vector2D(0, GamePanel.get().screenHeight / 2.0)).hasGuessAtom());
 
-        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 6, 0, GamePanel.get().screenWidth/2, 0, 1, false));
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 6, 0, GamePanel.get().screenWidth / 2, 0, 1, false));
 
-        assertFalse(GamePanel.get().board.closestHexToCoords(new Vector2D(GamePanel.get().screenWidth/2.0, 0)).hasGuessAtom());
+        assertFalse(GamePanel.get().board.closestHexToCoords(new Vector2D(GamePanel.get().screenWidth / 2.0, 0)).hasGuessAtom());
     }
 
     @Test
@@ -188,8 +187,8 @@ public class Sprint1Tests
     public void testLabels() {
         GamePanel.get().startGameThread();
         int numSides = 0;
-        for(Hexagon h : GamePanel.get().board.getHexes().getValueSet()) {
-            if(h.pointableSides == 0) {
+        for (Hexagon h : GamePanel.get().board.getHexes().getValueSet()) {
+            if (h.pointableSides == 0) {
                 assertNull(h.boardLabels);
             } else {
                 assertEquals(h.pointableSides, h.boardLabels.length);
@@ -202,7 +201,7 @@ public class Sprint1Tests
     @Test
     public void testRayPointers() {
         GamePanel.get().startGameThread();
-        Vector2D pos = new Vector2D(GamePanel.get().screenWidth, GamePanel.get().screenHeight/2.0);
+        Vector2D pos = new Vector2D(GamePanel.get().screenWidth, GamePanel.get().screenHeight / 2.0);
         Hexagon hexagon = GamePanel.get().board.closestHexToCoords(pos);
         BoardLabel label = GamePanel.get().board.closestLabelToCoords(pos); //function used to replace labels with ray pointers
         assertNotNull(hexagon.boardLabels);
@@ -239,7 +238,7 @@ public class Sprint1Tests
         assertFalse(button.isStateShow());
         assertFalse(GamePanel.get().board.atomSelectorOn);
 
-        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, (int) GamePanel.get().screenWidth/2, (int) GamePanel.get().screenHeight/2, 1, false));
+        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, (int) GamePanel.get().screenWidth / 2, (int) GamePanel.get().screenHeight / 2, 1, false));
         assertNull(GamePanel.get().board.guessAtomHexagons[0]);
 
         button.performAction();

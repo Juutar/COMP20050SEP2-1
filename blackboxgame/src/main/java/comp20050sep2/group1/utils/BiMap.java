@@ -3,9 +3,9 @@ package comp20050sep2.group1.utils;
 import java.util.HashMap;
 import java.util.Set;
 
-public class BiMap<K,V> {
-    private final HashMap<K,V> keyToValue;
-    private final HashMap<V,K> valueToKey;
+public class BiMap<K, V> {
+    private final HashMap<K, V> keyToValue;
+    private final HashMap<V, K> valueToKey;
 
     public BiMap() {
         keyToValue = new HashMap<>();

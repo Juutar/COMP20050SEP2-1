@@ -9,21 +9,17 @@ import java.util.ArrayList;
 
 public class Hexagon {
 
+    public Vector3D influenceVector;
+    public boolean underInfluence;
     double side;
     Vector2D pos;
-
     Atom guessAtom = null;
     Atom trueAtom = null;
-
-    public Vector3D influenceVector;
-
-    public boolean underInfluence;
-
     int pointableSides;
     BoardLabel[] boardLabels;
     ArrayList<Hexagon> neighbors;
 
-    Hexagon(double side, Vector2D pos){
+    Hexagon(double side, Vector2D pos) {
         this.pos = pos;
         this.side = side;
         this.pointableSides = 0;

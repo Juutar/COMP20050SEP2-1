@@ -5,17 +5,23 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class RayMarkers {
+    static ArrayList<Color> prevColors = new ArrayList<>();
     Color absorptionColor = Color.white;
     Color reflectionColor = Color.black;
     Color deflectionColor;
-    static ArrayList<Color> prevColors = new ArrayList<>();
 
     public RayMarkers(Ray ray) {
         //implementation depends on ray class
     }
 
-    public Color getAbsorptionColor() { return absorptionColor; }
-    public Color getReflectionColor() { return reflectionColor; }
+    public Color getAbsorptionColor() {
+        return absorptionColor;
+    }
+
+    public Color getReflectionColor() {
+        return reflectionColor;
+    }
+
     public Color getDeflectionColor() {
         Random random = new Random();
         do {
