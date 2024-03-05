@@ -1,6 +1,7 @@
 package comp20050sep2.group1;
 
 import comp20050sep2.group1.utils.Vector2D;
+import comp20050sep2.group1.utils.Vector3D;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -20,6 +21,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
     public Graphics2D graphics;
 
     public Vector2D mouseCoords = new Vector2D(0, 0);
+    public Vector3D lastMousePoint;
     
     //Screen settings
     final int originalTileSize = 16;    //16 x 16 tiles
@@ -32,6 +34,8 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
     final int maXScreenRow = 12;
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maXScreenRow;
+
+    public Ray r;
 
     Vector2D lastSize;
 
@@ -55,6 +59,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
         this.lastSize = new Vector2D(screenWidth, screenHeight);
         this.addMouseListener(this);
         this.setLayout(null);
+        this.lastMousePoint = new Vector3D();
     }
 
 
@@ -173,6 +178,10 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
             board.drawBoard();
 
+            if(r != null){
+                
+            }
+
         }
 
     }
@@ -198,7 +207,21 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
         }
         else if(!board.atomSelectorOn){     //shooting rays
             System.out.println("clicked on set rays mode");
-            
+            System.out.println("Associated vector is : " + Vector3D.addInv(GamePanel.get().lastMousePoint).toString());
+            lastMousePoint = Vector3D.addInv(lastMousePoint);
+            Hexagon h = board.closestHexToCoords(mouseCoords);
+            Vector3D v = board.getHexes().getKey(h);
+
+            if(r == null){
+                r = new Ray(h);
+                r.setNext(Vector3D.binaryAdd(v, lastMousePoint));
+                System.out.println("Vector is " + v.toString());
+                System.out.println(Vector3D.binaryAdd(v, lastMousePoint).toString());
+                r.drawRay();
+            }
+
+
+
         }
 
     }

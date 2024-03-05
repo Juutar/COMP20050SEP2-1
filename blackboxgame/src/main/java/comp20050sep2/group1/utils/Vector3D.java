@@ -64,12 +64,12 @@ public class Vector3D {
         this.s = s + vec.s;
     }
 
-    // public static Vector3D normalize(Vector3D vec){
-
-    // }
-
     public static Vector3D binaryAdd(Vector3D a, Vector3D b){
         return new Vector3D(a.q + b.q, a.r + b.r, a.s + b.s);
+    }
+
+    public static Vector3D addInv(Vector3D vec){
+        return new Vector3D(-1 * vec.q, -1 * vec.r, -1 * vec.s);
     }
 
     @Override

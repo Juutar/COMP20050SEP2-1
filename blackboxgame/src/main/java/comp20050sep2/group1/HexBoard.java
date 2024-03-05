@@ -180,7 +180,9 @@ public class HexBoard {
                 for (BoardLabel bl : hex.boardLabels) {
                     if (!atomSelectorOn && bl == closestLabelToMouseCoords()) {
                         AbstractRayPointer.drawRayPointer(new Vector2D(bl.pos.x + 10, bl.pos.y - 5), hex.center());
-                        System.out.println("angle is " + closestLabelToMouseCoords().angle);
+                        Vector3D vec = new Vector3D();
+                        vec.setCoorsFromAngle(closestLabelToMouseCoords().angle);
+                        GamePanel.get().lastMousePoint = vec;
                     } else {
                         bl.writeText();
                     }
