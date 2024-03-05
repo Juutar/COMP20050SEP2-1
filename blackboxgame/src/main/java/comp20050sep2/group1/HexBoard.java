@@ -188,13 +188,13 @@ public class HexBoard {
                 }
             }
 
-            //temp code
+            // //temp code
 
-            if (hex.underInfluence) {
-                g.setColor(Color.MAGENTA);
-                g.fillRect((int) hex.center().x - 7, (int) hex.center().y - 7, 15, 15);
-                g.drawString(hex.influenceVector.toString(), (int) hex.center().x, (int) hex.center().y);
-            }
+            // if (hex.underInfluence) {
+            //     g.setColor(Color.MAGENTA);
+            //     g.fillRect((int) hex.center().x - 7, (int) hex.center().y - 7, 15, 15);
+            //     g.drawString(hex.influenceVector.toString(), (int) hex.center().x, (int) hex.center().y);
+            // }
         }
 
         // highlight nearest hex
