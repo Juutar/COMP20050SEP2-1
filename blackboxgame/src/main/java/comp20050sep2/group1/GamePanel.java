@@ -230,7 +230,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
             if(vel.q == 0 && vel.r == 0 && vel.s == 0){     //when this happens an atom has def been hit
                 System.out.println("Atom hit!");
-                
+
             }
 
             if((vel.q + vel.r + vel.s) != 0){
@@ -245,22 +245,21 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
                 
                 oldVel = vel.copy();
 
-                if(rayList.get(rayList.size() - 1).points.get(rayList.get(rayList.size() - 1).points.size() - 1).underInfluence){
-                    vel.sum(rayList.get(rayList.size() - 1).points.get(rayList.get(rayList.size() - 1).points.size() - 1).influenceVector);
-                    if(vel.q == 0 && vel.r == 0 && vel.s == 0){
-                        System.out.println("180 rotation should happen");
-                        if(board.getHexes().getValue(Vector3D.binaryAdd(board.getHexes().getKey(rayList.get(rayList.size() - 1).points.get(rayList.get(rayList.size() - 1).points.size() - 1)), oldVel)).hasTrueAtom()){
-
+                if(rayList.get(rayList.size() - 1).points.get(rayList.get(rayList.size() - 1).points.size() - 1).underInfluence){       //if the hexagon where the ray is at is under any influence
+                    vel.sum(rayList.get(rayList.size() - 1).points.get(rayList.get(rayList.size() - 1).points.size() - 1).influenceVector);     //then add the influence to the velocity
+                    if(vel.q == 0 && vel.r == 0 && vel.s == 0){                                                                         //if the sum is a zero vector
+                        if(board.getHexes().getValue(Vector3D.binaryAdd(board.getHexes().getKey(rayList.get(rayList.size() - 1).points.get(rayList.get(rayList.size() - 1).points.size() - 1)), oldVel)).hasTrueAtom()){    //if the original velocity + position of the ray = hexagon with atom => atom hit
                             System.out.println("atom hit!");
                         }
-                        else{
+                        else{       //otherwise just a reflection (180 degree deflection)
                             vel = Vector3D.addInv(oldVel);
-                            System.out.println("rotated no atom hit!");
+                            System.out.println("rotated 180 degrees no atom hit!");
                         }
                     }
                 }
 
                 rayList.get(rayList.size() - 1).setNext(vel);
+
             }
         }
     }
