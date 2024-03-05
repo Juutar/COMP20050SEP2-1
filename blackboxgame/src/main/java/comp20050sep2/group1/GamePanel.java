@@ -1,14 +1,19 @@
 package comp20050sep2.group1;
 
-import comp20050sep2.group1.utils.Vector2D;
-import comp20050sep2.group1.utils.Vector3D;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
+import comp20050sep2.group1.utils.Vector2D;
+import comp20050sep2.group1.utils.Vector3D;
 
 public class GamePanel extends JPanel implements Runnable, MouseListener{
 
@@ -73,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
 
         Vector2D viewport = new Vector2D(GamePanel.get().getSize().width, GamePanel.get().getSize().height);
 
-        board = new HexBoard(50, viewport.mul(0.5), 5, 6);
+        board = new HexBoard(50, viewport.mul(0.5), 4, 6);
 
         showAtomButton = new ShowAtomButton(new Vector2D((screenWidth - 200)/15.0 + 10, screenHeight - screenHeight/10.0 + 40));
         showAtomButton.addMouseListener(this);
@@ -206,8 +211,19 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
         }
         else if(!board.atomSelectorOn){     //shooting rays
 
-            rayList.add(new Ray(board.closestLabelToMouseCoords().hexagon));
-            rayList.get(rayList.size() - 1).setNext(Vector3D.addInv(GamePanel.get().lastMousePoint));
+            Hexagon lastHex = board.closestLabelToMouseCoords().hexagon;
+            Ray r = new Ray(lastHex);
+            Vector3D vel = Vector3D.addInv(GamePanel.get().lastMousePoint);
+
+            //if(vel.sum())
+
+            rayList.add(r);
+            rayList.get(rayList.size() - 1).setNext(vel);
+            
+
+            for(int i = 0; i < 4; i ++){
+                rayList.get(rayList.size() - 1).setNext(vel);
+            }
 
         }
 
