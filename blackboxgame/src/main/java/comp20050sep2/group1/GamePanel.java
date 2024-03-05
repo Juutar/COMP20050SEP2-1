@@ -211,18 +211,53 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
         }
         else if(!board.atomSelectorOn){     //shooting rays
 
+            Vector3D oldVel;
+
             Hexagon lastHex = board.closestLabelToMouseCoords().hexagon;
             Ray r = new Ray(lastHex);
+            
             Vector3D vel = Vector3D.addInv(GamePanel.get().lastMousePoint);
+            oldVel = vel.copy();
+
+            if(lastHex.hasTrueAtom()){
+                System.out.println("atom on edge hit");
+                return;
+            }
+
+            if(lastHex.underInfluence){
+                vel.sum(lastHex.influenceVector);
+            }
+
+            if(vel.q == 0 && vel.r == 0 && vel.s == 0){     //when this happens an atom has def been hit
+                System.out.println("Atom hit!");
+                
+            }
+
+            if((vel.q + vel.r + vel.s) != 0){
+                vel = lastHex.influenceVector.copy();
+            }
 
             rayList.add(r);
             rayList.get(rayList.size() - 1).setNext(vel);
             
 
-            for(int i = 0; i < 12; i ++){
+            for(int i = 0; i < board.getHexes().size(); i ++){
+                
+                oldVel = vel.copy();
 
                 if(rayList.get(rayList.size() - 1).points.get(rayList.get(rayList.size() - 1).points.size() - 1).underInfluence){
                     vel.sum(rayList.get(rayList.size() - 1).points.get(rayList.get(rayList.size() - 1).points.size() - 1).influenceVector);
+                    if(vel.q == 0 && vel.r == 0 && vel.s == 0){
+                        System.out.println("180 rotation should happen");
+                        if(board.getHexes().getValue(Vector3D.binaryAdd(board.getHexes().getKey(rayList.get(rayList.size() - 1).points.get(rayList.get(rayList.size() - 1).points.size() - 1)), oldVel)).hasTrueAtom()){
+
+                            System.out.println("atom hit!");
+                        }
+                        else{
+                            vel = Vector3D.addInv(oldVel);
+                            System.out.println("rotated no atom hit!");
+                        }
+                    }
                 }
 
                 rayList.get(rayList.size() - 1).setNext(vel);
