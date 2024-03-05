@@ -207,15 +207,6 @@ public class HexBoard {
             g.setColor(Color.white);
         }
 
-        //temp code
-        Ray r = new Ray(hexes.getValue(outerHexes[0]));
-
-        for(int i = 0; i <= outerHexes.length; i ++){
-            r.setNextHex(hexes.getValue(outerHexes[i % outerHexes.length]));
-        }
-
-        r.drawRay();
-
     }
 
     private final Vector2D vecFromAng(double ang) {

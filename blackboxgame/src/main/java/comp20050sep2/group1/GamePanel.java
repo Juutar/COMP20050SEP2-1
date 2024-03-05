@@ -6,6 +6,7 @@ import comp20050sep2.group1.utils.Vector3D;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -36,6 +37,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
     final int screenHeight = tileSize * maXScreenRow;
 
     public Ray r;
+    public ArrayList<Ray> rayList;
 
     Vector2D lastSize;
 
@@ -60,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
         this.addMouseListener(this);
         this.setLayout(null);
         this.lastMousePoint = new Vector3D();
+        this.rayList = new ArrayList<>();
     }
 
 
@@ -175,15 +178,11 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
         drawBackgroundImage();
 
         if(board != null){
-
             board.drawBoard();
-
-            if(r != null){
-                
+            for(Ray r : rayList){
+                r.drawRay();
             }
-
         }
-
     }
 
 
@@ -206,21 +205,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
             }
         }
         else if(!board.atomSelectorOn){     //shooting rays
-            System.out.println("clicked on set rays mode");
-            System.out.println("Associated vector is : " + Vector3D.addInv(GamePanel.get().lastMousePoint).toString());
-            lastMousePoint = Vector3D.addInv(lastMousePoint);
-            Hexagon h = board.closestHexToCoords(mouseCoords);
-            Vector3D v = board.getHexes().getKey(h);
 
-            if(r == null){
-                r = new Ray(h);
-                r.setNext(Vector3D.binaryAdd(v, lastMousePoint));
-                System.out.println("Vector is " + v.toString());
-                System.out.println(Vector3D.binaryAdd(v, lastMousePoint).toString());
-                r.drawRay();
-            }
-
-
+            rayList.add(new Ray(board.closestLabelToMouseCoords().hexagon));
+            rayList.get(rayList.size() - 1).setNext(Vector3D.addInv(GamePanel.get().lastMousePoint));
 
         }
 
