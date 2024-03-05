@@ -176,7 +176,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
     public void draw(){
         // check for resize
         Vector2D viewport = new Vector2D(GamePanel.get().getSize().width, GamePanel.get().getSize().height);
-        if (!viewport.equals(lastSize)) {
+        if (!viewport.equals(lastSize) && board != null) {
             board.reposition(viewport.mul(0.5));
         }
 
@@ -215,18 +215,19 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
             Ray r = new Ray(lastHex);
             Vector3D vel = Vector3D.addInv(GamePanel.get().lastMousePoint);
 
-            //if(vel.sum())
-
             rayList.add(r);
             rayList.get(rayList.size() - 1).setNext(vel);
             
 
-            for(int i = 0; i < 4; i ++){
+            for(int i = 0; i < 12; i ++){
+
+                if(rayList.get(rayList.size() - 1).points.get(rayList.get(rayList.size() - 1).points.size() - 1).underInfluence){
+                    vel.sum(rayList.get(rayList.size() - 1).points.get(rayList.get(rayList.size() - 1).points.size() - 1).influenceVector);
+                }
+
                 rayList.get(rayList.size() - 1).setNext(vel);
             }
-
         }
-
     }
 
 
