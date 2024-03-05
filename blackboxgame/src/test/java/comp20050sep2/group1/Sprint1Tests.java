@@ -135,7 +135,8 @@ public class Sprint1Tests {
     @Test
     public void testAtomPropertiesCorrect() {
         GamePanel.get().startGameThread();
-        Hexagon hexagon = GamePanel.get().board.getHexes().getValue(GamePanel.get().board.guessAtomHexagons[0]);
+
+        Hexagon hexagon = GamePanel.get().board.getHexes().getValue(GamePanel.get().board.trueAtomHexagons[0]);
 
         assertFalse(hexagon.isCorrect());
         GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, (int) hexagon.pos.x, (int) hexagon.pos.y, 1, false));
@@ -147,7 +148,7 @@ public class Sprint1Tests {
     @Test
     public void testAtomPropertiesIncorrect() {
         GamePanel.get().startGameThread();
-        Hexagon hexagon = GamePanel.get().board.getHexes().getValue(GamePanel.get().board.guessAtomHexagons[0]);
+        Hexagon hexagon = GamePanel.get().board.getHexes().getValue(GamePanel.get().board.trueAtomHexagons[0]);
 
         assertTrue(hexagon.isIncorrect());
         GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, (int) hexagon.pos.x, (int) hexagon.pos.y, 1, false));

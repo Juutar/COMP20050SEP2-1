@@ -5,6 +5,7 @@ import comp20050sep2.group1.utils.Vector3D;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Ray {
 
@@ -127,33 +128,33 @@ public class Ray {
         g.drawLine((int) rayTail.x, (int) rayTail.y, (int) rayTail2.x, (int) rayTail2.y);
 
         // only for debugging
-/*
-        Iterator<Hexagon> iterator = points.iterator();
 
-        Hexagon prevHex = iterator.next();
-        Hexagon currHex;
+        // Iterator<Hexagon> iterator = points.iterator();
 
-        g.setColor(Color.gray);
-        Stroke prevStroke = g.getStroke();
-        g.setStroke(new BasicStroke(3));
+        // Hexagon prevHex = iterator.next();
+        // Hexagon currHex;
 
-        while(iterator.hasNext()){
+        // g.setColor(Color.gray);
+        // Stroke prevStroke = g.getStroke();
+        // g.setStroke(new BasicStroke(3));
 
-            currHex = iterator.next();
+        // while(iterator.hasNext()){
 
-            g.drawLine(
-                (int)prevHex.center().x,
-                (int)prevHex.center().y,
-                (int)currHex.center().x,
-                (int)currHex.center().y
-            );
+        //     currHex = iterator.next();
 
-            prevHex = currHex;
+        //     g.drawLine(
+        //         (int)prevHex.center().x,
+        //         (int)prevHex.center().y,
+        //         (int)currHex.center().x,
+        //         (int)currHex.center().y
+        //     );
 
-        }
+        //     prevHex = currHex;
 
-        g.setStroke(prevStroke);
-*/
+        // }
+
+        // g.setStroke(prevStroke);
+
     }
 
     public void drawToLabel(BoardLabel label, boolean entry) {       //entry false = exiting the board, entry true = entering the board
