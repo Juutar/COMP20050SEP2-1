@@ -145,31 +145,31 @@ public class Ray {
 
         // only for debugging
 
-        Iterator<Hexagon> iterator = points.iterator();
+        // Iterator<Hexagon> iterator = points.iterator();
 
-        Hexagon prevHex = iterator.next();
-        Hexagon currHex;
+        // Hexagon prevHex = iterator.next();
+        // Hexagon currHex;
 
-        g.setColor(Color.gray);
-        Stroke prevStroke = g.getStroke();
-        g.setStroke(new BasicStroke(3));
+        // g.setColor(Color.gray);
+        // Stroke prevStroke = g.getStroke();
+        // g.setStroke(new BasicStroke(3));
 
-        while(iterator.hasNext()){
+        // while(iterator.hasNext()){
 
-            currHex = iterator.next();
+        //     currHex = iterator.next();
 
-            g.drawLine(
-                (int)prevHex.center().x,
-                (int)prevHex.center().y,
-                (int)currHex.center().x,
-                (int)currHex.center().y
-            );
+        //     g.drawLine(
+        //         (int)prevHex.center().x,
+        //         (int)prevHex.center().y,
+        //         (int)currHex.center().x,
+        //         (int)currHex.center().y
+        //     );
 
-            prevHex = currHex;
+        //     prevHex = currHex;
 
-        }
+        // }
 
-        g.setStroke(prevStroke);
+        // g.setStroke(prevStroke);
 
     }
 
