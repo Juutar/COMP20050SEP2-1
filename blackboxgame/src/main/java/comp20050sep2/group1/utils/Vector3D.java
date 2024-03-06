@@ -102,6 +102,15 @@ public class Vector3D {
         return new Vector3D(q, r, s);
     }
 
+    public static boolean isNormalised(Vector3D vec){
+        if((Math.abs(vec.q) > 1) || (Math.abs(vec.r) > 1) || (Math.abs(vec.s) > 1)){
+            return false;
+        }
+
+        return true;
+
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(q, r, s);

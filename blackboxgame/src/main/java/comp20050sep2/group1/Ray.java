@@ -42,17 +42,19 @@ public class Ray {
             return;
         }
 
-        if ((vel.q + vel.r + vel.s) != 0) {
+        if (((vel.q + vel.r + vel.s) != 0) || !(Vector3D.isNormalised(vel))) {
             vel = startHex_.influenceVector.copy();
         }
 
         setNext(vel);
+
         if (points.get(points.size() - 1) == null) {
             points.remove(points.size() - 1);
             System.out.println("the ray reached");
             exited = true;
             return;
         }
+
 
         HexBoard board = GamePanel.get().board;
 
