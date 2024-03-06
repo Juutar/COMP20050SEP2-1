@@ -30,6 +30,7 @@ public class Ray {
 
     private BoardLabel computePath() {
         //lacking reflected on entry edge case
+        //allows for two identical rays
         HexBoard board = GamePanel.get().board;
 
         Vector3D direction = firstLabel.rayDirection.copy();
