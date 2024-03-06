@@ -50,8 +50,10 @@ public class Ray {
 
         if (points.get(points.size() - 1) == null) {
             points.remove(points.size() - 1);
-            System.out.println("the ray reached");
+            points.add(points.get(0));
+            System.out.println("the ray reached here");
             exited = true;
+            end = points.get(points.size() - 1);
             return;
         }
 
@@ -64,6 +66,11 @@ public class Ray {
 
             if (points.get(points.size() - 1).underInfluence) {       //if the hexagon where the ray is at is under any influence
                 vel.sum(points.get(points.size() - 1).influenceVector);     //then add the influence to the velocity
+                
+                if (((vel.q + vel.r + vel.s) != 0) || !(Vector3D.isNormalised(vel))) {
+                    vel = oldVel.copy();
+                }
+
                 if (vel.q == 0 && vel.r == 0 && vel.s == 0) {                                                                         //if the sum is a zero vector
                     if (board.getHexes().getValue(Vector3D.binaryAdd(board.getHexes().getKey(points.get(points.size() - 1)), oldVel)).hasTrueAtom()) {    //if the original velocity + position of the ray = hexagon with atom => atom hit
                         System.out.println("atom hit!");
