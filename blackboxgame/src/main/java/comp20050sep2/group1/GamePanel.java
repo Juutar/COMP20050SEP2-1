@@ -25,7 +25,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
     public Vector2D mouseCoords = new Vector2D(0, 0);
     public Vector3D lastMousePoint;
     public Ray r;
-    public ArrayList<Ray> rayList;
     Vector2D lastSize;
     HexBoard board;
     ShowAtomButton showAtomButton;
@@ -50,7 +49,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
         this.addMouseListener(this);
         this.setLayout(null);
         this.lastMousePoint = new Vector3D();
-        this.rayList = new ArrayList<>();
     }
 
     public static GamePanel get() {
@@ -169,9 +167,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
 
         if (board != null) {
             board.drawBoard();
-            for (Ray r : rayList) {
-                r.drawRay((board.closestLabelToMouseCoords().hexagon == r.start) || (board.closestLabelToMouseCoords().hexagon == r.end));
-            }
         }
     }
 
@@ -191,12 +186,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
                     board.guessAtomHexagons[--board.atomIndex] = null;
                 }
             }
-        } else if (!board.atomSelectorOn) {     //shooting rays
-            Hexagon lastHex = board.closestLabelToMouseCoords().hexagon;
-            Vector2D forward = lastHex.pos.sub(board.closestLabelToMouseCoords().center());
-            Ray r = new Ray(lastHex, forward);
-
-            rayList.add(r);
+        } else {     //shooting rays
+            Ray r = new Ray(board.closestLabelToMouseCoords());
+            board.rayList.add(r);
         }
     }
 

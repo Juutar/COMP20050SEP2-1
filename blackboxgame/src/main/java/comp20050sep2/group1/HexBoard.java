@@ -13,6 +13,7 @@ import java.util.Random;
 public class HexBoard {
 
     private final BiMap<Vector3D, Hexagon> hexes;
+    public final ArrayList<Ray> rayList;
     private final double side;
     private final int size;
     private final Vector2D VecQ = vecFromAng(60);
@@ -31,6 +32,7 @@ public class HexBoard {
 
     public HexBoard(double side, Vector2D pos, int size /* from 0, how many rings */, int numAtoms) {
         hexes = new BiMap<>();
+        this.rayList = new ArrayList<>();
         hexes.add(new Vector3D(0, 0, 0), new Hexagon(side, pos));
         this.side = side;
         this.pos = pos;
@@ -105,19 +107,13 @@ public class HexBoard {
 
                     Vector3D neighbour = Vector3D.binaryAdd(coordsVec, coordsVec.getNeighbouringCoords(angle));
                     if (hexes.getKeySet().contains(neighbour)) {
-                        hexes.getValue(neighbour).underInfluence = true;
 
                         if (h.neighbors == null) {
                             h.neighbors = new ArrayList<>();
                         }
 
                         h.neighbors.add(hexes.getValue(neighbour));
-
-                        if (hexes.getValue(neighbour).influenceVector == null) {
-                            hexes.getValue(neighbour).influenceVector = coordsVec.getNeighbouringCoords(angle);
-                        } else {
-                            hexes.getValue(neighbour).influenceVector.sum(coordsVec.getNeighbouringCoords(angle));
-                        }
+                        hexes.getValue(neighbour).influenceVector.sum(coordsVec.getNeighbouringCoords(angle));
                     }
                 }
             }
@@ -174,6 +170,9 @@ public class HexBoard {
         for (Hexagon hex : hexes.getValueSet()) {
 
             hex.drawHexagon();
+            for (Ray r : rayList) {
+                r.rayMarkers.drawRayMarker((closestLabelToMouseCoords().hexagon == r.points.getFirst()) || (closestLabelToMouseCoords().hexagon == r.points.getLast()));
+            }
 
             if (hex.boardLabels != null) {
                 for (BoardLabel bl : hex.boardLabels) {

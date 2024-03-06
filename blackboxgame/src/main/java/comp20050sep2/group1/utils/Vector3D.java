@@ -80,9 +80,13 @@ public class Vector3D {
     }
 
     public void sum(Vector3D vec) {
-        this.q = q + vec.q;
-        this.r = r + vec.r;
-        this.s = s + vec.s;
+        this.q += vec.q;
+        this.r += vec.r;
+        this.s += vec.s;
+    }
+
+    public static Vector3D opposite(Vector3D vec) {
+        return new Vector3D(vec.q*(-1), vec.r*(-1), vec.s*(-1));
     }
 
     @Override

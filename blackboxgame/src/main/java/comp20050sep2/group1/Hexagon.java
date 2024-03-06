@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class Hexagon {
 
     public Vector3D influenceVector;
-    public boolean underInfluence;
     double side;
     Vector2D pos;
     Atom guessAtom = null;
@@ -24,8 +23,7 @@ public class Hexagon {
         this.side = side;
         this.pointableSides = 0;
         this.boardLabels = null;
-        this.underInfluence = false;
-        this.influenceVector = null;
+        this.influenceVector = new Vector3D();
     }
 
     public Vector2D center() {
@@ -111,6 +109,18 @@ public class Hexagon {
 
     public boolean isIncorrect() {
         return (hasGuessAtom() && !hasTrueAtom()) || (!hasGuessAtom() && hasTrueAtom());
+    }
+
+    public BoardLabel getBoardLabelAtCoords(Vector3D coords) {
+        if (boardLabels == null) {
+            return null;
+        }
+        for (BoardLabel b : boardLabels) {
+            if (Vector3D.opposite(b.rayDirection).equals(coords)) {
+                return b;
+            }
+        }
+        return null;
     }
 
 }
