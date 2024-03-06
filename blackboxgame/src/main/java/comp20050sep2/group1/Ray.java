@@ -25,6 +25,7 @@ public class Ray {
         Vector3D oldVel;
 
         Vector3D vel = Vector3D.addInv(GamePanel.get().lastMousePoint);
+
         oldVel = vel.copy();
 
         if (startHex_.hasTrueAtom()) {
@@ -38,7 +39,7 @@ public class Ray {
 
         if (vel.q == 0 && vel.r == 0 && vel.s == 0) {     //when this happens an atom has def been hit
             System.out.println("Atom hit!");
-
+            return;
         }
 
         if ((vel.q + vel.r + vel.s) != 0) {
@@ -46,6 +47,12 @@ public class Ray {
         }
 
         setNext(vel);
+        if (points.get(points.size() - 1) == null) {
+            points.remove(points.size() - 1);
+            System.out.println("the ray reached");
+            exited = true;
+            return;
+        }
 
         HexBoard board = GamePanel.get().board;
 
@@ -129,31 +136,31 @@ public class Ray {
 
         // only for debugging
 
-        // Iterator<Hexagon> iterator = points.iterator();
+        Iterator<Hexagon> iterator = points.iterator();
 
-        // Hexagon prevHex = iterator.next();
-        // Hexagon currHex;
+        Hexagon prevHex = iterator.next();
+        Hexagon currHex;
 
-        // g.setColor(Color.gray);
-        // Stroke prevStroke = g.getStroke();
-        // g.setStroke(new BasicStroke(3));
+        g.setColor(Color.gray);
+        Stroke prevStroke = g.getStroke();
+        g.setStroke(new BasicStroke(3));
 
-        // while(iterator.hasNext()){
+        while(iterator.hasNext()){
 
-        //     currHex = iterator.next();
+            currHex = iterator.next();
 
-        //     g.drawLine(
-        //         (int)prevHex.center().x,
-        //         (int)prevHex.center().y,
-        //         (int)currHex.center().x,
-        //         (int)currHex.center().y
-        //     );
+            g.drawLine(
+                (int)prevHex.center().x,
+                (int)prevHex.center().y,
+                (int)currHex.center().x,
+                (int)currHex.center().y
+            );
 
-        //     prevHex = currHex;
+            prevHex = currHex;
 
-        // }
+        }
 
-        // g.setStroke(prevStroke);
+        g.setStroke(prevStroke);
 
     }
 
