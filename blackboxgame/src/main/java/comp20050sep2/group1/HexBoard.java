@@ -22,13 +22,13 @@ public class HexBoard {
     public Vector2D pos;
     public boolean atomSelectorOn;
     public boolean trueAtomsVisible;
+    public boolean raysVisible;
     public boolean evaluate;
     public int numAtoms;
     public int atomIndex;
     public Vector3D[] guessAtomHexagons;
     public Vector3D[] trueAtomHexagons;
     public Vector3D[] outerHexes;
-    public double latestPointerAngle;
 
     public HexBoard(double side, Vector2D pos, int size /* from 0, how many rings */, int numAtoms) {
         hexes = new BiMap<>();
@@ -187,6 +187,12 @@ public class HexBoard {
                 }
             }
 
+            if (raysVisible) {
+                for (Ray r : rayList) {
+                    r.drawRay();
+                }
+            }
+
             // //temp code
 
             // if (hex.underInfluence) {
@@ -310,6 +316,8 @@ public class HexBoard {
     public void toggleTrueAtomsVisible() {
         trueAtomsVisible = !trueAtomsVisible;
     }
+
+    public void toggleRaysVisible() { raysVisible = !raysVisible; }
 
     public void toggleAtomSelectorOn() {
         atomSelectorOn = !atomSelectorOn;

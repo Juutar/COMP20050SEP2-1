@@ -18,6 +18,7 @@ public class ShowAtomButton extends AbstractShowButton {
     public void performAction() {
         toggleState();
         GamePanel.get().board.toggleTrueAtomsVisible();
+        GamePanel.get().board.toggleRaysVisible();
         GamePanel.get().board.toggleEvaluate();
     }
 }

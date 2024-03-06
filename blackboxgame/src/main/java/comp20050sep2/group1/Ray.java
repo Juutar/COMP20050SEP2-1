@@ -46,33 +46,21 @@ public class Ray {
         return !GamePanel.get().board.isOuterHex(points.getLast()) ? null : points.getLast().getBoardLabelAtCoords(direction);
     }
 
-    public void drawRay(boolean hover) {
+    public void drawRay() {
         Graphics2D g = GamePanel.get().graphics;
+        g.setColor(this.rayMarkers.color);
+        Stroke prevStroke = g.getStroke();
+        g.setStroke(new BasicStroke(3));
 
-        // Hexagon prevHex = iterator.next();
-        // Hexagon currHex;
-
-        // g.setColor(Color.gray);
-        // Stroke prevStroke = g.getStroke();
-        // g.setStroke(new BasicStroke(3));
-
-        // while(iterator.hasNext()){
-
-        //     currHex = iterator.next();
-
-        //     g.drawLine(
-        //         (int)prevHex.center().x,
-        //         (int)prevHex.center().y,
-        //         (int)currHex.center().x,
-        //         (int)currHex.center().y
-        //     );
-
-        //     prevHex = currHex;
-
-        // }
-
-        // g.setStroke(prevStroke);
-
+        for (int i = 0; i+1 < points.size(); i++) {
+            g.drawLine(
+                    (int)points.get(i).center().x,
+                    (int)points.get(i).center().y,
+                    (int)points.get(i+1).center().x,
+                    (int)points.get(i+1).center().y
+            );
+        }
+         g.setStroke(prevStroke);
     }
 
     public String announcement() {
