@@ -36,7 +36,7 @@ public class Ray {
         //allows for two identical rays
         HexBoard board = GamePanel.get().board;
 
-        Vector3D nextDirection;
+        Vector3D prevDirection;
         Vector3D direction = firstLabel.rayDirection.copy();
         Vector3D hexCoords = board.getHexes().getKey(firstLabel.hexagon).copy();
         Vector3D zeroVector = new Vector3D();
@@ -44,13 +44,15 @@ public class Ray {
         //remaining path
         while (board.getHexes().getKeySet().contains(hexCoords) && (points.isEmpty() || !direction.equals(zeroVector))) {
             points.add(board.getHexes().getValue(hexCoords));
+            if (points.getLast().hasTrueAtom()) { return null; }
+            prevDirection = direction.copy();
             direction.sum(points.getLast().influenceVector);
             if (!Vector3D.isNormalised(direction)) { return firstLabel; }
-            if (direction.equals(zeroVector)) { }
+            if (direction.equals(zeroVector)) { direction = prevDirection; }
             hexCoords.sum(direction);
         }
 
-        return !GamePanel.get().board.isOuterHex(points.getLast()) ? null : points.getLast().getBoardLabelAtCoords(direction);
+        return points.getLast().getBoardLabelAtCoords(direction);
     }
 
     public void drawRay() {
