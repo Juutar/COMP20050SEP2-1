@@ -16,10 +16,15 @@ public class ShowAtomButton extends AbstractShowButton {
 
     @Override
     public void performAction() {
-        toggleState();
-        GamePanel.get().board.toggleTrueAtomsVisible();
-        GamePanel.get().board.toggleRaysVisible();
-        GamePanel.get().board.toggleEvaluate();
-        GamePanel.get().board.toggleScore();
+        if (GamePanel.get().board.allGuessAtomsPlaced()) {
+            toggleState();
+            GamePanel.get().board.toggleTrueAtomsVisible();
+            GamePanel.get().board.toggleRaysVisible();
+            GamePanel.get().board.toggleEvaluate();
+            GamePanel.get().board.toggleScore();
+            //must stop game
+        } else {
+            GamePanel.get().outputBox.setText("Place 6 atoms");
+        }
     }
 }

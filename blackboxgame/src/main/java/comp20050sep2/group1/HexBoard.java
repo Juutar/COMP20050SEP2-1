@@ -385,4 +385,13 @@ public class HexBoard {
         }
         scoreVisible = !scoreVisible;
     }
+
+    public boolean allGuessAtomsPlaced() {
+        for (Vector3D vec : guessAtomHexagons) {
+            if (vec == null) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
