@@ -22,8 +22,8 @@ public class Ray {
         this.points = new ArrayList<>();
 
         this.lastLabel = computePath();
-        this.result = lastLabel == null ? Result.ABSORBED : (points.getFirst().equals(points.getLast()) ? Result.REFLECTED : Result.DEFLECTED);
-        System.out.println(announcement());
+        this.result = lastLabel == null ? Result.ABSORBED : (firstLabel == lastLabel ? Result.REFLECTED : Result.DEFLECTED);
+        GamePanel.get().outputBox.setText(announcement());
 
         this.rayMarkers = new RayMarker(this);
     }
@@ -37,13 +37,21 @@ public class Ray {
         Vector3D hexCoords = board.getHexes().getKey(firstLabel.hexagon).copy();
         Vector3D zeroVector = new Vector3D();
 
-        while (board.getHexes().getKeySet().contains(hexCoords) && (points.isEmpty() || !direction.equals(zeroVector))) {
-            points.add(board.getHexes().getValue(hexCoords));
-            if (points.getLast().hasTrueAtom()) { return null; }
+        while (board.getHexes().getKeySet().contains(hexCoords)) {
+            points.addLast(board.getHexes().getValue(hexCoords));
             prevDirection = direction.copy();
             direction.sum(points.getLast().influenceVector);
             if (!Vector3D.isNormalised(direction)) { return firstLabel; }
-            if (direction.equals(zeroVector)) { direction = prevDirection; }
+            if (direction.equals(zeroVector)) {
+                hexCoords.sum(prevDirection);
+                if (board.getHexes().getValue(hexCoords).hasTrueAtom()) {
+                    points.addLast(board.getHexes().getValue(hexCoords));
+                    return null;
+                } else {
+                    direction = Vector3D.opposite(prevDirection);
+                    hexCoords.sum(direction);
+                }
+            }
             hexCoords.sum(direction);
         }
 
