@@ -1,5 +1,7 @@
 package comp20050sep2.group1.utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Vector3D {
@@ -119,4 +121,5 @@ public class Vector3D {
     public int hashCode() {
         return Objects.hash(q, r, s);
     }
+
 }

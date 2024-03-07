@@ -29,17 +29,24 @@ public class Ray {
     }
 
     private BoardLabel computePath() {
-        //lacking reflected on entry edge case
+
+        //absorption:
+            //on entry: fails to stop
+            //else: stops too early
         //allows for two identical rays
         HexBoard board = GamePanel.get().board;
 
+        Vector3D nextDirection;
         Vector3D direction = firstLabel.rayDirection.copy();
         Vector3D hexCoords = board.getHexes().getKey(firstLabel.hexagon).copy();
         Vector3D zeroVector = new Vector3D();
 
+        //remaining path
         while (board.getHexes().getKeySet().contains(hexCoords) && (points.isEmpty() || !direction.equals(zeroVector))) {
             points.add(board.getHexes().getValue(hexCoords));
             direction.sum(points.getLast().influenceVector);
+            if (!Vector3D.isNormalised(direction)) { return firstLabel; }
+            if (direction.equals(zeroVector)) { }
             hexCoords.sum(direction);
         }
 
