@@ -90,4 +90,8 @@ public class Ray {
             System.out.print(board.getHexes().getKey(hex).toString() + " ");
         }
     }
+
+    public int getScore() {
+        return (result == Result.DEFLECTED) ? 2 : 1;
+    }
 }
