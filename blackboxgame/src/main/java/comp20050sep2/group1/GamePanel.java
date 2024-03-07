@@ -187,8 +187,10 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
                 }
             }
         } else {     //shooting rays
-            Ray r = new Ray(board.closestLabelToMouseCoords());
-            board.rayList.add(r);
+            BoardLabel bl = board.closestLabelToMouseCoords();
+            if (!board.rayAlreadyExists(bl)) {
+                board.rayList.add(new Ray(bl));
+            }
         }
     }
 

@@ -30,10 +30,6 @@ public class Ray {
 
     private BoardLabel computePath() {
 
-        //absorption:
-            //on entry: fails to stop
-            //else: stops too early
-        //allows for two identical rays
         HexBoard board = GamePanel.get().board;
 
         Vector3D prevDirection;
@@ -41,7 +37,6 @@ public class Ray {
         Vector3D hexCoords = board.getHexes().getKey(firstLabel.hexagon).copy();
         Vector3D zeroVector = new Vector3D();
 
-        //remaining path
         while (board.getHexes().getKeySet().contains(hexCoords) && (points.isEmpty() || !direction.equals(zeroVector))) {
             points.add(board.getHexes().getValue(hexCoords));
             if (points.getLast().hasTrueAtom()) { return null; }

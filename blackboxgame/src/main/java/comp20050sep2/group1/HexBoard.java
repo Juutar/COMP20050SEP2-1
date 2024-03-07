@@ -354,4 +354,13 @@ public class HexBoard {
         return isOuterHex(hexes.getKey(hex));
     }
 
+    public boolean rayAlreadyExists(BoardLabel bl) {
+        for(Ray r : rayList) {
+            if (r.firstLabel.equals(bl) || r.lastLabel == bl) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
