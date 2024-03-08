@@ -36,7 +36,7 @@ public class Ray {
         Vector3D direction = firstLabel.rayDirection.copy();
         Vector3D hexCoords = board.getHexes().getKey(firstLabel.hexagon).copy();
         if (board.getHexes().getValue(hexCoords).hasTrueAtom()) {
-            points.add(points.size() - 1, board.getHexes().getValue(hexCoords));
+            points.addLast(board.getHexes().getValue(hexCoords));
             return null;
         }
         Vector3D zeroVector = new Vector3D();
