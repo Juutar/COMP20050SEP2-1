@@ -38,14 +38,14 @@ public class Ray {
         Vector3D zeroVector = new Vector3D();
 
         while (board.getHexes().getKeySet().contains(hexCoords)) {
-            points.addLast(board.getHexes().getValue(hexCoords));
+            points.set(points.size() - 1, board.getHexes().getValue(hexCoords));
             prevDirection = direction.copy();
-            direction.sum(points.getLast().influenceVector);
+            direction.sum(points.get(points.size() - 1).influenceVector);
             if (!Vector3D.isNormalised(direction)) { return firstLabel; }
             if (direction.equals(zeroVector)) {
                 hexCoords.sum(prevDirection);
                 if (board.getHexes().getValue(hexCoords).hasTrueAtom()) {
-                    points.addLast(board.getHexes().getValue(hexCoords));
+                    points.set(points.size() - 1, board.getHexes().getValue(hexCoords));
                     return null;
                 } else {
                     direction = Vector3D.opposite(prevDirection);
@@ -55,7 +55,7 @@ public class Ray {
             hexCoords.sum(direction);
         }
 
-        return points.getLast().getBoardLabelAtCoords(direction);
+        return points.get(points.size() - 1).getBoardLabelAtCoords(direction);
     }
 
     public void drawRay() {

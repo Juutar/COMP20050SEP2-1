@@ -172,7 +172,7 @@ public class HexBoard {
 
             hex.drawHexagon();
             for (Ray r : rayList) {
-                r.rayMarkers.drawRayMarker((closestLabelToMouseCoords().hexagon == r.points.getFirst()) || (closestLabelToMouseCoords().hexagon == r.points.getLast()));
+                r.rayMarkers.drawRayMarker((closestLabelToMouseCoords().hexagon == r.points.get(0)) || (closestLabelToMouseCoords().hexagon == r.points.get(r.points.size() - 1)));
             }
 
             if (hex.boardLabels != null) {
