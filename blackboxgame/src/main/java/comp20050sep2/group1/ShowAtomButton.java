@@ -10,13 +10,13 @@ public class ShowAtomButton extends AbstractShowButton {
 
     @Override
     public void setCustomTexts() {
-        showText = "Show True Atoms";
-        hideText = "Hide True Atoms";
+        showText = "End Game";
+        hideText = "Game Ended";
     }
 
     @Override
     public void performAction() {
-        if (GamePanel.get().board.allGuessAtomsPlaced()) {
+        if (GamePanel.get().board.allGuessAtomsPlaced() && this.stateShow) {
             toggleState();
             GamePanel.get().board.toggleTrueAtomsVisible();
             GamePanel.get().board.toggleRaysVisible();
