@@ -63,7 +63,6 @@ public class HexBoard {
                     double addX = Math.sin(Math.toRadians(angleForMore)) * Math.sqrt(3) * side * j;
                     double addY = Math.cos(Math.toRadians(angleForMore)) * Math.sqrt(3) * side * j;
 
-                    System.out.println(nextHexagonVec);
                     hexes.add(nextHexagonVec.copy(), new Hexagon(side, new Vector2D(pos.x + addX + Math.sin(Math.toRadians(angle)) * distance, pos.y + addY + Math.cos(Math.toRadians(angle)) * distance)));
                     if (isOuterHex(nextHexagonVec)) {
                         outerHexes[outerHexesIndex++] = nextHexagonVec.copy();
