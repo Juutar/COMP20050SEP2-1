@@ -6,47 +6,28 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
-public abstract class AbstractShowButton extends JButton {
+public abstract class AbstractShowButton extends AbstractButton {
 
-    Vector2D pos;
-    int width = 150;
-    int height = 40;
     boolean stateShow;
-    String showText;
-    String hideText;
+    String altText;
 
-    Color backgroundColor = new Color(0.0F, 0.F, 0.F, 0.5F);
     Color altBackgroundColor = new Color(1.0F, 1.0F, 1.0F, 1.0F);
-    Color foregroundColor = Color.white;
     Color altForegroundColor = Color.black;
-    LineBorder border = new LineBorder(foregroundColor, 1);
     LineBorder altBorder = new LineBorder(altForegroundColor, 1);
 
-    public AbstractShowButton(Vector2D pos) {
-        this.pos = pos;
-        setLocation((int) pos.x - width / 2, (int) pos.y - height / 2);
-        setSize(width, height);
-        setFont(new Font(Font.DIALOG, Font.PLAIN, 12));
-        setBorder(border);
-        setBackground(backgroundColor);
-        setForeground(foregroundColor);
-        setCustomTexts();
-        setText(showText);
+    public AbstractShowButton(Vector2D pos, String text, String altText) {
+        super(pos, text);
         stateShow = true;
-        setFocusable(false);
-        setVisible(true);
     }
-
-    abstract public void setCustomTexts();
 
     public void toggleState() {
         if (stateShow) {
-            setText(hideText);
+            setText(altText);
             setBackground(altBackgroundColor);
             setForeground(altForegroundColor);
             setBorder(altBorder);
         } else {
-            setText(showText);
+            setText(text);
             setBackground(backgroundColor);
             setForeground(foregroundColor);
             setBorder(border);
@@ -54,13 +35,8 @@ public abstract class AbstractShowButton extends JButton {
         stateShow = !stateShow;
     }
 
-    abstract public void performAction();
-
-    public Vector2D getPos() {
-        return this.pos;
-    }
-
     public boolean isStateShow() {
         return this.stateShow;
     }
+
 }
