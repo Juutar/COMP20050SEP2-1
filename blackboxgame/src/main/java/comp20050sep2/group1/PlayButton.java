@@ -15,7 +15,8 @@ public class PlayButton extends AbstractButton {
         if (getText().equals("Play")) {
             setButtonText("Replay");
         }
-        new GameFrame();
+        MainMenuPanel.get().gameFrame = new GameFrame();
         SwingUtilities.getWindowAncestor(MainMenuPanel.get()).setVisible(false);
+        this.setEnabled(false);
     }
 }

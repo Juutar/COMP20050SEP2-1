@@ -5,7 +5,8 @@ import javax.swing.*;
 public class GameFrame extends JFrame {
 
     public GameFrame() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addWindowListener(MainMenuPanel.get());
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
         setTitle("Demo game");
 

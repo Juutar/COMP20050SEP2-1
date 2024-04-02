@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable, MouseListener {
 
@@ -24,7 +23,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
     public Graphics2D graphics;
     public Vector2D mouseCoords = new Vector2D(0, 0);
     public Vector3D lastMousePoint;
-    public Ray r;
     Vector2D lastSize;
     HexBoard board;
     ShowAtomButton showAtomButton;

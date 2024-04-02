@@ -9,8 +9,8 @@ import java.awt.*;
 public abstract class AbstractButton extends JButton {
 
     Vector2D pos;
-    final int width = 150;
-    final int height = 40;
+    final static int width = 150;
+    final static int height = 40;
     String text;
 
     Color backgroundColor = new Color(0.0F, 0.F, 0.F, 0.5F);
@@ -39,6 +39,10 @@ public abstract class AbstractButton extends JButton {
     public String getText() { return text; }
 
     public Vector2D getPos() { return this.pos; }
+
+    public static int getButtonWidth() { return width; }
+
+    public static int getButtonHeight() { return height; }
 
     abstract public void performAction();
 
