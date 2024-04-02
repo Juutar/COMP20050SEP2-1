@@ -17,6 +17,5 @@ public class PlayButton extends AbstractButton {
         }
         MainMenuPanel.get().gameFrame = new GameFrame();
         SwingUtilities.getWindowAncestor(MainMenuPanel.get()).setVisible(false);
-        this.setEnabled(false);
     }
 }

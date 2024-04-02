@@ -4,10 +4,7 @@ import comp20050sep2.group1.utils.Vector2D;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.util.Objects;
 
 public class MainMenuPanel extends JPanel implements MouseListener, WindowListener {
@@ -66,6 +63,7 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == playButton) {
             playButton.performAction();
+            playButton.removeMouseListener(this);
         }
     }
 
@@ -103,7 +101,7 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
     public void windowClosed(WindowEvent e) {
         if (e.getSource() == gameFrame) {
             SwingUtilities.getWindowAncestor(MainMenuPanel.get()).setVisible(true);
-            playButton.setEnabled(true);
+            playButton.addMouseListener(this);
         }
     }
 
