@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
     HexBoard board;
     ShowAtomButton showAtomButton;
     ShowRayButton showRayButton;
+    ExitToMenuButton exitToMenuButton;
     OutputBox outputBox;
     KeyHandler keyH = new KeyHandler();
     MouseMoveHandler mouseMoveHandler = new MouseMoveHandler();
@@ -56,6 +57,14 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
         return INSTANCE;
     }
 
+    public static void destroy() {
+        if (INSTANCE != null) {
+            SwingUtilities.getWindowAncestor(INSTANCE).setVisible(false);
+            SwingUtilities.getWindowAncestor(INSTANCE).removeAll();
+        }
+        INSTANCE = null;
+    }
+
     public void startGameThread() {
 
         gameThread = new Thread(this);
@@ -72,6 +81,10 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
         showRayButton = new ShowRayButton(new Vector2D((screenWidth - 200) / 15.0 + 10 + showAtomButton.width + 2, screenHeight - screenHeight / 10.0 + 40));
         showRayButton.addMouseListener(this);
         this.add(showRayButton);
+
+        exitToMenuButton = new ExitToMenuButton(new Vector2D(screenWidth - 10 - exitToMenuButton.width, screenHeight - screenHeight / 10.0 + 40));
+        exitToMenuButton.addMouseListener(this);
+        this.add(exitToMenuButton);
 
         outputBox = new OutputBox(new Vector2D(screenWidth/2.0, screenHeight/20.0));
 
@@ -182,6 +195,8 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
             showAtomButton.performAction();
         } else if (e.getSource() == showRayButton) {
             showRayButton.performAction();
+        } else if (e.getSource() == exitToMenuButton) {
+            exitToMenuButton.performAction();
         } else if (board.atomSelectorOn) {
             Vector2D vec = new Vector2D(e.getX(), e.getY());
             if (board.closestHexToCoords(vec).hasGuessAtom() || board.atomIndex < board.numAtoms) {
