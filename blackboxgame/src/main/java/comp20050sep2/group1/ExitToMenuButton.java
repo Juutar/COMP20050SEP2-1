@@ -7,14 +7,13 @@ import javax.swing.*;
 public class ExitToMenuButton extends AbstractShowButton {
 
     public ExitToMenuButton(Vector2D pos) {
-        super(pos, "End Game", "Are you sure?");
+        super(pos, "Go back to main menu", "Are you sure?");
     }
 
     @Override
     public void performAction() {
         toggleState();
-        if (getText().equals("End Game"))
-            setButtonText("Are you sure?");
+        setButtonText("Are you sure?");
 
         if (stateShow) {
             GamePanel.destroy();
