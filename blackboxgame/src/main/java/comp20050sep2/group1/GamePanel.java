@@ -148,7 +148,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
 
         if (backgroundImage == null) {
             try {
-                backgroundImage = new ImageIcon(this.getClass().getResource("/bg.jpg"));
+                backgroundImage = new ImageIcon(this.getClass().getResource("/40012.jpg"));
             } catch (NullPointerException e) {
                 System.out.println("background image missing");
                 imageFailed = true;
