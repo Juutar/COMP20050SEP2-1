@@ -63,7 +63,7 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == playButton) {
             playButton.performAction();
-            playButton.removeMouseListener(this);
+            //playButton.removeMouseListener(this);
         }
     }
 
@@ -101,7 +101,7 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
     public void windowClosed(WindowEvent e) {
         if (e.getSource() == gameFrame) {
             SwingUtilities.getWindowAncestor(MainMenuPanel.get()).setVisible(true);
-            playButton.addMouseListener(this);
+            //playButton.addMouseListener(this);
         }
     }
 
