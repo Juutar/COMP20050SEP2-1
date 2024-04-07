@@ -5,7 +5,6 @@ import comp20050sep2.group1.utils.Vector2D;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Objects;
 
 public class MainMenuPanel extends JPanel implements MouseListener, WindowListener {
 
