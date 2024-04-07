@@ -21,6 +21,7 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
     String text = "Blackbox Main Menu";
     PlayButton playButton;
     OptionsButton optionsButton;
+    ExitButton exitButton;
     GameFrame gameFrame;
 
     public MainMenuPanel() {
@@ -40,6 +41,10 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
         optionsButton = new OptionsButton(new Vector2D(playButton.getPos().x, playButton.getPos().y + OptionsButton.getButtonHeight() + 5));
         optionsButton.addMouseListener(this);
         this.add(optionsButton);
+
+        exitButton = new ExitButton(new Vector2D(optionsButton.getPos().x, optionsButton.getPos().y + OptionsButton.getButtonHeight() + 10), "Exit game");
+        exitButton.addMouseListener(this);
+        this.add(exitButton);
 
     }
 
@@ -63,6 +68,9 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
         if (e.getSource() == playButton) {
             playButton.performAction();
             //playButton.removeMouseListener(this);
+        }
+        else if(e.getSource() == exitButton){
+            exitButton.performAction();
         }
     }
 

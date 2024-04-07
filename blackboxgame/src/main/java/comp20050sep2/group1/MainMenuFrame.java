@@ -16,4 +16,7 @@ public class MainMenuFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
+    
+
 }

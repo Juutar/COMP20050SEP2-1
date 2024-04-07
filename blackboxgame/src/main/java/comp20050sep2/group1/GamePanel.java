@@ -34,6 +34,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
     Thread gameThread;
     private ImageIcon backgroundImage;
     private boolean imageFailed = false;
+    public int boardSize;
 
 
     public GamePanel() {
@@ -49,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
         this.addMouseListener(this);
         this.setLayout(null);
         this.lastMousePoint = new Vector3D();
+        this.boardSize = 5;
     }
 
     public static GamePanel get() {
@@ -72,7 +74,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
 
         Vector2D viewport = new Vector2D(GamePanel.get().getSize().width, GamePanel.get().getSize().height);
 
-        board = new HexBoard(40, viewport.mul(0.5), 5, 6);
+        board = new HexBoard(40, viewport.mul(0.5), this.boardSize, 6);
 
         showAtomButton = new ShowAtomButton(new Vector2D((screenWidth - 200) / 15.0 + 10, screenHeight - screenHeight / 10.0 + 40));
         showAtomButton.addMouseListener(this);
