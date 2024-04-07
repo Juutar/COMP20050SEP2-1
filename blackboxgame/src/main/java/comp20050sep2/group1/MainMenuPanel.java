@@ -17,7 +17,7 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
     final int maXScreenRow = 12;
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maXScreenRow;
-    private final ImageIcon backgroundImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/RedLaserBeams.jpg")));
+    private final ImageIcon backgroundImage = new ImageIcon(this.getClass().getResource("/RedLaserBeams.jpg"));
 
     String text = "Blackbox Main Menu";
     PlayButton playButton;
