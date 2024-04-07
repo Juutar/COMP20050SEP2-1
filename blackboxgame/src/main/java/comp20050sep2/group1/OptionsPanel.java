@@ -11,6 +11,8 @@ import java.awt.event.WindowListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import comp20050sep2.group1.utils.Vector2D;
@@ -27,10 +29,17 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
     final int screenHeight = tileSize * maXScreenRow;
     private final ImageIcon backgroundImage = new ImageIcon(this.getClass().getResource("/RedLaserBeams.jpg"));
 
+    private JTextField gridSize;
+    private JTextField atomCount;
 
+    private JSlider soundSlider;
 
     String text = "Options Panel";
+
     BackgroundImageSelectorButton bgButton;
+    OptionSaveButton saveButton;
+    OptionReturnButton returnButton;
+
     OptionFrame optionFrame;
     
     public OptionsPanel(){
@@ -42,9 +51,40 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         this.setFocusable(true);
         this.addMouseListener(this);
         this.setLayout(null);
-        this.bgButton = new BackgroundImageSelectorButton(new Vector2D(screenWidth/4.0, screenHeight/4.0), "Change Background");
+
+        this.bgButton = new BackgroundImageSelectorButton(new Vector2D(screenWidth/4.0 - 150, screenHeight/4.0 + 150), "Change Background");
         this.bgButton.addMouseListener(this);
         this.add(bgButton);
+
+        this.saveButton = new OptionSaveButton(new Vector2D(screenWidth/2.0 - 100, screenHeight/4.0 + 200), "Save Changes");
+        // this.saveButton.addMouseListener(this);
+        this.add(saveButton);
+
+        this.returnButton = new OptionReturnButton(new Vector2D(screenWidth/2.0 - 260, screenHeight/4.0 + 200), "Return to main menu");
+        this.returnButton.addMouseListener(this);
+        this.add(returnButton);
+
+        this.soundSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+        this.soundSlider.setBounds(400, 200, 200, 50);
+
+        soundSlider.setOpaque(false);
+        soundSlider.setMajorTickSpacing(10);
+        soundSlider.setPaintTicks(true);
+        soundSlider.setSnapToTicks(true);
+
+        this.gridSize = new JTextField(5);
+        this.atomCount = new JTextField(5);
+
+        this.gridSize.setPreferredSize(new Dimension(250, 50));
+        this.atomCount.setPreferredSize(new Dimension(250, 50));
+
+        this.gridSize.setBounds(250, 200, this.gridSize.getPreferredSize().width, this.gridSize.getPreferredSize().height);
+        this.atomCount.setBounds(250, 260, this.gridSize.getPreferredSize().width, this.gridSize.getPreferredSize().height);
+
+        this.add(gridSize);
+        this.add(atomCount);
+
+        this.add(soundSlider);
 
     }
     
@@ -61,6 +101,17 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 40));
         g.setColor(Color.WHITE);
         g.drawString(text, this.getWidth()/2 - g.getFontMetrics().stringWidth(text)/2, this.getHeight()/4);
+
+
+        Font ogFont = g.getFont();
+        
+        g.setFont(new Font(Font.DIALOG, Font.PLAIN, 17));
+        g.drawString("Change atom count", gridSize.getBounds().x - 200, gridSize.getBounds().y + 35);
+        g.drawString("Change grid size", gridSize.getBounds().x - 200, gridSize.getBounds().y + 95);
+        g.drawString("Volume", soundSlider.getBounds().x + 70, soundSlider.getBounds().y + 60);
+
+        g.setFont(ogFont);
+
     }
 
     @Override
@@ -102,6 +153,9 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
     public void mouseClicked(MouseEvent e) {
         if(e.getSource() == bgButton){
             bgButton.performAction();
+        }
+        else if(e.getSource() == returnButton){
+            returnButton.performAction();
         }
     }
 
