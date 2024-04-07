@@ -81,6 +81,12 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         this.gridSize.setBounds(250, 200, this.gridSize.getPreferredSize().width, this.gridSize.getPreferredSize().height);
         this.atomCount.setBounds(250, 260, this.gridSize.getPreferredSize().width, this.gridSize.getPreferredSize().height);
 
+        this.gridSize.setHorizontalAlignment(JTextField.CENTER);
+        this.atomCount.setHorizontalAlignment(JTextField.CENTER);
+
+        this.gridSize.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        this.atomCount.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+
         this.add(gridSize);
         this.add(atomCount);
 
