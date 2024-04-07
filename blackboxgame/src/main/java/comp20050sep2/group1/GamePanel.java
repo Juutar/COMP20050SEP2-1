@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class GamePanel extends JPanel implements Runnable, MouseListener {
 
@@ -35,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
     private ImageIcon backgroundImage;
     private boolean imageFailed = false;
     public int boardSize;
+    public static File bgFile = new File("/home/mango/Documents/COMP20050SEP2-1/blackboxgame/src/resource/40012.jpg");
 
 
     public GamePanel() {
@@ -144,13 +148,18 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
         this.graphics = null;
     }
 
+    public static void changeBackground(File file){
+        GamePanel.bgFile = file;
+    }
+
     private void drawBackgroundImage() {
         if (imageFailed)
             return;
 
         if (backgroundImage == null) {
             try {
-                backgroundImage = new ImageIcon(this.getClass().getResource("/40012.jpg"));
+                backgroundImage = new ImageIcon(bgFile.getAbsolutePath());
+                System.out.println("Background image is: " + bgFile.getAbsolutePath());
             } catch (NullPointerException e) {
                 System.out.println("background image missing");
                 imageFailed = true;

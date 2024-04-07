@@ -1,5 +1,7 @@
 package comp20050sep2.group1;
 
+import javax.swing.SwingUtilities;
+
 import comp20050sep2.group1.utils.Vector2D;
 
 public class OptionsButton extends AbstractButton {
@@ -10,6 +12,8 @@ public class OptionsButton extends AbstractButton {
 
     @Override
     public void performAction() {
-        //TODO Sprint 4
+        
+        SwingUtilities.getWindowAncestor(MainMenuPanel.get()).setVisible(false);
+        new OptionFrame();
     }
 }
