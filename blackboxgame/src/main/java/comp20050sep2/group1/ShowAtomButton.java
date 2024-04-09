@@ -15,7 +15,7 @@ public class ShowAtomButton extends AbstractShowButton {
     @Override
     public void performAction() {
         if (ended) {
-            MainMenuPanel.get().maxScore = Math.min(MainMenuPanel.get().maxScore, GamePanel.get().board.getScore());
+            MainMenuPanel.get().updateScore(GamePanel.get().board.getScore());
             GamePanel.destroy();
             MainMenuPanel.get().gameFrame = null;
             SwingUtilities.getWindowAncestor(MainMenuPanel.get()).setVisible(true);

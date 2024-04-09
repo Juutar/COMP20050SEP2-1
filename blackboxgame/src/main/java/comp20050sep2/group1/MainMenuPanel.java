@@ -5,6 +5,7 @@ import comp20050sep2.group1.utils.Vector2D;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.spi.BreakIteratorProvider;
 
 public class MainMenuPanel extends JPanel implements MouseListener, WindowListener {
 
@@ -25,7 +26,7 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
     ExitButton exitButton;
     GameFrame gameFrame;
 
-    int maxScore = 0;
+    public int maxScore = -1;
 
     public MainMenuPanel() {
         this.setPreferredSize(new Dimension(screenWidth/2, screenHeight/2));
@@ -61,6 +62,12 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
         return INSTANCE;
     }
 
+    public void updateScore(int score) {
+        maxScore = maxScore < 0 ? score : Math.min(maxScore, score);
+        outputBox.setText(String.valueOf(maxScore));
+        repaint();
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(backgroundImage.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
@@ -70,9 +77,7 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
         g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
         g.drawString("Best Score:", this.getWidth()/2 - g.getFontMetrics().stringWidth("Best Score:")/2, this.getHeight()/5 + 50);
 
-        if (outputBox != null) {
-            outputBox.drawOutputBox((Graphics2D) g);
-        }
+         outputBox.drawOutputBox((Graphics2D) g);
     }
 
     @Override
@@ -124,9 +129,6 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
             GamePanel.destroy();
             MainMenuPanel.get().gameFrame = null;
             SwingUtilities.getWindowAncestor(MainMenuPanel.get()).setVisible(true);
-            if (maxScore != 0) {
-                outputBox.setText(String.valueOf(maxScore));
-            }
         }
     }
 
