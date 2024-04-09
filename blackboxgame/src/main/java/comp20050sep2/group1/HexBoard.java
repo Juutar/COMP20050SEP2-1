@@ -27,6 +27,7 @@ public class HexBoard {
     public boolean scoreVisible;
     public int numAtoms;
     public int atomIndex;
+    public int score;
     public Vector3D[] guessAtomHexagons;
     public Vector3D[] trueAtomHexagons;
     public Vector3D[] outerHexes;
@@ -40,6 +41,7 @@ public class HexBoard {
         this.size = size;
         this.numAtoms = numAtoms;
         this.atomIndex = 0;
+        this.score = 0;
         this.atomSelectorOn = true;
         this.guessAtomHexagons = new Vector3D[numAtoms];
         this.trueAtomHexagons = new Vector3D[numAtoms];
@@ -363,15 +365,16 @@ public class HexBoard {
         return false;
     }
 
-    public int computeScore() {
-        int score = 0;
-        for (Vector3D vec : guessAtomHexagons) {
-            if (vec != null && !Arrays.asList(trueAtomHexagons).contains(vec)) {
-                score += 5;
+    public int getScore() {
+        if (score == 0) {
+            for (Vector3D vec : guessAtomHexagons) {
+                if (vec != null && !Arrays.asList(trueAtomHexagons).contains(vec)) {
+                    score += 5;
+                }
             }
-        }
-        for (Ray r : rayList) {
-            score += r.getScore();
+            for (Ray r : rayList) {
+                score += r.getScore();
+            }
         }
         return score;
     }
@@ -380,7 +383,7 @@ public class HexBoard {
         if (scoreVisible) {
             GamePanel.get().outputBox.setText("");
         } else {
-            GamePanel.get().outputBox.setText(String.valueOf(computeScore()));
+            GamePanel.get().outputBox.setText(String.valueOf(getScore()));
         }
         scoreVisible = !scoreVisible;
     }

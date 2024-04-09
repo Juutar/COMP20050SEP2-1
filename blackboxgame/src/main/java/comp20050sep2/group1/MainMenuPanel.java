@@ -25,6 +25,8 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
     ExitButton exitButton;
     GameFrame gameFrame;
 
+    int maxScore = 0;
+
     public MainMenuPanel() {
         this.setPreferredSize(new Dimension(screenWidth/2, screenHeight/2));
         this.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
@@ -119,7 +121,12 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
     @Override
     public void windowClosed(WindowEvent e) {
         if (e.getSource() == gameFrame) {
+            GamePanel.destroy();
+            MainMenuPanel.get().gameFrame = null;
             SwingUtilities.getWindowAncestor(MainMenuPanel.get()).setVisible(true);
+            if (maxScore != 0) {
+                outputBox.setText(String.valueOf(maxScore));
+            }
         }
     }
 
