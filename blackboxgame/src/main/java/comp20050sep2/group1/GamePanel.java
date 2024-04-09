@@ -35,11 +35,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
     KeyHandler keyH = new KeyHandler();
     MouseMoveHandler mouseMoveHandler = new MouseMoveHandler();
     Thread gameThread;
-    private ImageIcon backgroundImage;
+    public static ImageIcon backgroundImage;
     private boolean imageFailed = false;
     public int boardSize;
-    public static File bgFile = new File("/home/mango/Documents/COMP20050SEP2-1/blackboxgame/src/resource/40012.jpg");
-
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -143,13 +141,13 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
 
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        draw();
+        draw((Graphics2D) g);
 
         this.graphics = null;
     }
 
     public static void changeBackground(File file){
-        GamePanel.bgFile = file;
+        GamePanel.backgroundImage = new ImageIcon(String.valueOf(file));
     }
 
     private void drawBackgroundImage() {
@@ -158,8 +156,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
 
         if (backgroundImage == null) {
             try {
-                backgroundImage = new ImageIcon(bgFile.getAbsolutePath());
-                System.out.println("Background image is: " + bgFile.getAbsolutePath());
+                  backgroundImage = new ImageIcon(this.getClass().getResource("/40012.jpg"));
             } catch (NullPointerException e) {
                 System.out.println("background image missing");
                 imageFailed = true;
@@ -181,7 +178,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
         g.drawImage(backgroundImage.getImage(), (int) -toLeft, 0, (int) (imageSize.x * scale), (int) viewport.y, null);
     }
 
-    public void draw() {
+    public void draw(Graphics2D g) {
         // check for resize
         Vector2D viewport = new Vector2D(GamePanel.get().getSize().width, GamePanel.get().getSize().height);
         if (!viewport.equals(lastSize) && board != null) {
@@ -195,7 +192,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
         }
 
         if (outputBox != null) {
-            outputBox.drawOutputBox();
+            outputBox.drawOutputBox(g);
         }
     }
 

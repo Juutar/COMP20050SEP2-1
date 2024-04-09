@@ -19,6 +19,7 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
     private final ImageIcon backgroundImage = new ImageIcon(this.getClass().getResource("/RedLaserBeams.jpg"));
 
     String text = "Blackbox Main Menu";
+    OutputBox outputBox;
     PlayButton playButton;
     OptionsButton optionsButton;
     ExitButton exitButton;
@@ -33,6 +34,8 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
         this.setFocusable(true);
         this.addMouseListener(this);
         this.setLayout(null);
+
+        outputBox = new OutputBox(new Vector2D(this.getWidth()/2.0, this.getHeight()/3.0));
 
         playButton = new PlayButton(new Vector2D(screenWidth/4.0, screenHeight/4.0));
         playButton.addMouseListener(this);
@@ -61,6 +64,10 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
         g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 40));
         g.setColor(Color.WHITE);
         g.drawString(text, this.getWidth()/2 - g.getFontMetrics().stringWidth(text)/2, this.getHeight()/4);
+
+        if (outputBox != null) {
+            outputBox.drawOutputBox((Graphics2D) g);
+        }
     }
 
     @Override

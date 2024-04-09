@@ -21,9 +21,7 @@ public class OutputBox {
         this.text = text;
     }
 
-    public void drawOutputBox() {
-        Graphics2D g = GamePanel.get().graphics;
-
+    public void drawOutputBox(Graphics2D g) {
         g.setColor(backgroundColor);
         g.fillRect((int) (pos.x - size.width/2.0), (int) (pos.y - size.height/2.0), size.width, size.height);
         g.setColor(foregroundColor);

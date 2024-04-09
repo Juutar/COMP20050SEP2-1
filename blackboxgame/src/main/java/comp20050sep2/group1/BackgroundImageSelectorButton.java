@@ -2,7 +2,7 @@ package comp20050sep2.group1;
 
 import java.io.File;
 
-import javax.swing.JFileChooser;
+import javax.swing.*;
 
 import comp20050sep2.group1.utils.Vector2D;
 
@@ -20,7 +20,7 @@ public class BackgroundImageSelectorButton extends AbstractButton{
         if(response == JFileChooser.APPROVE_OPTION){
             File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
             System.out.println(file);
-            GamePanel.bgFile = file;
+            GamePanel.changeBackground(file);
         }
     }
     
