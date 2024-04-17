@@ -16,6 +16,7 @@ public class OptionMuteButton extends AbstractButton{
         this.text = OptionsPanel.get().muted ? "Unmute audio" : "Mute audio";
 
         MainMenuPanel.get().playSound("/boom.wav");
+        MainMenuPanel.get().updateBGMVolume();
     }
     
 }

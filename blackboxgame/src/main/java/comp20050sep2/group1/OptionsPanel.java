@@ -14,7 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
+import com.sun.tools.javac.Main;
 import comp20050sep2.group1.utils.Vector2D;
 
 public class OptionsPanel extends JPanel implements MouseListener, WindowListener{
@@ -77,6 +80,7 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         soundSlider.setMajorTickSpacing(10);
         soundSlider.setPaintTicks(true);
         soundSlider.setSnapToTicks(true);
+        soundSlider.addChangeListener(new SliderListener());
 
         this.gridSize = new JTextField(5);
         this.atomCount = new JTextField(5);
@@ -192,6 +196,13 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
     @Override
     public void mouseReleased(MouseEvent arg0) {
         
+    }
+
+    private class SliderListener implements ChangeListener {
+        @Override
+        public void stateChanged(ChangeEvent c) {
+            MainMenuPanel.get().updateBGMVolume();
+        }
     }
     
 }

@@ -30,6 +30,8 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
     ExitButton exitButton;
     GameFrame gameFrame;
 
+    Clip bgm;
+
     public int maxScore = -1;
 
     public MainMenuPanel() {
@@ -56,6 +58,16 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
         exitButton = new ExitButton(new Vector2D(optionsButton.getPos().x, optionsButton.getPos().y + OptionsButton.getButtonHeight() + 10), "Exit game");
         exitButton.addMouseListener(this);
         this.add(exitButton);
+
+        try {
+            this.bgm = AudioSystem.getClip();
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream("/bgm.wav"));
+            this.bgm.open(inputStream);
+            updateBGMVolume();
+            this.bgm.loop(999999);
+        } catch (Exception e) {
+            ;
+        }
 
     }
 
@@ -154,6 +166,12 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
     @Override
     public void windowDeactivated(WindowEvent e) {
 
+    }
+
+    public void updateBGMVolume() {
+        FloatControl gainControl = (FloatControl) bgm.getControl(FloatControl.Type.MASTER_GAIN);
+        float gain = OptionsPanel.get().muted ? -100000 : OptionsPanel.get().soundSlider.getValue() / (float)OptionsPanel.get().soundSlider.getMaximum() * 35 - 35;
+        gainControl.setValue(gain < -34 ? -10000 : gain - 10);
     }
 
     // prolly shouldnt be here but whatever
