@@ -199,6 +199,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if (board == null)
+            return;
+
         if (e.getSource() == showAtomButton) {
             showAtomButton.performAction();
         } else if (e.getSource() == showRayButton) {
@@ -213,11 +216,14 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
                 } else {
                     board.guessAtomHexagons[--board.atomIndex] = null;
                 }
+
+                MainMenuPanel.get().playSound("/atom.wav");
             }
         } else {     //shooting rays
             BoardLabel bl = board.closestLabelToMouseCoords();
             if (!board.rayAlreadyExists(bl)) {
                 board.rayList.add(new Ray(bl));
+                MainMenuPanel.get().playSound("/boom.wav");
             }
         }
     }

@@ -2,6 +2,10 @@ package comp20050sep2.group1;
 
 import comp20050sep2.group1.utils.Vector2D;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -150,5 +154,23 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
     @Override
     public void windowDeactivated(WindowEvent e) {
 
+    }
+
+    // prolly shouldnt be here but whatever
+    public void playSound(String path) {
+        if (OptionsPanel.get().muted)
+            return;
+
+        try {
+            Clip clip = AudioSystem.getClip();
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream(path));
+            clip.open(inputStream);
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            float gain = OptionsPanel.get().soundSlider.getValue() / (float)OptionsPanel.get().soundSlider.getMaximum() * 35 - 35;
+            gainControl.setValue(gain < -34 ? -10000 : gain);
+            clip.start();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 }

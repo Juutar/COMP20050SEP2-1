@@ -16,6 +16,7 @@ public class ExitToMenuButton extends AbstractShowButton {
         setButtonText("Are you sure?");
 
         if (stateShow) {
+            MainMenuPanel.get().playSound("/guess.wav");
             GamePanel.destroy();
             MainMenuPanel.get().gameFrame = null;
             SwingUtilities.getWindowAncestor(MainMenuPanel.get()).setVisible(true);

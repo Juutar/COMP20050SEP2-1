@@ -1,7 +1,11 @@
 package comp20050sep2.group1;
 
+import com.sun.tools.javac.Main;
 import comp20050sep2.group1.utils.Vector2D;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 public class ShowAtomButton extends AbstractShowButton {
@@ -15,6 +19,7 @@ public class ShowAtomButton extends AbstractShowButton {
     @Override
     public void performAction() {
         if (ended) {
+            MainMenuPanel.get().playSound("/guess.wav");
             MainMenuPanel.get().updateScore(GamePanel.get().board.getScore());
             GamePanel.destroy();
             MainMenuPanel.get().gameFrame = null;
@@ -23,6 +28,7 @@ public class ShowAtomButton extends AbstractShowButton {
         }
 
         if (stateShow) {
+            MainMenuPanel.get().playSound("/boom.wav");
             if (GamePanel.get().board.allGuessAtomsPlaced()) {
                 toggleState();
                 GamePanel.get().board.toggleTrueAtomsVisible();

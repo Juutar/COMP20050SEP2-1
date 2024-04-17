@@ -32,13 +32,15 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
     private JTextField gridSize;
     private JTextField atomCount;
 
-    private JSlider soundSlider;
+    public JSlider soundSlider;
+    public boolean muted = false;
 
     String text = "Options Panel";
 
     BackgroundImageSelectorButton bgButton;
     OptionSaveButton saveButton;
     OptionReturnButton returnButton;
+    OptionMuteButton muteButton;
 
     OptionFrame optionFrame;
     
@@ -63,6 +65,10 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         this.returnButton = new OptionReturnButton(new Vector2D(screenWidth/2.0 - 260, screenHeight/4.0 + 200), "Return to main menu");
         this.returnButton.addMouseListener(this);
         this.add(returnButton);
+
+        this.muteButton = new OptionMuteButton(new Vector2D(screenWidth/2.0 - 100, screenHeight/4.0 + 100), "Mute audio");
+        this.muteButton.addMouseListener(this);
+        this.add(muteButton);
 
         this.soundSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
         this.soundSlider.setBounds(400, 200, 200, 50);
@@ -162,6 +168,9 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         }
         else if(e.getSource() == returnButton){
             returnButton.performAction();
+        }
+        else if (e.getSource() == muteButton) {
+            muteButton.performAction();
         }
     }
 
