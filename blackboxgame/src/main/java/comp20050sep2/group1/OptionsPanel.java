@@ -89,8 +89,6 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         gridSize.setMajorTickSpacing(10);
         gridSize.setPaintTicks(true);
         gridSize.setSnapToTicks(true);
-        gridSize.addChangeListener(new SliderListener());
-
 
         this.atomCount = new JSlider(JSlider.HORIZONTAL, 3, 20, 6);
         this.atomCount.setBounds(250, 260, 200, 50);
@@ -99,7 +97,6 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         atomCount.setMajorTickSpacing(10);
         atomCount.setPaintTicks(true);
         atomCount.setSnapToTicks(true);
-        atomCount.addChangeListener(new SliderListener());
 
         this.add(gridSize);
         this.add(atomCount);
