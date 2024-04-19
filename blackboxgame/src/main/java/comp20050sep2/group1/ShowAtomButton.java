@@ -19,8 +19,6 @@ public class ShowAtomButton extends AbstractShowButton {
     @Override
     public void performAction() {
         if (ended) {
-            MainMenuPanel.get().playSound("/guess.wav");
-            MainMenuPanel.get().updateScore(GamePanel.get().board.getScore());
             GamePanel.destroy();
             MainMenuPanel.get().gameFrame = null;
             SwingUtilities.getWindowAncestor(MainMenuPanel.get()).setVisible(true);
@@ -37,6 +35,7 @@ public class ShowAtomButton extends AbstractShowButton {
                 GamePanel.get().board.toggleScore();
                 ended = true;
                 setButtonText("Quit to menu");
+                MainMenuPanel.get().updateScore(GamePanel.get().board.getScore());
             } else {
                 GamePanel.get().outputBox.setText("Place 6 atoms");
             }

@@ -12,7 +12,6 @@ public class PlayButton extends AbstractButton {
 
     @Override
     public void performAction() {
-        MainMenuPanel.get().playSound("/guess.wav");
         if (getText().equals("Play")) {
             setButtonText("Replay");
         }
