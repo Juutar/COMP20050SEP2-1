@@ -93,7 +93,7 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
         g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
         g.drawString("Best Score:", this.getWidth()/2 - g.getFontMetrics().stringWidth("Best Score:")/2, this.getHeight()/5 + 50);
 
-         outputBox.drawOutputBox((Graphics2D) g);
+        outputBox.drawOutputBox((Graphics2D) g);
     }
 
     @Override
@@ -172,6 +172,19 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
         FloatControl gainControl = (FloatControl) bgm.getControl(FloatControl.Type.MASTER_GAIN);
         float gain = OptionsPanel.get().muted ? -100000 : OptionsPanel.get().soundSlider.getValue() / (float)OptionsPanel.get().soundSlider.getMaximum() * 35 - 35;
         gainControl.setValue(gain < -34 ? -10000 : gain - 10);
+    }
+
+    public void updateGridSize(int newsize){
+        OptionsPanel.get().gridSizeVar = newsize;
+        System.out.println(newsize);
+        MainMenuPanel.get().repaint();
+    }
+
+    public void updateAtomCount(int atmCount){
+        OptionsPanel.get().atomCountVar = atmCount;
+        System.out.println("printing atm count");
+        System.out.println(atmCount);
+        MainMenuPanel.get().repaint();
     }
 
     // prolly shouldnt be here but whatever

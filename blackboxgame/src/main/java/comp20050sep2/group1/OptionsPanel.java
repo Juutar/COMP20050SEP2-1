@@ -38,6 +38,9 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
     public JSlider soundSlider;
     public boolean muted = false;
 
+    public int gridSizeVar = 5;
+    public int atomCountVar = 6;
+
     String text = "Options Panel";
 
     BackgroundImageSelectorButton bgButton;
@@ -83,20 +86,23 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         soundSlider.addChangeListener(new SliderListener());
 
         this.gridSize = new JSlider(JSlider.HORIZONTAL, 3, 8, 5);
+        
         this.gridSize.setBounds(250, 200, 200, 50);
 
         gridSize.setOpaque(false);
-        gridSize.setMajorTickSpacing(10);
+        gridSize.setMajorTickSpacing(1);
         gridSize.setPaintTicks(true);
         gridSize.setSnapToTicks(true);
+        gridSize.addChangeListener(new GridListener());
 
         this.atomCount = new JSlider(JSlider.HORIZONTAL, 3, 20, 6);
         this.atomCount.setBounds(250, 260, 200, 50);
 
         atomCount.setOpaque(false);
-        atomCount.setMajorTickSpacing(10);
+        atomCount.setMajorTickSpacing(1);
         atomCount.setPaintTicks(true);
         atomCount.setSnapToTicks(true);
+        atomCount.addChangeListener(new atomListener());
 
         this.add(gridSize);
         this.add(atomCount);
@@ -111,7 +117,7 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         }
         return INSTANCE;
     }
-
+    
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(backgroundImage.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
@@ -120,12 +126,15 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         g.drawString(text, this.getWidth()/2 - g.getFontMetrics().stringWidth(text)/2, this.getHeight()/4);
 
 
+
         Font ogFont = g.getFont();
         
         g.setFont(new Font(Font.DIALOG, Font.PLAIN, 17));
-        g.drawString("Change atom count", gridSize.getBounds().x - 200, gridSize.getBounds().y + 35);
-        g.drawString("Change grid size", gridSize.getBounds().x - 200, gridSize.getBounds().y + 95);
+        g.drawString("Change grid size", gridSize.getBounds().x - 200, gridSize.getBounds().y + 35);
+        g.drawString("Change atom count", gridSize.getBounds().x - 200, gridSize.getBounds().y + 95);
         g.drawString("Volume", soundSlider.getBounds().x + 70, soundSlider.getBounds().y + 60);
+
+        g.drawString(gridSize.getValue() + "", gridSize.getBounds().x + 80, gridSize.getBounds().y - 5);
 
         g.setFont(ogFont);
 
@@ -203,6 +212,22 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         @Override
         public void stateChanged(ChangeEvent c) {
             MainMenuPanel.get().updateBGMVolume();
+        }
+    }
+
+    private class GridListener implements ChangeListener{
+        @Override
+        public void stateChanged(ChangeEvent c){
+            MainMenuPanel.get().updateGridSize(gridSize.getValue());
+            OptionsPanel.get().repaint();
+        }
+    }
+
+    private class atomListener implements ChangeListener{
+        @Override
+        public void stateChanged(ChangeEvent c){
+            MainMenuPanel.get().updateAtomCount(atomCount.getValue());
+            OptionsPanel.get().repaint();
         }
     }
     
