@@ -32,8 +32,8 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
     final int screenHeight = tileSize * maXScreenRow;
     private final ImageIcon backgroundImage = new ImageIcon(this.getClass().getResource("/RedLaserBeams.jpg"));
 
-    private JTextField gridSize;
-    private JTextField atomCount;
+    public JTextField gridSize;
+    public JTextField atomCount;
 
     public JSlider soundSlider;
     public boolean muted = false;
