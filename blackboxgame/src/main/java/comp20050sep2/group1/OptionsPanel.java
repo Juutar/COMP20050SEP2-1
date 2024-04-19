@@ -32,8 +32,8 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
     final int screenHeight = tileSize * maXScreenRow;
     private final ImageIcon backgroundImage = new ImageIcon(this.getClass().getResource("/RedLaserBeams.jpg"));
 
-    public JTextField gridSize;
-    public JTextField atomCount;
+    public JSlider gridSize;
+    public JSlider atomCount;
 
     public JSlider soundSlider;
     public boolean muted = false;
@@ -82,20 +82,24 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         soundSlider.setSnapToTicks(true);
         soundSlider.addChangeListener(new SliderListener());
 
-        this.gridSize = new JTextField(5);
-        this.atomCount = new JTextField(5);
+        this.gridSize = new JSlider(JSlider.HORIZONTAL, 3, 8, 5);
+        this.gridSize.setBounds(250, 200, 200, 50);
 
-        this.gridSize.setPreferredSize(new Dimension(250, 50));
-        this.atomCount.setPreferredSize(new Dimension(250, 50));
+        gridSize.setOpaque(false);
+        gridSize.setMajorTickSpacing(10);
+        gridSize.setPaintTicks(true);
+        gridSize.setSnapToTicks(true);
+        gridSize.addChangeListener(new SliderListener());
 
-        this.gridSize.setBounds(250, 200, this.gridSize.getPreferredSize().width, this.gridSize.getPreferredSize().height);
-        this.atomCount.setBounds(250, 260, this.gridSize.getPreferredSize().width, this.gridSize.getPreferredSize().height);
 
-        this.gridSize.setHorizontalAlignment(JTextField.CENTER);
-        this.atomCount.setHorizontalAlignment(JTextField.CENTER);
+        this.atomCount = new JSlider(JSlider.HORIZONTAL, 3, 20, 6);
+        this.atomCount.setBounds(250, 260, 200, 50);
 
-        this.gridSize.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-        this.atomCount.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        atomCount.setOpaque(false);
+        atomCount.setMajorTickSpacing(10);
+        atomCount.setPaintTicks(true);
+        atomCount.setSnapToTicks(true);
+        atomCount.addChangeListener(new SliderListener());
 
         this.add(gridSize);
         this.add(atomCount);

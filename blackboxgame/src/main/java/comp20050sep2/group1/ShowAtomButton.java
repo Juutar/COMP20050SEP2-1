@@ -37,7 +37,7 @@ public class ShowAtomButton extends AbstractShowButton {
                 setButtonText("Quit to menu");
                 MainMenuPanel.get().updateScore(GamePanel.get().board.getScore());
             } else {
-                GamePanel.get().outputBox.setText("Place 6 atoms");
+                GamePanel.get().outputBox.setText("Place " + OptionsPanel.get().atomCount.getValue() + " atoms");
             }
         }
     }
