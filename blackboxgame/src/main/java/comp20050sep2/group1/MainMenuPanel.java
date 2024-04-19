@@ -176,14 +176,11 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
 
     public void updateGridSize(int newsize){
         OptionsPanel.get().gridSizeVar = newsize;
-        System.out.println(newsize);
         MainMenuPanel.get().repaint();
     }
 
     public void updateAtomCount(int atmCount){
         OptionsPanel.get().atomCountVar = atmCount;
-        System.out.println("printing atm count");
-        System.out.println(atmCount);
         MainMenuPanel.get().repaint();
     }
 

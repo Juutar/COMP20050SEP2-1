@@ -44,7 +44,6 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
     String text = "Options Panel";
 
     BackgroundImageSelectorButton bgButton;
-    OptionSaveButton saveButton;
     OptionReturnButton returnButton;
     OptionMuteButton muteButton;
 
@@ -63,10 +62,6 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         this.bgButton = new BackgroundImageSelectorButton(new Vector2D(screenWidth/4.0 - 150, screenHeight/4.0 + 150), "Change Background");
         this.bgButton.addMouseListener(this);
         this.add(bgButton);
-
-        this.saveButton = new OptionSaveButton(new Vector2D(screenWidth/2.0 - 100, screenHeight/4.0 + 200), "Save Changes");
-        // this.saveButton.addMouseListener(this);
-        this.add(saveButton);
 
         this.returnButton = new OptionReturnButton(new Vector2D(screenWidth/2.0 - 260, screenHeight/4.0 + 200), "Return to main menu");
         this.returnButton.addMouseListener(this);
@@ -87,7 +82,7 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
 
         this.gridSize = new JSlider(JSlider.HORIZONTAL, 3, 8, 5);
         
-        this.gridSize.setBounds(250, 200, 200, 50);
+        this.gridSize.setBounds(150, 200, 200, 50);
 
         gridSize.setOpaque(false);
         gridSize.setMajorTickSpacing(1);
@@ -96,7 +91,7 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         gridSize.addChangeListener(new GridListener());
 
         this.atomCount = new JSlider(JSlider.HORIZONTAL, 3, 20, 6);
-        this.atomCount.setBounds(250, 260, 200, 50);
+        this.atomCount.setBounds(150, 260, 200, 50);
 
         atomCount.setOpaque(false);
         atomCount.setMajorTickSpacing(1);
@@ -130,11 +125,12 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
         Font ogFont = g.getFont();
         
         g.setFont(new Font(Font.DIALOG, Font.PLAIN, 17));
-        g.drawString("Change grid size", gridSize.getBounds().x - 200, gridSize.getBounds().y + 35);
-        g.drawString("Change atom count", gridSize.getBounds().x - 200, gridSize.getBounds().y + 95);
+        g.drawString("Grid size", gridSize.getBounds().x - 100, gridSize.getBounds().y + 35);
+        g.drawString("Atom count", gridSize.getBounds().x - 100, gridSize.getBounds().y + 95);
         g.drawString("Volume", soundSlider.getBounds().x + 70, soundSlider.getBounds().y + 60);
 
         g.drawString(gridSize.getValue() + "", gridSize.getBounds().x + 80, gridSize.getBounds().y - 5);
+        g.drawString(atomCount.getValue() + "", atomCount.getBounds().x + 80, atomCount.getBounds().y - 5);
 
         g.setFont(ogFont);
 
