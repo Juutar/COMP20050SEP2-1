@@ -2,7 +2,6 @@ package comp20050sep2.group1;
 
 import comp20050sep2.group1.utils.Vector2D;
 
-import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 

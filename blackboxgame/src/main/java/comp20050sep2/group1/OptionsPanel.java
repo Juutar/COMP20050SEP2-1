@@ -12,12 +12,10 @@ import java.awt.event.WindowListener;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.sun.tools.javac.Main;
 import comp20050sep2.group1.utils.Vector2D;
 
 public class OptionsPanel extends JPanel implements MouseListener, WindowListener{
@@ -47,8 +45,6 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
     OptionReturnButton returnButton;
     OptionMuteButton muteButton;
 
-    OptionFrame optionFrame;
-    
     public OptionsPanel(){
         this.setPreferredSize(new Dimension(screenWidth/2, screenHeight/2));
         this.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));

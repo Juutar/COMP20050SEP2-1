@@ -8,7 +8,7 @@ public class OptionFrame extends JFrame{
         addWindowListener(OptionsPanel.get());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
-        setTitle("Demo game");
+        setTitle("Options");
         add(OptionsPanel.get());
         pack();
         setLocationRelativeTo(null);

@@ -8,7 +8,7 @@ public class GameFrame extends JFrame {
         addWindowListener(MainMenuPanel.get());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
-        setTitle("Demo game");
+        setTitle("BlackBox Game");
 
         add(GamePanel.get());
 

@@ -1,11 +1,7 @@
 package comp20050sep2.group1;
 
-import com.sun.tools.javac.Main;
 import comp20050sep2.group1.utils.Vector2D;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 public class ShowAtomButton extends AbstractShowButton {

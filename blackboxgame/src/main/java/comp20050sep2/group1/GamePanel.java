@@ -8,8 +8,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class GamePanel extends JPanel implements Runnable, MouseListener {
 
@@ -121,7 +119,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
             }
 
             if (timer >= 1000000000) {
-                System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
             }

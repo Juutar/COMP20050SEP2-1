@@ -7,7 +7,7 @@ public class MainMenuFrame extends JFrame {
     public MainMenuFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        setTitle("Blackbox Main Menu");
+        setTitle("Main Menu");
 
         add(MainMenuPanel.get());
 
