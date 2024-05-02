@@ -9,9 +9,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-/* TODO Defect Testing ?*/
-/* TODO Remove Useless Classes*/
-public class Sprint1Tests {
+public class Tests {
     /*
      * Depend on interfaces and not concrete volatile implementation
      * Hide app structure from tests
@@ -209,36 +207,21 @@ public class Sprint1Tests {
         assertTrue(Arrays.asList(hexagon.boardLabels).contains(label));
     }
 
-//    @Test
-//    public void testAtomButton() {
-//        GamePanel.get().startGameThread();
-//        ShowAtomButton button = GamePanel.get().showAtomButton;
-//
-//        assertTrue(button.isStateShow());
-//        assertFalse(GamePanel.get().board.trueAtomsVisible);
-//
-//        button.performAction();
-//        assertTrue(button.isStateShow());
-//        assertFalse(GamePanel.get().board.trueAtomsVisible);
-//
-//        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, GamePanel.get().screenWidth / 2, GamePanel.get().screenHeight / 2, 1, false));
-//        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 2, 0, GamePanel.get().screenWidth, GamePanel.get().screenHeight / 2, 1, false));
-//        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 3, 0, GamePanel.get().screenWidth / 2, GamePanel.get().screenHeight, 1, false));
-//        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 4, 0, GamePanel.get().screenWidth, GamePanel.get().screenHeight, 1, false));
-//        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 5, 0, 0, 0, 1, false));
-//        GamePanel.get().mouseClicked(new MouseEvent(GamePanel.get(), MouseEvent.MOUSE_CLICKED, 6, 0, 0, GamePanel.get().screenHeight / 2, 1, false));
-//
-//        assertTrue(GamePanel.get().board.allGuessAtomsPlaced());
-//
-//        button.performAction();
-//        assertFalse(button.isStateShow());
-//        assertTrue(GamePanel.get().board.trueAtomsVisible);
-//
-//        button.performAction();
-//        assertFalse(button.isStateShow());
-//        assertTrue(GamePanel.get().board.trueAtomsVisible);
-//    }
+    @Test
+    public void testOptions() {
+        GamePanel.get().startGameThread();
+        OptionsButton button = MainMenuPanel.get().optionsButton;
 
+        GamePanel.get().mouseClicked(new MouseEvent(MainMenuPanel.get(), MouseEvent.MOUSE_CLICKED, 1, 0, (int)button.pos.x + 10, (int)button.pos.y + 10, 1, false));
+
+        assertNotNull(OptionsPanel.get());
+
+        assertNotNull(OptionsPanel.get().muteButton);
+        OptionMuteButton button2 = OptionsPanel.get().muteButton;
+
+        button2.performAction();
+        assertTrue(OptionsPanel.get().muted);
+    }
 
     @Test
     public void testRayButton() {
