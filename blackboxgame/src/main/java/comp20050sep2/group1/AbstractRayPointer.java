@@ -6,6 +6,11 @@ import java.awt.*;
 
 abstract public class AbstractRayPointer {
 
+    /**
+     * Abstract class for drawing ray pointers on the board
+     * @param boardLabelPos Coordinates of label from which the pointer originates
+     * @param hexagonCenter Coordinates of the hexagon to which it reaches
+     */
     public static void drawRayPointer(Vector2D boardLabelPos, Vector2D hexagonCenter) {
         Graphics2D g = GamePanel.get().graphics;
         g.setColor(Color.white);

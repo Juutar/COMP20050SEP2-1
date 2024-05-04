@@ -17,6 +17,10 @@ public abstract class AbstractButton extends JButton {
     Color foregroundColor = Color.white;
     LineBorder border = new LineBorder(foregroundColor, 1);
 
+    /**
+     * @param pos Position of the button
+     * @param text Text of the button
+     */
     public AbstractButton(Vector2D pos, String text) {
         this.pos = pos;
         setLocation((int) pos.x - width / 2, (int) pos.y - height / 2);
@@ -31,6 +35,10 @@ public abstract class AbstractButton extends JButton {
         setVisible(true);
     }
 
+    /**
+     * Set the button text
+     * @param text String to set text
+     */
     public void setButtonText(String text) {
         this.text = text;
         setText(text);

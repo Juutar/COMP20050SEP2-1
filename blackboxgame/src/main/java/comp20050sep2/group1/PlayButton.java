@@ -6,6 +6,10 @@ import javax.swing.*;
 
 public class PlayButton extends AbstractButton {
 
+    /**
+     * Constructs play button to play the game
+     * @param pos Position of the button
+     */
     public PlayButton(Vector2D pos) {
         super(pos, "Play");
     }

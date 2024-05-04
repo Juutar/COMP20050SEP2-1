@@ -4,6 +4,9 @@ import javax.swing.*;
 
 public class MainMenuFrame extends JFrame {
 
+    /**
+     * Constructs the main menu jframe
+     */
     public MainMenuFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);

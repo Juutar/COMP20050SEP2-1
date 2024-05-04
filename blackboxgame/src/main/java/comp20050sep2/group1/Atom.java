@@ -14,6 +14,12 @@ public class Atom {
     Color color;
     CircleInfluence circleInfluence;
 
+    /**
+     * Constructs an atom
+     * @param pos Position of the atom
+     * @param radius Radius of the atom
+     * @param isGuess Boolean to determine whether the atom is a guess atom or a real one
+     */
     public Atom(Vector2D pos, double radius, boolean isGuess) {
         this.pos = pos;
         this.radius = radius;

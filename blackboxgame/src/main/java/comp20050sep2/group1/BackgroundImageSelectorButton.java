@@ -8,6 +8,10 @@ import comp20050sep2.group1.utils.Vector2D;
 
 public class BackgroundImageSelectorButton extends AbstractButton{
 
+    /**
+     * @param pos Position of the background image selector button
+     * @param text Text of the button
+     */
     public BackgroundImageSelectorButton(Vector2D pos, String text) {
         super(pos, text);
     }

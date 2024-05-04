@@ -12,6 +12,10 @@ public class RayMarker {
     Color color;
     ArrayList<BoardLabel> labels;
 
+    /**
+     * Constructs ray marker
+     * @param ray Ray object which is marked
+     */
     public RayMarker(Ray ray) {
         labels = new ArrayList<>();
         labels.add(ray.firstLabel);
@@ -30,6 +34,10 @@ public class RayMarker {
         }
     }
 
+    /**
+     * Drawing ray marker
+     * @param hover Whether the marker is being hovered over
+     */
     public void drawRayMarker(boolean hover) {
         Graphics2D g = GamePanel.get().graphics;
 
@@ -45,6 +53,10 @@ public class RayMarker {
         g.setStroke(initialStroke);
     }
 
+    /**
+     * return this deflection color
+     * @return this deflection color
+     */
     public Color getDeflectionColor() {
         Random random = new Random();
         Color color;

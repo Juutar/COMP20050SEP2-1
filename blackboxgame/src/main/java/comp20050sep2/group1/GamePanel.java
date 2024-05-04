@@ -37,6 +37,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
     private boolean imageFailed = false;
     public int boardSize;
 
+    /**
+     * Constructs the jpanel where the game is played and sets all attributes
+     */
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
@@ -53,12 +56,18 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
         this.boardSize = 5;
     }
 
+    /**
+     * @return the game panel singleton instance
+     */
     public static GamePanel get() {
         if (INSTANCE == null)
             INSTANCE = new GamePanel();
         return INSTANCE;
     }
 
+    /**
+     * Destroys it from memory explicitly
+     */
     public static void destroy() {
         if (INSTANCE != null) {
             SwingUtilities.getWindowAncestor(INSTANCE).setVisible(false);
@@ -67,6 +76,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
         INSTANCE = null;
     }
 
+    /**
+     * Function to start the game thread for this panel
+     */
     public void startGameThread() {
 
         gameThread = new Thread(this);
@@ -143,10 +155,17 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
         this.graphics = null;
     }
 
+    /**
+     * Function to change background based on file
+     * @param file File to be changed to
+     */
     public static void changeBackground(File file){
         GamePanel.backgroundImage = new ImageIcon(String.valueOf(file));
     }
 
+    /**
+     * Function to draw the image and fit correctly
+     */
     private void drawBackgroundImage() {
         if (imageFailed)
             return;
@@ -175,6 +194,10 @@ public class GamePanel extends JPanel implements Runnable, MouseListener {
         g.drawImage(backgroundImage.getImage(), (int) -toLeft, 0, (int) (imageSize.x * scale), (int) viewport.y, null);
     }
 
+    /**
+     * Draws each frame
+     * @param g Object using which to draw on current context
+     */
     public void draw(Graphics2D g) {
         // check for resize
         Vector2D viewport = new Vector2D(GamePanel.get().getSize().width, GamePanel.get().getSize().height);

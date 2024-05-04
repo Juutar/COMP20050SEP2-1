@@ -13,14 +13,26 @@ public class OutputBox {
     Color foregroundColor = Color.white;
     LineBorder border = new LineBorder(foregroundColor, 1);
 
+    /**
+     * Constructs output box which lets user know the result of shooting the atom
+     * @param pos Position of the button
+     */
     public OutputBox(Vector2D pos) {
         this.pos = pos;
     }
 
+    /**
+     * Set text of the button
+     * @param text Text to be set
+     */
     public void setText(String text) {
         this.text = text;
     }
 
+    /**
+     * Graphics object to draw button with
+     * @param g Graphics2D context
+     */
     public void drawOutputBox(Graphics2D g) {
         g.setColor(backgroundColor);
         g.fillRect((int) (pos.x - size.width/2.0), (int) (pos.y - size.height/2.0), size.width, size.height);

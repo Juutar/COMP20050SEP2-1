@@ -45,6 +45,9 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
     OptionReturnButton returnButton;
     OptionMuteButton muteButton;
 
+    /**
+     * Constructs the options jpanel
+     */
     public OptionsPanel(){
         this.setPreferredSize(new Dimension(screenWidth/2, screenHeight/2));
         this.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
@@ -102,6 +105,10 @@ public class OptionsPanel extends JPanel implements MouseListener, WindowListene
 
     }
     
+    /**
+     * return optionspanel singleton
+     * @return optionspanel singleton
+     */
     public static OptionsPanel get() {
         if (INSTANCE == null) {
             INSTANCE = new OptionsPanel();

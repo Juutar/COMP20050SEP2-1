@@ -9,6 +9,11 @@ public class AbstractCross {
     public static final Color color = Color.black;
     public static final Stroke stroke = new BasicStroke(3, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 
+    /**
+     * Function to draw a cross at a given position with a radius
+     * @param pos Position to draw
+     * @param radius Radius of the shape
+     */
     public static void drawCross(Vector2D pos, double radius) {
         Graphics2D g = GamePanel.get().graphics;
         Stroke initialStroke = g.getStroke();

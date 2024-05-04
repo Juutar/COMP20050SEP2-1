@@ -14,6 +14,12 @@ public class BoardLabel extends JLabel {
     Vector3D rayDirection;
     private final String text;
 
+    /**
+     * Constructs a board label bordering the game board
+     * @param text The text (number) of the label
+     * @param hexagon Hexagon it is associated with
+     * @param angle Which angle the label is to the hexagon
+     */
     BoardLabel(String text, Hexagon hexagon, int angle) {
         this.text = text;
         this.hexagon = hexagon;
@@ -25,12 +31,18 @@ public class BoardLabel extends JLabel {
         rayDirection.setCoorsFromAngle((angle + 180) % 360);
     }
 
+    /**
+     *  Write the text out (draw the labels)
+     */
     public void writeText() {
         GamePanel.get().graphics.setColor(new Color(255, 150, 150));
         GamePanel.get().graphics.setFont(new Font("Arial", Font.TYPE1_FONT, 15));
         GamePanel.get().graphics.drawString(text, (int) pos.x, (int) pos.y);
     }
 
+    /**
+     * @return the position of the label
+     */
     public Vector2D center() {
         return new Vector2D(hexagon.center().x + Math.sin(Math.toRadians(angle)) * (hexagon.side * 1.2),
                 hexagon.center().y - Math.cos(Math.toRadians(angle)) * (hexagon.side * 1.2));

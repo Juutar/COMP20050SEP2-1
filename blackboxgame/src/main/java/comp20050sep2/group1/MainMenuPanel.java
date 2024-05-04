@@ -33,6 +33,9 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
 
     public int maxScore = -1;
 
+    /**
+     * Constructs the main menu jpanel
+     */
     public MainMenuPanel() {
         this.setPreferredSize(new Dimension(screenWidth/2, screenHeight/2));
         this.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
@@ -70,6 +73,10 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
 
     }
 
+    /**
+     * Returns main menu singleton
+     * @return main menu singleton
+     */
     public static MainMenuPanel get() {
         if (INSTANCE == null) {
             INSTANCE = new MainMenuPanel();
@@ -77,6 +84,10 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
         return INSTANCE;
     }
 
+    /**
+     * Update the highest score
+     * @param score New score
+     */
     public void updateScore(int score) {
         maxScore = maxScore < 0 ? score : Math.min(maxScore, score);
         outputBox.setText(String.valueOf(maxScore));
@@ -184,6 +195,10 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
     }
 
     // prolly shouldnt be here but whatever
+    /**
+     * Playing background music
+     * @param path Path to sound file
+     */
     public void playSound(String path) {
         if (OptionsPanel.get().muted)
             return;

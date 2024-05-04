@@ -8,6 +8,10 @@ public class ShowAtomButton extends AbstractShowButton {
 
     private boolean ended = false;
 
+    /**
+     * Constructs the show atom button
+     * @param pos Position of the button
+     */
     public ShowAtomButton(Vector2D pos) {
         super(pos, "End Game", "Game Ended");
     }

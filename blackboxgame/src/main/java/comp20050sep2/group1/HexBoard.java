@@ -32,6 +32,13 @@ public class HexBoard {
     public Vector3D[] trueAtomHexagons;
     public Vector3D[] outerHexes;
 
+    /**
+     * Constructs hexboard to play
+     * @param side Length of the board sides
+     * @param pos Position of the board
+     * @param size Number of rings surrounding the center hexagon
+     * @param numAtoms Number of atoms you can place
+     */
     public HexBoard(double side, Vector2D pos, int size /* from 0, how many rings */, int numAtoms) {
         hexes = new BiMap<>();
         this.rayList = new ArrayList<>();
@@ -93,6 +100,9 @@ public class HexBoard {
 
     }
 
+    /**
+     * Assigns neighbours
+     */
     private void assignNeighbours() {
 
         Iterator<Hexagon> hexes_iter = hexes.getValueSet().iterator();
@@ -122,6 +132,9 @@ public class HexBoard {
         }
     }
 
+    /**
+     * Assigns the pointable sides of border hexagons
+     */
     private void assignPointableSides() {
         for (Vector3D vec : outerHexes) {
             if (vec.q == 0 || vec.r == 0 || vec.s == 0) {
@@ -133,6 +146,9 @@ public class HexBoard {
         }
     }
 
+    /**
+     * Assigns labels to bordering hexagons
+     */
     private void assignLabels() {
         int labelIndex = 1;
         for (Vector3D vec : outerHexes) {
@@ -142,6 +158,9 @@ public class HexBoard {
         }
     }
 
+    /**
+     * Drawing the background polygon
+     */
     private void drawBackgroundPoly() {
         Polygon backgroundPoly = new Polygon();
         final Vector2D vqm = vecFromAng(30).mulip(this.size + 0.2)
@@ -163,6 +182,9 @@ public class HexBoard {
         g.fillPolygon(backgroundPoly);
     }
 
+    /**
+     * Drawing the grid
+     */
     public void drawBoard() {
         drawBackgroundPoly();
 
@@ -195,13 +217,6 @@ public class HexBoard {
                 }
             }
 
-            // //temp code
-
-            // if (hex.underInfluence) {
-            //     g.setColor(Color.MAGENTA);
-            //     g.fillRect((int) hex.center().x - 7, (int) hex.center().y - 7, 15, 15);
-            //     g.drawString(hex.influenceVector.toString(), (int) hex.center().x, (int) hex.center().y);
-            // }
         }
 
         // highlight nearest hex
@@ -215,11 +230,21 @@ public class HexBoard {
 
     }
 
+    /**
+     * Returns a normalised vector based on the angle passed
+     * @param ang Angle from which the vector is derived
+     * @return Vector with 2D coordinates
+     */
     private final Vector2D vecFromAng(double ang) {
         return new Vector2D(Math.sin(Math.toRadians(ang)) * Math.sqrt(3) * 0.5 * (1.0 / Math.cos(Math.toRadians(30))),
                 Math.cos(Math.toRadians(ang)) * Math.sqrt(3) * 0.5 * (1.0 / Math.cos(Math.toRadians(30))));
     }
 
+    /**
+     * Gets the 2D coordinates based on 3D coordinates passed
+     * @param coords 3D coordinates
+     * @return 2D coordinates
+     */
     public Vector2D hexCoordsToCenter(Vector3D coords) {
         Vector2D res = new Vector2D(0, 0);
         res.addip(VecQ.mul(coords.q * side)).addip(VecR.mul(coords.r * side)).addip(VecS.mul(coords.s * side));
@@ -228,6 +253,11 @@ public class HexBoard {
         return res;
     }
 
+    /**
+     * Gets the closest hexagon to passed coordinates
+     * @param coords Coordinates to compare against
+     * @return The hexagon reference
+     */
     public Hexagon closestHexToCoords(Vector2D coords) {
         double leader = Double.MAX_VALUE;
         Hexagon leaderHex = this.hexes.getValue(new Vector3D(0, 0, 0));
@@ -242,6 +272,11 @@ public class HexBoard {
         return leaderHex;
     }
 
+    /**
+     * Returns the closest board label to coordinates
+     * @param coords Coordinates to compare against
+     * @return The board label
+     */
     public BoardLabel closestLabelToCoords(Vector2D coords) {
         BoardLabel leaderLabel = hexes.getValue(outerHexes[0]).boardLabels[0];
         double leader = Double.MAX_VALUE;
@@ -260,10 +295,19 @@ public class HexBoard {
         return leaderLabel;
     }
 
+    /**
+     * Returns the closest board label to mouse coordinates
+     * @return The board label
+     */
     public BoardLabel closestLabelToMouseCoords() {
         return closestLabelToCoords(GamePanel.get().mouseCoords);
     }
 
+    /**
+     * Returns the angle of the label from the center of the grid
+     * @param labelIndex Index of the label
+     * @return The angle with respect to the center of the grid
+     */
     public int computeLabelAngle(int labelIndex) {
         // default angle for hexagon position
         int angle = Math.floorMod(150 - (60 * Math.floorDiv(labelIndex, numLabels() / 6)), 360);
@@ -282,6 +326,10 @@ public class HexBoard {
         return angle;
     }
 
+    /**
+     * Repositions the board
+     * @param coords New coordinates
+     */
     public void reposition(Vector2D coords) {
         final Vector2D delta = coords.sub(this.pos);
 
@@ -292,6 +340,9 @@ public class HexBoard {
         }
     }
 
+    /**
+     * Place all true atoms on the board for the player to guess
+     */
     private void placeTrueAtoms() {
         Random random = new Random();
         int q, r, s;
@@ -311,50 +362,28 @@ public class HexBoard {
         }
     }
 
-    public void toggleEvaluate() {
-        evaluate = !evaluate;
-    }
-
-    public void toggleTrueAtomsVisible() {
-        trueAtomsVisible = !trueAtomsVisible;
-    }
-
+    
+    public void toggleEvaluate() { evaluate = !evaluate; }
+    public void toggleTrueAtomsVisible() { trueAtomsVisible = !trueAtomsVisible; }
     public void toggleRaysVisible() { raysVisible = !raysVisible; }
 
-    public void toggleAtomSelectorOn() {
-        atomSelectorOn = !atomSelectorOn;
-    }
+    public void toggleAtomSelectorOn() { atomSelectorOn = !atomSelectorOn; }
 
 
-    public int numHexes() {
-        return 6 * size * (size + 1) / 2 + 1;
-    }
+    public int numHexes() { return 6 * size * (size + 1) / 2 + 1; }
 
-    public int getSize() {
-        return size;
-    }
+    public int getSize() { return size; }
 
-    public BiMap<Vector3D, Hexagon> getHexes() {
-        return hexes;
-    }
+    public BiMap<Vector3D, Hexagon> getHexes() { return hexes; }
 
-    public int numOuterHexes() {
-        return 6 * size;
-    }
+    public int numOuterHexes() { return 6 * size; }
 
-    public int numLabels() {
-        return (size + 1) * 2 * 6 - 6;
-    }
+    public int numLabels() { return (size + 1) * 2 * 6 - 6; }
 
 
-    public boolean isOuterHex(Vector3D vec) {
-        return vec.q == size || vec.r == size || vec.s == size
-                || vec.q == -size || vec.r == -size || vec.s == -size;
-    }
+    public boolean isOuterHex(Vector3D vec) { return vec.q == size || vec.r == size || vec.s == size || vec.q == -size || vec.r == -size || vec.s == -size; }
 
-    public boolean isOuterHex(Hexagon hex) {
-        return isOuterHex(hexes.getKey(hex));
-    }
+    public boolean isOuterHex(Hexagon hex) { return isOuterHex(hexes.getKey(hex)); }
 
     public boolean rayAlreadyExists(BoardLabel bl) {
         for(Ray r : rayList) {
@@ -365,6 +394,10 @@ public class HexBoard {
         return false;
     }
 
+    /**
+     * Get the score of the current game
+     * @return the socre
+     */
     public int getScore() {
         if (score == 0) {
             for (Vector3D vec : guessAtomHexagons) {
@@ -379,6 +412,10 @@ public class HexBoard {
         return score;
     }
 
+    /**
+     * Toggle score visibility
+     */
+
     public void toggleScore() {
         if (scoreVisible) {
             GamePanel.get().outputBox.setText("");
@@ -388,6 +425,10 @@ public class HexBoard {
         scoreVisible = !scoreVisible;
     }
 
+    /**
+     * Checks whether user has placed all atoms
+     * @return whether user has placed all atoms
+     */
     public boolean allGuessAtomsPlaced() {
         for (Vector3D vec : guessAtomHexagons) {
             if (vec == null) {

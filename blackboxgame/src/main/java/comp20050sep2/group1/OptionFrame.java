@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 
 public class OptionFrame extends JFrame{
     
+    /**
+     * Constructs option jframe
+     */
     public OptionFrame(){
         addWindowListener(OptionsPanel.get());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

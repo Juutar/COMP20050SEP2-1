@@ -14,6 +14,10 @@ public class Ray {
     public final Result result;
     public final RayMarker rayMarkers;
 
+    /**
+     * Constructs rays on the board
+     * @param firstLabel Label from which the ray starts is shot
+     */
     public Ray(BoardLabel firstLabel) {
         this.firstLabel = firstLabel;
         this.points = new ArrayList<>();
@@ -25,6 +29,10 @@ public class Ray {
         this.rayMarkers = new RayMarker(this);
     }
 
+    /**
+     * Computing the path of ray based on circles of influence
+     * @return Exit label or null if it is absorbed
+     */
     private BoardLabel computePath() {
 
         HexBoard board = GamePanel.get().board;
@@ -59,6 +67,9 @@ public class Ray {
         return points.get(points.size() - 1).getBoardLabelAtCoords(direction);          /*special getLast */
     }
 
+    /**
+     * Function to draw the ray based on the points it covered
+     */
     public void drawRay() {
         Graphics2D g = GamePanel.get().graphics;
         g.setColor(this.rayMarkers.color);
@@ -76,6 +87,10 @@ public class Ray {
          g.setStroke(prevStroke);
     }
 
+    /**
+     * Announcing the state of the shot
+     * @return String indicating the result
+     */
     public String announcement() {
         return (switch (result) {
             case ABSORBED -> "Absorbed.";
@@ -92,6 +107,10 @@ public class Ray {
         }
     }
 
+    /**
+     * Return the score
+     * @return the score
+     */
     public int getScore() {
         return (result == Result.DEFLECTED) ? 2 : 1;
     }

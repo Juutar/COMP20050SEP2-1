@@ -9,6 +9,11 @@ import comp20050sep2.group1.utils.Vector2D;
 
 public class ExitButton extends AbstractButton{
 
+    /**
+     * Constructs an abstract button which can exit the game
+     * @param pos Position of the button
+     * @param text Text of the button
+     */
     public ExitButton(Vector2D pos, String text) {
         super(pos, text);
     }

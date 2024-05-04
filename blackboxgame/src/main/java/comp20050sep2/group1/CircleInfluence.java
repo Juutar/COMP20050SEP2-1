@@ -10,12 +10,21 @@ public class CircleInfluence {
     double radius;
     Color color;
 
+    /**
+     * Constructs a circle of influence around a hexagon
+     * @param pos Position of the circle
+     * @param radius Radius of the circle
+     * @param color Color of the circle
+     */
     public CircleInfluence(Vector2D pos, double radius, Color color) {
         this.pos = pos;
         this.radius = radius;
         this.color = color;
     }
 
+    /**
+     * Function to draw the circle of influence
+     */
     public void drawCircleInfluence() {
         Graphics2D g = GamePanel.get().graphics;
         g.setColor(color);

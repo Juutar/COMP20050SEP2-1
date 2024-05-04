@@ -1,11 +1,12 @@
 package comp20050sep2.group1;
 
-import comp20050sep2.group1.utils.Vector2D;
-import comp20050sep2.group1.utils.Vector3D;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+
+import comp20050sep2.group1.utils.Vector2D;
+import comp20050sep2.group1.utils.Vector3D;
 
 public class Hexagon {
 
@@ -18,6 +19,11 @@ public class Hexagon {
     BoardLabel[] boardLabels;
     ArrayList<Hexagon> neighbors;
 
+    /**
+     * Constructs a hexagon
+     * @param side Side length
+     * @param pos Position of the hexagon
+     */
     Hexagon(double side, Vector2D pos) {
         this.pos = pos;
         this.side = side;
@@ -26,10 +32,17 @@ public class Hexagon {
         this.influenceVector = new Vector3D();
     }
 
+    /**
+     * Returns the coordinates of the hexagon
+     * @return the hexagon coordinates
+     */
     public Vector2D center() {
         return new Vector2D(pos);
     }
 
+    /**
+     * Function to draw hexagon
+     */
     public void drawHexagon() {
 
         double a1 = pos.x;
@@ -78,18 +91,33 @@ public class Hexagon {
         }
     }
 
+    /**
+     * Function to place a true atom on this hexagon
+     */
     public void placeTrueAtom() {
         trueAtom = new Atom(center(), side, false);
     }
 
+    /**
+     * Check to see if this hexagon has the atom guessed by user
+     * @return if this hexagon has the atom guessed by user
+     */
     public boolean hasGuessAtom() {
         return guessAtom != null;
     }
 
+    /**
+     * Check to see if this hexagon has the true atom
+     * @return if this hexagon has the true atom
+     */
     public boolean hasTrueAtom() {
         return trueAtom != null;
     }
 
+    /**
+     * Remove atom if present add atom if absent by user
+     * @return reference to atom if a new atom is created or deleted
+     */
     public boolean toggleGuess() {
         if (guessAtom == null) {
             guessAtom = new Atom(center(), side, true);
@@ -99,18 +127,35 @@ public class Hexagon {
         return guessAtom != null;
     }
 
+    /**
+     * Repositions a hexagon
+     * @param pos New position
+     */
     public void reposition(Vector2D pos) {
         this.pos = pos;
     }
 
+    /**
+     * Checks if this hexagon has the atom guessed by the user
+     * @return if this hexagon has the atom guessed by the user
+     */
     public boolean isCorrect() {
         return hasGuessAtom() && hasTrueAtom();
     }
 
+    /**
+     * Checks if this hexagon does not have the atom guessed by the user
+     * @return if this hexagon does not have the atom guessed by the user
+     */
     public boolean isIncorrect() {
         return (hasGuessAtom() && !hasTrueAtom()) || (!hasGuessAtom() && hasTrueAtom());
     }
 
+    /**
+     * Returns board labels associated with hexagon based on coordinates
+     * @param coords against which to compare
+     * @return Board label found or null if it doesn't have any
+     */
     public BoardLabel getBoardLabelAtCoords(Vector3D coords) {
         if (boardLabels == null) {
             return null;
