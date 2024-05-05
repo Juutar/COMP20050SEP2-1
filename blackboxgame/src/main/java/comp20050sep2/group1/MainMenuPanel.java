@@ -63,7 +63,7 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
 
         try {
             this.bgm = AudioSystem.getClip();
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream("/bgm.wav"));
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("/bgm.wav"));
             this.bgm.open(inputStream);
             updateBGMVolume();
             this.bgm.loop(999999);
@@ -205,7 +205,7 @@ public class MainMenuPanel extends JPanel implements MouseListener, WindowListen
 
         try {
             Clip clip = AudioSystem.getClip();
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream(path));
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(path));
             clip.open(inputStream);
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             float gain = OptionsPanel.get().soundSlider.getValue() / (float)OptionsPanel.get().soundSlider.getMaximum() * 35 - 35;
