@@ -14,9 +14,8 @@ For troubleshooting, the JDK used was openjdk-17.
 
 
 ### Playing: 
-The **main menu** gives you access to the options menu and new game button.
-The **options menu** allows you to change the game's board settings (number of atoms to find, board size, sound, etc.)
-From Options Menu:
+The **main menu** gives you access to the options menu and new game buttons.
+The **options menu** allows you to change the game's board settings (number of atoms to find, board size, sound, etc.).
 
 Gameplay:
 - "Set Rays" allows you to shoot rays from the board's edges and find out where they exit the board
