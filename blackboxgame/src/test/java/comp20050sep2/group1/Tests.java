@@ -10,19 +10,6 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class Tests {
-    /*
-     * Depend on interfaces and not concrete volatile implementation
-     * Hide app structure from tests
-     * Keep tests independents
-     * minimize asserts (1 concept != 1 theme)
-     * */
-
-    /*
-     * Unit testing: modules individually
-     * Integration testing: major subsystems
-     * Performance testing: computation and rendering delays
-     * Regression testing: modified code didn't break previous features
-     */
 
     @Test
     public void testHexagonBoard() {
